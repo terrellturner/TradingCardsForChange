@@ -9,7 +9,7 @@ const Homepage = () => {
           <img src={Logo} alt="" className='w-full h-full'/>
           <img src={Logo} alt="" className='w-full h-full'/>
         </div>
-        <div className="my-5 w-4/5 mx-auto md:h-[60rem] grid grid-cols-1 gap-10 md:grid-cols-2 2xl:grid-cols-3 max-w-[90rem]">
+        <div className="my-5 w-4/5 mx-auto grid grid-cols-1 gap-10 md:grid-cols-2 2xl:grid-cols-3 max-w-[90rem]">
           {products.map((product)=>{
             return (
               <ProductCard product={product} key={product._id} />

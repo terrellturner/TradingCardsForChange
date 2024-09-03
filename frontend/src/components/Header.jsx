@@ -11,21 +11,21 @@ const Header = () => {
           </Link>
         <div className="hidden h-full md:flex items-center md:space-x-8 text-[#ffffff] md:mr-4 justify-center">
           <div className="group">
-            <a href="#">Events</a>
+            <Link to='/events'>Events</Link>
             <div className="group-hover:border-b group-hover:border-white w-full"></div>
           </div>
           <div className="group">
-            <a href="#">About</a>
+            <Link to="/about">About</Link>
             <div className="group-hover:border-b group-hover:border-white w-full"></div>
           </div>
           <div className="group">
             <FaShoppingCart className="inline-block m-1"/>
-            <a href="#">Cart</a>
+            <Link to="/cart">Cart</Link>
             <div className="group-hover:border-b group-hover:border-white w-full"></div>
           </div>
           <div className="group">
             <FaUser className="inline-block m-1"/>
-            <a href="#">Profile</a>
+            <Link to="/profile">Profile</Link>
             <div className="group-hover:border-b group-hover:border-white w-full"></div>
           </div>
         </div>

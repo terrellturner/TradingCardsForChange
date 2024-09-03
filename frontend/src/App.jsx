@@ -7,7 +7,7 @@ const App = () => {
   return (
     <>
     <Header />
-    <main className="grow h-full flex flex-col">
+    <main className="grow h-full flex flex-col min-h-dvh bg-newsletter-black">
       <Outlet />
     </main>
     <Footer />
