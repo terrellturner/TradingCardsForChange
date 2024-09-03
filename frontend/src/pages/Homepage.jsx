@@ -1,11 +1,6 @@
-import React from 'react'
-import FullCalendar from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid'
 import Logo from '/images/tc4c-one.svg'
-
-const events = [
-  {title: 'Wowzas!', start: new Date()}
-]
+import products from '../products'
+import ProductCard from '../components/ProductCard'
 
 const Homepage = () => {
   return (
@@ -14,19 +9,14 @@ const Homepage = () => {
           <img src={Logo} alt="" className='w-full h-full'/>
           <img src={Logo} alt="" className='w-full h-full'/>
         </div>
-        <div className="w-2/3 mx-auto bg-draft-yellow rounded-xl p-8">
-        <FullCalendar plugins={[dayGridPlugin]} initialView='dayGridMonth' weekends={true} events={events} eventContent={renderEventContent} />
+        <div className="my-5 w-4/5 mx-auto md:h-[60rem] grid grid-cols-1 gap-10 md:grid-cols-2 2xl:grid-cols-3 max-w-[90rem]">
+          {products.map((product)=>{
+            return (
+              <ProductCard product={product} key={product._id} />
+            )
+          })}
         </div>
    </div>
-  )
-}
-
-function renderEventContent(eventInfo) {
-  return (
-    <>
-      <b>{eventInfo.timeText}</b>
-      <i>{eventInfo.event.title}</i>
-    </>
   )
 }
 

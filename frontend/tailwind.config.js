@@ -11,7 +11,8 @@ export default {
       'pale-ale-green':'#687343',
       'draft-yellow': '#D9BC66',
       'ipa-beige': '#D9B166',
-      'newsletter-black':'#0D0D0D'
+      'newsletter-black':'#0D0D0D',
+      'off-white': '#ececec'
     },
     fontFamily: {
       'serif': ['Baskervville SC', 'serif'], 

@@ -1,16 +1,14 @@
-import React from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
+import { Link } from 'react-router-dom'
 
 const Header = () => {
   return (
     <header>
       <nav className="flex flex-row items-center justify-between font-bold text-white h-24 bg-hops-green">
-        <div className="group text-ipa-beige font-serif text-4xl text-center pl-4">
+        <Link to='/' className="group text-ipa-beige font-serif text-4xl text-center pl-4">
           <div className="h-10 w-8 bg-white">TC4C</div>
-          </div>
-        <div>
-        </div>
+          </Link>
         <div className="hidden h-full md:flex items-center md:space-x-8 text-[#ffffff] md:mr-4 justify-center">
           <div className="group">
             <a href="#">Events</a>
