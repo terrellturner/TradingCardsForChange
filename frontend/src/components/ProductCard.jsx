@@ -13,7 +13,7 @@ const ProductCard = ({product}) => {
             <span className="text-3xl font-black">{product.startTime.getDate()}</span>
         </div>
         <Link to={`/product/${product._id}`}>
-           <img src={product.image} alt="" className='object-cover object-center h-52 md:h-72 mx-auto w-full'/>
+           <img src={product.image} alt="" className='rounded-lg object-cover object-center h-52 md:h-72 mx-auto w-full'/>
         </Link>
         <Link to={`/product/${product._id}`}>
             <strong className={`text-4xl font-bold ${inStock === 0 ? 'line-through':''}`}>{product.name}</strong>
@@ -24,9 +24,9 @@ const ProductCard = ({product}) => {
                 <FaUser className='my-auto m-0.5'/> 
                 <span className=''>{inStock}/{product.originalStockCount}</span>
             </div>
-            <div className="rounded-lg font-bold bg-hops-green text-draft-yellow text-center flex p-2">
+            <button className="rounded-lg font-bold bg-hops-green text-draft-yellow text-center flex p-2">
                 <span className='p-2'>RSVP</span>
-            </div>
+            </button>
         </div>
     </div>
   )
