@@ -1,8 +1,22 @@
+import {useEffect, useState} from 'react'
 import Logo from '/images/tc4c-one.svg'
 import products from '../products'
 import ProductCard from '../components/ProductCard'
+import axios from 'axios';
 
-const Homepage = () => {
+const HomePage = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () =>{
+      const {data} = await axios.get('/api/products');
+      setProducts(data);
+    }
+
+    fetchProducts();
+  }, [])
+  
+
   return (
     <div className="min-h-full grow bg-newsletter-black flex flex-col ">
         <div className="h-full w-1/2 flex">
@@ -20,4 +34,4 @@ const Homepage = () => {
   )
 }
 
-export default Homepage
+export default HomePage
