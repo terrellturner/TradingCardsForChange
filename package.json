@@ -16,11 +16,18 @@
   "author": "Terrell Turner",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.19.2"
   },
   "devDependencies": {
+    "@eslint/js": "^9.9.1",
     "concurrently": "^8.2.2",
     "dotenv": "^16.4.5",
-    "nodemon": "^3.1.4"
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.35.2",
+    "globals": "^15.9.0",
+    "nodemon": "^3.1.4",
+    "prettier": "^3.3.3",
+    "prettier-eslint": "^16.3.0"
   }
 }

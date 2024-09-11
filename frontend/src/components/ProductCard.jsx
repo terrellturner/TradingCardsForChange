@@ -1,16 +1,19 @@
+import React from "react";
 import PropTypes from 'prop-types'
 import { FaUser } from "react-icons/fa";
 import { Link } from 'react-router-dom'
 
 const ProductCard = ({product}) => {
      const inStock = product.countInStock;
+     const startTime = new Date(product.startTime);
+     const endTime = new Date(product.endTime)
   return (
     <div className="p-5 space-y-3 justify-around relative flex flex-col max-w-full bg-off-white border border-gray-700 rounded-lg shadow">
         <div className="bg-hops-green h-20 w-20 text-ipa-beige shadow-lg absolute top-0 right-0 m-2 rounded-lg p-3 text-center">
             <span className="text-sm block font-bold">
-                {product.startTime.toLocaleString('default', {month: 'short'})}
+                {startTime.toLocaleString('default', {month: 'short'})}
             </span>
-            <span className="text-3xl font-black">{product.startTime.getDate()}</span>
+            <span className="text-3xl font-black">{`${startTime.getDay()}`}</span>
         </div>
         <Link to={`/product/${product._id}`}>
            <img src={product.image} alt="" className='rounded-lg object-cover object-center h-52 md:h-72 mx-auto w-full'/>

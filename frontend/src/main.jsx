@@ -1,9 +1,10 @@
+import React from "react";
 import { StrictMode } from 'react'
 import { createRoot, } from 'react-dom/client'
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom'
 import App from './App.jsx'
 import './index.css'
-import HomePage from './pages/Homepage.jsx'
+import HomePage from './pages/HomePage.jsx'
 import ProductPage from './pages/ProductPage.jsx'
 
 const router = createBrowserRouter(

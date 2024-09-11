@@ -1,5 +1,6 @@
-import { useEffect } from 'react-router-dom';
-import { useParams, useState } from 'react';
+import React from "react";
+import { useParams} from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { FaUser } from 'react-icons/fa';
 import axios from 'axios';
 
