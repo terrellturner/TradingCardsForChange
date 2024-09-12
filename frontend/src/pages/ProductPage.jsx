@@ -2,6 +2,7 @@ import React from "react";
 import { useParams} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { FaUser } from 'react-icons/fa';
+import { Link } from "react-router-dom";
 import axios from 'axios';
 
 const ProductPage = () => {
@@ -20,9 +21,11 @@ const ProductPage = () => {
 
     return (
         <div className="min-w-80 px-12 py-8">
+        <Link to='/' >
             <button className="h-12 w-28 rounded-md border-ipa-beige bg-hops-green text-draft-yellow">
                 Go Back
             </button>
+        </Link>
             <section className="mx-auto flex max-w-[1440px] flex-col space-y-5 py-8 md:flex-row md:justify-between">
                 <img
                     src={product.image}
