@@ -1,11 +1,19 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { FaUser } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useGetProductDetailsQuery } from '../slices/productsApiSlice';
+import { addToCart } from '../slices/cartSlice';
+import Message from '../components/Message';
 
 const ProductPage = () => {
     const { id: productId } = useParams();
+
+    const dis = useDispatch();
+    const nav = useNavigate();
+
+    const [qty, setQty] = useState(1);
 
     const {
         data: product,
@@ -13,12 +21,17 @@ const ProductPage = () => {
         error,
     } = useGetProductDetailsQuery(productId);
 
+    const addToCartHandler = () => {
+        dis(addToCart({ ...product, qty }));
+        nav('/cart');
+    };
+
     return (
         <>
             {isLoading ? (
                 <h2>Loading...</h2>
             ) : error ? (
-                <div>{error.data?.message || error.error}</div>
+                <Message>{error.data?.message || error.error}</Message>
             ) : (
                 <>
                     <div className="min-w-80 px-12 py-8">
@@ -64,26 +77,36 @@ const ProductPage = () => {
                                 </div>
                                 <div className="flex justify-between space-x-3 border-ipa-beige p-4 text-off-white">
                                     <span>Seats to Reserve:</span>
-                                    <select
-                                        name="qty"
-                                        id="qty"
-                                        className="w-full border-draft-yellow bg-newsletter-black md:w-1/2"
-                                    >
-                                        {[
-                                            ...Array(
-                                                product.countInStock
-                                            ).keys(),
-                                        ].map((x) => (
-                                            <option key={x + 1} value={x + 1}>
-                                                {x + 1}
-                                            </option>
-                                        ))}
-                                    </select>
+
+                                    {product.countInStock > 0 && (
+                                        <select
+                                            name="qty"
+                                            id="qty"
+                                            className="w-full border-draft-yellow bg-newsletter-black md:w-1/2"
+                                            onChange={(e) =>
+                                                setQty(Number(e.target.value))
+                                            }
+                                        >
+                                            {[
+                                                ...Array(
+                                                    product.countInStock
+                                                ).keys(),
+                                            ].map((x) => (
+                                                <option
+                                                    key={x + 1}
+                                                    value={x + 1}
+                                                >
+                                                    {x + 1}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    )}
                                 </div>
                                 <span className="border-ipa-beige p-4 text-off-white">
                                     <button
                                         disabled={product.countInStock === 0}
                                         className="disabled: h-12 w-28 rounded-md bg-hops-green text-draft-yellow disabled:text-newsletter-black"
+                                        onClick={addToCartHandler}
                                     >
                                         Buy Now
                                     </button>

@@ -1,6 +1,7 @@
 import React from 'react';
 import Logo from '/images/tc4c-one.svg';
 import ProductCard from '../components/ProductCard';
+import Message from '../components/Message';
 import { useGetProductsQuery } from '../slices/productsApiSlice';
 
 const HomePage = () => {
@@ -11,7 +12,7 @@ const HomePage = () => {
             {isLoading ? (
                 <h2>Loading...</h2>
             ) : error ? (
-                <div>{error.data?.message || error.error}</div>
+                <Message>{error.data?.message || error.error}</Message>
             ) : (
                 <>
                     <div className="flex min-h-full grow flex-col bg-newsletter-black ">
