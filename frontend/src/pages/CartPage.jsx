@@ -1,17 +1,35 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, removeFromCart } from '../slices/cartSlice';
+import { useNavigate } from 'react-router-dom';
+import { FaTrash } from 'react-icons/fa';
 
 const CartPage = () => {
+    const dis = useDispatch();
+    const nav = useNavigate();
+
     const cart = useSelector((state) => state.cart);
     const { cartItems } = cart;
     console.log(cartItems);
 
+    const addToCartHandler = async (product, qty) => {
+        dis(addToCart({ ...product, qty }));
+    };
+
+    const removeFromCartHandler = async (id) => {
+        dis(removeFromCart(id));
+    };
+
+    const checkoutHandler = () => {
+        nav();
+    };
+
     return (
-        <div className="py-5">
+        <div className="mx-auto min-w-52 max-w-[1440px] py-5">
             <h1 className="p-3 text-4xl text-off-white">Shopping Cart</h1>
             <div
                 id="cart-page-container"
-                className="flex flex-col md:w-full md:flex-row md:place-content-between"
+                className="flex flex-col md:w-full md:flex-row md:place-content-around"
             >
                 <div
                     id="cart-item-container"
@@ -39,8 +57,14 @@ const CartPage = () => {
                                         <select
                                             name="qty"
                                             id="qty"
+                                            value={item.qty}
                                             className="my-2 w-full rounded-xl border-2 border-draft-yellow bg-newsletter-black px-2 md:w-1/2"
-                                            onChange={() => {}}
+                                            onChange={(e) =>
+                                                addToCartHandler(
+                                                    item,
+                                                    Number(e.target.value)
+                                                )
+                                            }
                                         >
                                             {[
                                                 ...Array(
@@ -56,8 +80,13 @@ const CartPage = () => {
                                             ))}
                                         </select>
                                     )}
-                                    <button className="my-2 aspect-square rounded-lg bg-ipa-beige p-5 text-hops-green">
-                                        X
+                                    <button
+                                        onClick={() => {
+                                            removeFromCartHandler(item._id);
+                                        }}
+                                        className="my-2 aspect-square rounded-lg bg-ipa-beige p-5 text-hops-green"
+                                    >
+                                        <FaTrash />
                                     </button>
                                 </div>
                             </div>
@@ -76,11 +105,22 @@ const CartPage = () => {
                                 items)
                             </div>
                             <div className="text-lg text-off-white">
-                                ${cart.totalPrice}
+                                $
+                                {cartItems
+                                    .reduce(
+                                        (acc, item) =>
+                                            acc + item.qty * item.price,
+                                        0
+                                    )
+                                    .toFixed(2)}
                             </div>
                         </div>
                         <div>
-                            <button className="m-3 bg-ipa-beige p-3">
+                            <button
+                                className="m-3 bg-ipa-beige p-3"
+                                disabled={cartItems.length === 0}
+                                onClick={checkoutHandler}
+                            >
                                 Proceed to Checkout
                             </button>
                         </div>
