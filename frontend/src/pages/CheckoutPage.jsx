@@ -34,46 +34,6 @@ const CheckoutPage = () => {
         error: errorPayPal,
     } = useGetPayPalClientIdQuery();
 
-    const { userInfo } = useSelector((state) => state.auth);
-
-    function onApprove(data, actions) {
-        return actions.order.capture().then(async function (details) {
-            try {
-                await payOrder({ orderId, details }).unwrap();
-                refetch();
-                toast.success('Payment successful.');
-            } catch (error) {
-                toast.error(error?.data?.message || error.message);
-            }
-        });
-    }
-
-    async function onApproveTest() {
-        await payOrder({ orderId, details: { payer: {} } });
-        refetch();
-        toast.success('Payment successful.');
-    }
-
-    function createOrder(data, actions) {
-        return actions.order
-            .create({
-                purchase_units: [
-                    {
-                        amount: {
-                            value: order.totalPrice,
-                        },
-                    },
-                ],
-            })
-            .then((orderId) => {
-                return orderId;
-            });
-    }
-
-    function onError(error) {
-        toast.error(error.message);
-    }
-
     const openShippingModalHandler = (e) => {
         setShippingModalOpen(true);
     };
