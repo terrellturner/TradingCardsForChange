@@ -1,29 +1,48 @@
-import React from 'react';
+import { useState, React } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
 import { FaUser } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useLogoutMutation } from '../slices/usersApiSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../slices/authSlice';
 
 const Header = () => {
     const { cartItems } = useSelector((state) => state.cart);
+    const { userInfo } = useSelector((state) => state.auth);
+
+    const [userButtonToggle, setUserButtonToggle] = useState('false');
+
+    const dis = useDispatch();
+    const nav = useNavigate();
+
+    const [apiLogout] = useLogoutMutation();
+
+    const logoutHandler = async () => {
+        try {
+            await apiLogout().unwrap();
+            dis(logout());
+            nav('/login');
+        } catch (error) {
+            console.log(error.error);
+        }
+    };
 
     return (
         <header>
-            <nav className="text-white flex h-24 flex-row items-center justify-between bg-hops-green font-bold">
+            <nav className="text-white flex h-24 flex-row items-center justify-around bg-hops-green font-bold">
                 <Link
                     to="/"
-                    className="group pl-4 text-center font-serif text-4xl text-ipa-beige"
+                    className="group text-center font-serif text-4xl text-ipa-beige"
                 >
-                    <div className="bg-white h-10 w-8">TC4C</div>
+                    <div className="bg-white h-10 w-24">TC4C</div>
                 </Link>
                 <div className="hidden h-full items-center justify-center text-[#ffffff] md:mr-4 md:flex md:space-x-8">
                     <div className="group">
                         <Link to="/events">Events</Link>
-                        <div className="group-hover:border-white w-full group-hover:border-b"></div>
                     </div>
                     <div className="group">
                         <Link to="/about">About</Link>
-                        <div className="group-hover:border-white w-full group-hover:border-b"></div>
                     </div>
                     <div className="group">
                         <Link to="/cart">
@@ -34,13 +53,40 @@ const Header = () => {
                                     {cartItems.reduce((a, c) => a + c.qty, 0)}
                                 </div>
                             )}
-                            <div className="group-hover:border-white w-full group-hover:border-b"></div>
                         </Link>
                     </div>
-                    <div className="group">
+                    <div
+                        className="group relative cursor-pointer"
+                        onClick={() => {
+                            userInfo && setUserButtonToggle(!userButtonToggle);
+                        }}
+                    >
                         <FaUser className="m-1 inline-block" />
-                        <Link to="/profile">Profile</Link>
-                        <div className="group-hover:border-white w-full group-hover:border-b"></div>
+                        {userInfo ? (
+                            userInfo.lastName ? (
+                                <a>
+                                    {userInfo.firstName} {userInfo.lastName}
+                                </a>
+                            ) : (
+                                <a>{userInfo.firstName}</a>
+                            )
+                        ) : (
+                            <Link to="/login">Log In</Link>
+                        )}
+                        <div
+                            className={`absolute top-8 rounded-md bg-pale-ale-green p-3 pr-20 ${userButtonToggle ? 'invisible' : ''}`}
+                        >
+                            <ul className="flex flex-col">
+                                <li
+                                    onClick={() => {
+                                        nav('/profile');
+                                    }}
+                                >
+                                    Profile
+                                </li>
+                                <li onClick={logoutHandler}>Logout</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </nav>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart } from '../slices/cartSlice';
 import { useNavigate } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
 const CartPage = () => {
     const dis = useDispatch();
@@ -10,7 +11,6 @@ const CartPage = () => {
 
     const cart = useSelector((state) => state.cart);
     const { cartItems } = cart;
-    console.log(cartItems);
 
     const addToCartHandler = async (product, qty) => {
         dis(addToCart({ ...product, qty }));
@@ -20,8 +20,12 @@ const CartPage = () => {
         dis(removeFromCart(id));
     };
 
-    const checkoutHandler = () => {
-        nav();
+    const checkoutHandler = async () => {
+        try {
+            nav(`/checkout/`);
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     return (
@@ -117,6 +121,7 @@ const CartPage = () => {
                         </div>
                         <div>
                             <button
+                                type="button"
                                 className="m-3 bg-ipa-beige p-3"
                                 disabled={cartItems.length === 0}
                                 onClick={checkoutHandler}
