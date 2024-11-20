@@ -19,6 +19,7 @@ const corsOptions = {
   methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
   allowedHeaders: [
     "Access-Control-Allow-Headers",
+    "Access-Control-Allow-Origin",
     "Origin",
     "X-Requested-With",
     "Content-Type",
