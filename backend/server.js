@@ -17,7 +17,18 @@ const app = express();
 const corsOptions = {
   origin: `${import.meta.env.VITE_FRONTEND_URL}`,
   methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
-  allowedHeaders: ["Content-Type"],
+  allowedHeaders: [
+    "Access-Control-Allow-Headers",
+    "Origin",
+    "X-Requested-With",
+    "Content-Type",
+    "Accept",
+    "Authorization",
+    "token",
+    "Access-Control-Request-Method",
+    "Access-Control-Request-Headers",
+    "Access-Control-Allow-Credentials",
+  ],
   exposedHeaders: ["Content-Type"],
   credentials: true,
 };
