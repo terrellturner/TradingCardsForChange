@@ -20,6 +20,7 @@ const CustomerShippingBillingForm = (props) => {
     const [postalCode, setPostalCode] = useState(
         shippingAddress?.postalCode || ''
     );
+    const [city, setCity] = useState(shippingAddress?.city || '');
     const [state, setState] = useState(shippingAddress?.state || '');
     const [country, setCountry] = useState(shippingAddress?.country || '');
 
@@ -29,15 +30,16 @@ const CustomerShippingBillingForm = (props) => {
         e.preventDefault();
         props.handleClick();
         dis(
-            saveShippingAddress(
+            saveShippingAddress({
                 fName,
                 lName,
                 address,
                 addressSecondary,
                 postalCode,
+                city,
                 state,
-                country
-            )
+                country,
+            })
         );
     };
 
@@ -56,8 +58,7 @@ const CustomerShippingBillingForm = (props) => {
                         labelFor="fName"
                         labelText="First name"
                         className="col-span-2 md:col-auto"
-                        value={fName}
-                        onChange={(e) => setFName(e.target.value)}
+                        setValue={setFName}
                     />
                     <InputItem
                         type="text"
@@ -67,8 +68,7 @@ const CustomerShippingBillingForm = (props) => {
                         labelFor="lName"
                         labelText="Last Name"
                         className="col-span-2 md:col-auto"
-                        value={lName}
-                        onChange={(e) => setLName(e.target.value)}
+                        setValue={setLName}
                     />
                     <InputItem
                         type="text"
@@ -78,8 +78,7 @@ const CustomerShippingBillingForm = (props) => {
                         labelFor="adr1"
                         labelText="Address"
                         className="col-span-2"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
+                        setValue={setAddress}
                     />
                     <InputItem
                         type="text"
@@ -89,19 +88,17 @@ const CustomerShippingBillingForm = (props) => {
                         labelFor="adr2"
                         labelText="Address 2"
                         className="col-span-2"
-                        value={addressSecondary}
-                        onChange={(e) => setAddressSecondary(e.target.value)}
+                        setValue={setAddressSecondary}
                     />
                     <InputItem
                         type="text"
-                        id="postalZip"
-                        name="postalZip"
+                        id="city"
+                        name="city"
                         placeholder=""
-                        labelFor="postalZip"
-                        labelText="Zip/Postal"
+                        labelFor="city"
+                        labelText="City"
                         className="col-span-2"
-                        value={postalCode}
-                        onChange={(e) => setPostalCode(e.target.value)}
+                        setValue={setCity}
                     />
                     <InputItem
                         type="text"
@@ -111,8 +108,17 @@ const CustomerShippingBillingForm = (props) => {
                         labelFor="state"
                         labelText="State/Province"
                         className="col-span-2"
-                        value={state}
-                        onChange={(e) => setState(e.target.value)}
+                        setValue={setState}
+                    />
+                    <InputItem
+                        type="text"
+                        id="postalZip"
+                        name="postalZip"
+                        placeholder=""
+                        labelFor="postalZip"
+                        labelText="Zip/Postal"
+                        className="col-span-2"
+                        setValue={setPostalCode}
                     />
                     <InputItem
                         type="text"
@@ -122,9 +128,9 @@ const CustomerShippingBillingForm = (props) => {
                         labelFor="country"
                         labelText="Country"
                         className="col-span-2"
-                        value={country}
-                        onChange={(e) => setCountry(e.target.value)}
+                        setValue={setCountry}
                     />
+
                     <button type="submit">Submit</button>
                 </form>
             </ContentContainer>

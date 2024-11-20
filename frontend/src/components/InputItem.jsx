@@ -9,6 +9,7 @@ const InputItem = ({
     labelFor,
     labelText,
     className,
+    setValue,
 }) => {
     return (
         <div className={`flex flex-col ${className}`}>
@@ -21,6 +22,9 @@ const InputItem = ({
                 name={name}
                 placeholder={placeholder}
                 className="rounded-md border-2 border-ipa-beige bg-newsletter-black p-2"
+                onChange={(e) => {
+                    setValue(e.target.value);
+                }}
             ></input>
         </div>
     );
@@ -36,4 +40,5 @@ InputItem.propTypes = {
     labelFor: PropTypes.string,
     labelText: PropTypes.string,
     className: PropTypes.string,
+    value: PropTypes.string,
 };

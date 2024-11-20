@@ -1,6 +1,6 @@
 import { useEffect, React, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import { toast } from 'react-toastify';
 import { FaTrash } from 'react-icons/fa';
@@ -12,10 +12,16 @@ import {
 import ContentContainer from '../components/ContentContainer';
 import RequiredFieldAlert from '../components/RequiredFieldAlert';
 import CustomerShippingBillingForm from '../components/CustomerShippingBillingForm';
+import { useCreateOrderMutation } from '../slices/ordersApiSlice';
+import { clearCartItems } from '../slices/cartSlice';
 
 const CheckoutPage = () => {
     const [shippingModalOpen, setShippingModalOpen] = useState(false);
     const [billingModalOpen, setBillingModalOpen] = useState(false);
+    const nav = useNavigate();
+    const dis = useDispatch();
+
+    const [createOrder, { isLoading, error }] = useCreateOrderMutation();
 
     const { id: orderId } = useParams();
 
@@ -38,9 +44,25 @@ const CheckoutPage = () => {
         setShippingModalOpen(true);
     };
     const closeShippingModalHandler = (e) => {
-        console.log('honk');
-
         setShippingModalOpen(false);
+    };
+
+    const placeOrderHandler = async () => {
+        try {
+            const res = await createOrder({
+                orderItems: cart.cartItems,
+                shippingAddress: cart.shippingAddress,
+                paymentMethod: cart.paymentMethod,
+                itemsPrice: cart.itemsPrice,
+                shippingPrice: cart.shippingPrice,
+                taxPrice: cart.taxPrice,
+                totalPrice: cart.totalPrice,
+            }).unwrap();
+            dis(clearCartItems());
+            nav(`/order/${res._id}`);
+        } catch (err) {
+            toast.error(err);
+        }
     };
 
     useEffect(() => {
@@ -60,6 +82,7 @@ const CheckoutPage = () => {
             }
         }
     }, [errorPayPal, loadingPayPal, paypal, payPalDispatch]);
+
     return (
         <div className="mx-auto flex min-w-52 flex-col py-5 md:max-w-[1440px] md:flex-row">
             <h1 className="p-3 text-4xl text-off-white">Checkout</h1>
@@ -87,8 +110,8 @@ const CheckoutPage = () => {
                                     <div className="text-xl font-bold">
                                         First Name{' '}
                                     </div>
-                                    {auth.userInfo.firstName ? (
-                                        auth.userInfo.firstName
+                                    {auth.userInfo?.firstName ? (
+                                        auth.userInfo?.firstName
                                     ) : (
                                         <RequiredFieldAlert />
                                     )}
@@ -97,8 +120,8 @@ const CheckoutPage = () => {
                                     <div className="text-xl font-bold">
                                         Last Name{' '}
                                     </div>
-                                    {auth.userInfo.lastName ? (
-                                        auth.userInfo.lastName
+                                    {auth.userInfo?.lastName ? (
+                                        auth.userInfo?.lastName
                                     ) : (
                                         <RequiredFieldAlert />
                                     )}
@@ -237,6 +260,12 @@ const CheckoutPage = () => {
                         // onApprove={onApprove}
                         // onError={onError}
                         ></PayPalButtons>
+                        <button
+                            onClick={placeOrderHandler}
+                            className="bg-newsletter-black p-5 outline outline-1 outline-ipa-beige"
+                        >
+                            Test Place Order
+                        </button>
                     </div>
                 </div>
             </div>

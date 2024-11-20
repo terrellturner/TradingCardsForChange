@@ -16,6 +16,7 @@
   "author": "Terrell Turner",
   "license": "MIT",
   "dependencies": {
+    "@paypal/paypal-js": "^8.1.2",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "cookie-parser": "^1.4.6",
