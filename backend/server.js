@@ -12,15 +12,19 @@ import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 const port = process.env.PORT || 5000;
 
+const app = express();
+
 const corsOptions = {
-  origin: "https://trading-cards-for-change-2e2w.vercel.app/",
+  origin: `${import.meta.env.VITE_FRONTEND_URL}`,
+  methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
+  allowedHeaders: ["Content-Type"],
+  exposedHeaders: ["Content-Type"],
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
 
 connectDB();
-
-const app = express();
 
 //Body parser middleware
 app.use(express.json());
