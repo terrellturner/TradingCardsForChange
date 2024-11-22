@@ -35,7 +35,9 @@ app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 if (process.env.NODE_ENV === "production") {
   //Set a static folder
-  app.use(express.static(path.join(__dirname, "/frontend/build")));
+  app.use(
+    express.static(path.join(process.cwd(), "client", "dist", "index.html")),
+  );
   app.get("*", (req, res) =>
     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html")),
   );
