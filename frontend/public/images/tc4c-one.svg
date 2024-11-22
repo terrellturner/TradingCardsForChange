@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1149.3 1234.7"><metadata></metadata>
+  <defs>
+    <style>
+      .cls-1 {
+        font-family: MatrixBold, MatrixBold;
+        font-size: 201px;
+      }
+
+      .cls-2 {
+        display: none;
+      }
+
+      .cls-3 {
+        fill: #fefefe;
+      }
+    </style>
+  </defs>
+  <!-- Generator: Adobe Illustrator 28.6.0, SVG Export Plug-In . SVG Version: 1.2.0 Build 709)  -->
+  <g>
+    <g id="Layer_1">
+      <g id="Generative_Object">
+        <g id="Background" class="cls-2">
+          <rect class="cls-3" x="-146.2" y="-321.5" width="1381.7" height="1381.7"/>
+        </g>
+        <g>
+          <path d="M349.5,68.8c61.6,3.2,368.3-4.2,393,0,8.4,1.4,20.7,11.1,22.4,19.7,5.7,27.6-4.4,488.6,0,563-5,10.5-13.2,19.2-25.2,21.1-29,4.6-323.7-3.5-387.6,0-12.8-2.5-20.6-7.3-25.2-19.7,4.2-75.4-5.5-538,0-565.7,2-10.2,13.2-16.5,22.4-18.4Z"/>
+          <path class="cls-3" d="M473.3,244.2c27.9-1.5,54.5,13.2,70.7,35.4,79.9-87,184.2,6.8,135.3,83.6-10,15.7-111.7,110.2-133.9,135.3-22.6-25.4-120.4-116.7-129.9-129.9-35.9-49.9-4.3-121.2,57.8-124.4Z"/>
+          <polygon class="cls-3" points="686.8 547.5 732.3 549.5 730.3 634.5 684.7 632.5 686.8 547.5"/>
+          <polygon class="cls-3" points="360.4 106.9 406 107.5 403.9 192.5 359.7 190.5 360.4 106.9"/>
+        </g>
+      </g>
+      <text class="cls-1" transform="translate(36.4 908.1)"><tspan x="0" y="0">trading cards </tspan><tspan x="99.7" y="188">for change</tspan></text>
+    </g>
+  </g>
+</svg>
