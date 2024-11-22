@@ -1,8 +1,7 @@
-import path from "path";
+import { path } from "path";
 import express from "express";
 import connectDB from "../config/db.js";
 import dotenv from "dotenv";
-import cors from "cors";
 dotenv.config();
 import productRoutes from "../routes/productRoutes.js";
 import userRoutes from "../routes/userRoutes.js";
@@ -13,28 +12,6 @@ import { notFound, errorHandler } from "../middleware/errorMiddleware.js";
 const port = process.env.PORT || 5000;
 
 const app = express();
-
-const corsOptions = {
-  origin: process.env.VITE_FRONTEND_URL,
-  methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
-  allowedHeaders: [
-    "Access-Control-Allow-Headers",
-    "Access-Control-Allow-Origin",
-    "Origin",
-    "X-Requested-With",
-    "Content-Type",
-    "Accept",
-    "Authorization",
-    "token",
-    "Access-Control-Request-Method",
-    "Access-Control-Request-Headers",
-    "Access-Control-Allow-Credentials",
-  ],
-  exposedHeaders: ["Content-Type"],
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
 
 connectDB();
 
