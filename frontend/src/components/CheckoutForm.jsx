@@ -44,11 +44,17 @@ const CustomerShippingBillingForm = (props) => {
     };
 
     return createPortal(
-        <div className="max-w-2/3 z-50 mx-auto">
-            <ContentContainer className="sticky flex -translate-y-full flex-col bg-newsletter-black p-12">
+        <>
+            <div
+                onClick={props.handleClick}
+                className="fixed bottom-0 left-0 right-0 top-0 bg-newsletter-black bg-opacity-80"
+            ></div>
+            <ContentContainer className="fixed left-1/2 top-1/2 z-50 flex h-2/3 w-4/5 -translate-x-1/2 -translate-y-1/2 flex-col overflow-scroll border-2 bg-newsletter-black md:h-auto md:w-2/5 md:overflow-hidden md:p-12">
+                <h3 className="text-2xl font-bold">Contact Information</h3>
+                <span>Please enter your contact information below.</span>
                 <form
                     onSubmit={submitInfoHandler}
-                    className="grid w-full grid-cols-1 gap-x-10 gap-y-3 md:grid-cols-2"
+                    className="grid w-full grid-cols-1 items-center gap-x-10 gap-y-3 space-y-1 pt-8 md:grid-cols-2"
                 >
                     <InputItem
                         type="text"
@@ -56,7 +62,7 @@ const CustomerShippingBillingForm = (props) => {
                         name="fName"
                         placeholder=""
                         labelFor="fName"
-                        labelText="First name"
+                        labelText="First Name"
                         className="col-span-2 md:col-auto"
                         setValue={setFName}
                     />
@@ -130,11 +136,21 @@ const CustomerShippingBillingForm = (props) => {
                         className="col-span-2"
                         setValue={setCountry}
                     />
-
-                    <button type="submit">Submit</button>
+                    <button
+                        onClick={props.handleClick}
+                        className="rounded-lg border-2 p-4 text-draft-yellow"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        type="submit"
+                        className="rounded-lg bg-draft-yellow p-4 text-newsletter-black"
+                    >
+                        Submit
+                    </button>
                 </form>
             </ContentContainer>
-        </div>,
+        </>,
         main
     );
 };

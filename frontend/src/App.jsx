@@ -12,7 +12,7 @@ const App = () => {
             <Header />
             <main
                 id="main"
-                className="flex h-full min-h-dvh grow flex-col bg-newsletter-black"
+                className="flex h-full min-h-dvh grow flex-col justify-center bg-newsletter-black"
             >
                 <Outlet />
             </main>

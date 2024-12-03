@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../slices/authSlice';
-import { clearCartItems, resetCart } from '../slices/cartSlice';
+import { clearCart } from '../slices/cartSlice';
 
 const Header = () => {
     const { cartItems } = useSelector((state) => state.cart);
@@ -23,8 +23,7 @@ const Header = () => {
         try {
             await apiLogout().unwrap();
             dis(logout());
-            dis(clearCartItems());
-            dis(resetCart());
+            dis(clearCart());
             nav('/login');
         } catch (error) {
             console.log(error.error);

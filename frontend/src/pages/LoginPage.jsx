@@ -34,7 +34,6 @@ const LoginPage = () => {
             const res = await login({ email, password }).unwrap();
             dis(setCredentials({ ...res }));
             nav(redirect);
-            console.log('hey');
         } catch (error) {
             toast.error(error?.data?.message || error.error);
         }

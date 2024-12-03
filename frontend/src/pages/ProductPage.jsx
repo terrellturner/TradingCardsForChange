@@ -34,19 +34,21 @@ const ProductPage = () => {
                 <Message>{error.data?.message || error.error}</Message>
             ) : (
                 <>
+                    {/* Navigation button */}
                     <div className="min-w-80 px-12 py-8">
                         <Link to="/">
                             <button className="h-12 w-28 rounded-md border-ipa-beige bg-hops-green text-draft-yellow">
                                 Go Back
                             </button>
                         </Link>
-                        <section className="mx-auto flex max-w-[1440px] flex-col space-y-5 py-8 md:flex-row md:justify-between">
+                        <section className="mx-auto flex max-w-[1440px] flex-col space-y-5 py-8 md:min-w-[900px] md:flex-row md:justify-between">
                             <img
                                 src={product.image}
-                                className="object-cover md:h-96 md:w-1/3"
+                                className="aspect-square object-cover md:h-96"
                                 alt={product.description}
                             />
-                            <div className="flex w-full flex-col space-y-3 divide-y-2 md:px-16">
+                            {/* Product Details */}
+                            <div className="flex w-full flex-col space-y-3 divide-y-2 md:w-1/3 md:min-w-52 md:px-16">
                                 <h3 className="p-4 text-4xl text-off-white">
                                     {product.name}
                                 </h3>
@@ -62,6 +64,7 @@ const ProductPage = () => {
                                     {product.description}
                                 </span>
                             </div>
+                            {/* Order Details */}
                             <div className="flex h-1/2 flex-col justify-around divide-y-2 rounded-md border border-ipa-beige md:p-10">
                                 <div className="flex justify-between space-x-3 border-ipa-beige p-4 text-off-white">
                                     <span>Ticket Price: </span>

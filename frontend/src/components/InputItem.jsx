@@ -40,5 +40,5 @@ InputItem.propTypes = {
     labelFor: PropTypes.string,
     labelText: PropTypes.string,
     className: PropTypes.string,
-    value: PropTypes.string,
+    setValue: PropTypes.string,
 };
