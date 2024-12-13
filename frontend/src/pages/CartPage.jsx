@@ -1,13 +1,14 @@
-import React from 'react';
+import { React, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart } from '../slices/cartSlice';
 import { useNavigate } from 'react-router-dom';
-import { FaTrash } from 'react-icons/fa';
-import { toast } from 'react-toastify';
+import { FaGhost, FaTrash } from 'react-icons/fa';
 
 const CartPage = () => {
     const dis = useDispatch();
     const nav = useNavigate();
+
+    const [cartTrigger, setCartTrigger] = useState(false);
 
     const cart = useSelector((state) => state.cart);
     const { cartItems } = cart;
@@ -28,8 +29,8 @@ const CartPage = () => {
         }
     };
 
-    return (
-        <div className="mx-auto max-w-[1440px] py-5">
+    return cart.cartItems.length > 0 ? (
+        <div className="mx-auto flex h-full grow flex-col py-5">
             <h1 className="p-3 text-4xl text-off-white">Shopping Cart</h1>
             <div
                 id="cart-page-container"
@@ -146,6 +147,16 @@ const CartPage = () => {
                             </button>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    ) : (
+        <div className="flex grow flex-col items-stretch bg-newsletter-black text-off-white">
+            <div className="flex h-full grow flex-col items-center justify-center">
+                <FaGhost className="fill-ipa-beige text-9xl" />
+                <div className="text-center text-4xl font-bold">
+                    <div>Oh no!</div>
+                    <div>The cart's empty...</div>
                 </div>
             </div>
         </div>

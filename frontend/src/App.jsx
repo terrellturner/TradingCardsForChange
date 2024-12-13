@@ -8,17 +8,17 @@ import './App.css';
 
 const App = () => {
     return (
-        <>
+        <div className="flex min-h-dvh flex-col">
             <Header />
             <main
                 id="main"
-                className="flex h-full min-h-dvh grow flex-col justify-center bg-newsletter-black"
+                className="flex h-full grow flex-col bg-newsletter-black"
             >
                 <Outlet />
             </main>
             <Footer />
             <ToastContainer />
-        </>
+        </div>
     );
 };
 

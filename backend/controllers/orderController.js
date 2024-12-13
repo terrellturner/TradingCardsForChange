@@ -29,6 +29,9 @@ const addOrderItems = asyncHandler(async (req, res) => {
         ...itemFromClient,
         product: itemFromClient._id,
         price: matchingItemFromDB.price,
+        eventLocation: matchingItemFromDB.eventLocation,
+        startTime: matchingItemFromDB.startTime,
+        endTime: matchingItemFromDB.endTime,
         _id: undefined,
       };
     });

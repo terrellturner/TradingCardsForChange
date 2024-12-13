@@ -35,7 +35,7 @@ const ProductPage = () => {
             ) : (
                 <>
                     {/* Navigation button */}
-                    <div className="min-w-80 px-12 py-8">
+                    <div className="min-w-80 grow px-12 py-8">
                         <Link to="/">
                             <button className="h-12 w-28 rounded-md border-ipa-beige bg-hops-green text-draft-yellow">
                                 Go Back

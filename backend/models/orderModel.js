@@ -13,6 +13,18 @@ const orderSchema = mongoose.Schema(
         qty: { type: Number, required: true },
         image: { type: String, required: true },
         price: { type: Number, required: true },
+        eventLocation: {
+          type: String,
+          required: true,
+        },
+        startTime: {
+          type: Date,
+          required: true,
+        },
+        endTime: {
+          type: Date,
+          required: true,
+        },
         product: {
           type: mongoose.Schema.Types.ObjectId,
           required: true,

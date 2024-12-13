@@ -13,11 +13,12 @@ import ContentContainer from '../components/ContentContainer';
 import RequiredFieldAlert from '../components/RequiredFieldAlert';
 import CheckoutForm from '../components/CheckoutForm';
 import { useCreateOrderMutation } from '../slices/ordersApiSlice';
-import { clearCart } from '../slices/cartSlice';
+import { clearCart, removeFromCart } from '../slices/cartSlice';
 
 const CheckoutPage = () => {
     const [shippingModalOpen, setShippingModalOpen] = useState(false);
     const [billingModalOpen, setBillingModalOpen] = useState(false);
+    const [contactInfoComplete, setContactInfoComplete] = useState(false);
     const nav = useNavigate();
     const dis = useDispatch();
 
@@ -48,20 +49,35 @@ const CheckoutPage = () => {
     };
 
     const placeOrderHandler = async () => {
-        try {
-            const res = await createOrder({
-                orderItems: cart.cartItems,
-                shippingAddress: cart.shippingAddress,
-                paymentMethod: cart.paymentMethod,
-                itemsPrice: cart.itemsPrice,
-                shippingPrice: cart.shippingPrice,
-                taxPrice: cart.taxPrice,
-                totalPrice: cart.totalPrice,
-            }).unwrap();
-            dis(clearCart());
-            nav(`/order/${res._id}`);
-        } catch (err) {
-            toast.error(err);
+        if (
+            Object.values(cart.shippingAddress).every(
+                (x) => x !== '' && x !== null
+            )
+        ) {
+            try {
+                const res = await createOrder({
+                    orderItems: cart.cartItems,
+                    shippingAddress: cart.shippingAddress,
+                    paymentMethod: cart.paymentMethod,
+                    itemsPrice: cart.itemsPrice,
+                    shippingPrice: cart.shippingPrice,
+                    taxPrice: cart.taxPrice,
+                    totalPrice: cart.totalPrice,
+                }).unwrap();
+                dis(clearCart());
+                nav(`/order/${res._id}`);
+            } catch (err) {
+                toast.error(err);
+            }
+        } else {
+            toast.error('You need to fill in each contact field.');
+        }
+    };
+
+    const removeFromCartHandler = async (id) => {
+        dis(removeFromCart(id));
+        if (cartItems.length === 1) {
+            nav('/cart');
         }
     };
 
@@ -84,17 +100,19 @@ const CheckoutPage = () => {
     }, [errorPayPal, loadingPayPal, paypal, payPalDispatch]);
 
     return (
-        <div className="mx-auto flex w-full min-w-52 flex-col place-items-center py-5 md:px-20">
-            <h1 className="p-3 text-4xl text-off-white ">Checkout</h1>
-            <div className="flex w-full flex-col justify-between space-y-5 md:space-y-0 lg:w-3/4 lg:flex-row">
-                <div className="flex flex-col md:flex-row">
+        <div className="mx-auto flex w-full min-w-52 grow flex-col place-items-center py-5 md:px-20">
+            <h1 className="self-start p-3 text-4xl font-bold text-off-white">
+                Checkout
+            </h1>
+            <div className="-mt-10 flex w-full grow flex-col place-content-center space-y-5 md:space-x-10 md:space-y-0 lg:flex-row">
+                <div className="flex w-1/2 flex-col place-items-center md:flex-row">
                     {shippingModalOpen && (
                         <CheckoutForm
                             handleClick={closeShippingModalHandler}
                             cartItems={cart.cartItems}
                         />
                     )}
-                    <ContentContainer className="flex flex-col space-y-10 border-none ">
+                    <ContentContainer className="flex w-full flex-col space-y-10 border-none">
                         <h3 className="text-center text-2xl lg:text-left">
                             Contact Information
                         </h3>
@@ -153,6 +171,14 @@ const CheckoutPage = () => {
                                 )}
                             </span>
                             <span>
+                                <div className="text-xl font-bold">State </div>
+                                {cart.shippingAddress.state ? (
+                                    cart.shippingAddress.state
+                                ) : (
+                                    <RequiredFieldAlert />
+                                )}
+                            </span>
+                            <span>
                                 <div className="text-xl font-bold">
                                     ZIP/Postal{' '}
                                 </div>
@@ -193,7 +219,12 @@ const CheckoutPage = () => {
                                         </div>
                                         <div>Seats: {item.qty}</div>
                                     </div>
-                                    <button className="my-2 flex aspect-square place-items-center justify-around rounded-lg border border-ipa-beige p-4 text-ipa-beige lg:p-3">
+                                    <button
+                                        onClick={() => {
+                                            removeFromCartHandler(item._id);
+                                        }}
+                                        className="my-2 flex aspect-square place-items-center justify-around rounded-lg border border-ipa-beige p-4 text-ipa-beige lg:p-3"
+                                    >
                                         <FaTrash />
                                     </button>
                                 </div>
@@ -242,5 +273,4 @@ const CheckoutPage = () => {
         </div>
     );
 };
-
 export default CheckoutPage;
