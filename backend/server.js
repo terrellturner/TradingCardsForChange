@@ -7,13 +7,12 @@ import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import {
   notFound,
   errorHandler,
   ipFilter,
 } from "./middleware/errorMiddleware.js";
-
-var cors = require("cors");
 
 const app = express();
 
