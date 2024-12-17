@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart } from '../slices/cartSlice';
 import { useNavigate } from 'react-router-dom';

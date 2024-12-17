@@ -34,6 +34,8 @@ app.use(
   }),
 );
 
+console.log(`CORS allowing ${process.env.CORS_DOMAIN} to pass.`);
+
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
