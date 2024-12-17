@@ -1,6 +1,6 @@
 import path from "path";
 import express from "express";
-import { connectDB } from "./config/db.js";
+import connectDB from "./config/db.js";
 import dotenv from "dotenv";
 dotenv.config();
 import productRoutes from "./routes/productRoutes.js";
@@ -27,8 +27,6 @@ app.use(express.urlencoded({ extended: true }));
 //Cookie parser middleware
 app.use(cookieParser());
 
-app.use(ipFilter);
-
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
@@ -54,6 +52,6 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(notFound);
 
-app.listen(port, () => console.log(`Server running on port ${port}`));
+app.listen(() => console.log(`Server running on port ${port}`));
 
 export default app;
