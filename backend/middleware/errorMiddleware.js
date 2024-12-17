@@ -1,5 +1,3 @@
-import { domainWhitelist, ipWhitelist } from "../config/whitelist.js";
-
 const notFound = (req, res, next) => {
   const error = new Error(`Not Found - ${req.originalUrl}`);
   res.status(404);
@@ -24,16 +22,26 @@ const errorHandler = (err, req, res, next) => {
 const ipFilter = (req, res, next) => {
   const reqDomain = req.get("host");
   const reqIp = req.ip;
-  const whitelist = [...domainWhitelist, ...ipWhitelist];
+  const whitelist = [
+    ...process.env.DOMAIN_WHITELIST.split(","),
+    ...process.env.IP_WHITELIST.split(","),
+  ];
+
+  console.log(`IP: ${reqIp}, Domain: ${reqDomain}`);
+  console.log(whitelist);
 
   try {
-    if (whitelist.includes(reqDomain || reqIp)) {
+    if (whitelist.includes(reqDomain) || whitelist.includes(reqIp)) {
+      console.log("Successful connection from authorized IP.");
       res.status(201);
       next();
     }
   } catch (err) {
-    res.status(401);
-    throw new Error(`Unauthorized access! IP: ${reqIp}, Domain: ${reqDomain}`);
+    console.log(`Unauthorized access! IP: ${reqIp}, Domain: ${reqDomain}`);
+    return res.status(401).json({
+      error: "Unauthorized access",
+      message: "Your IP or domain is not authorized to access this resource.",
+    });
   }
 };
 

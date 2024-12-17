@@ -27,6 +27,8 @@ app.use(express.urlencoded({ extended: true }));
 //Cookie parser middleware
 app.use(cookieParser());
 
+app.use(ipFilter);
+
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
@@ -51,7 +53,5 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.use(notFound);
-
-app.listen(() => console.log(`Server running on port ${port}`));
 
 export default app;
