@@ -8,7 +8,6 @@ import {
   getOrders,
 } from "../controllers/orderController.js";
 import { protect, admin } from "../middleware/authMiddleware.js";
-import { ipFilter } from "../middleware/errorMiddleware.js";
 
 const router = express.Router();
 

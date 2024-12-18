@@ -1,4 +1,5 @@
 import Product from "../models/productModel.js";
+import mongoose from "mongoose";
 import { calcPrices } from "../utils/calcPrices.js";
 import { verifyPayPalPayment, checkIfNewTransaction } from "../utils/paypal.js";
 import asyncHandler from "../middleware/asyncHandler.js";
@@ -42,7 +43,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
 
     const order = new Order({
       orderItems: dbOrderItems,
-      user: req.user._id,
+      user: req.users?._id,
       shippingAddress,
       billingAddress,
       paymentMethod,

@@ -27,12 +27,8 @@ const ipFilter = (req, res, next) => {
     ...process.env.IP_WHITELIST.split(","),
   ];
 
-  console.log(`IP: ${reqIp}, Domain: ${reqDomain}`);
-  console.log(whitelist);
-
   try {
     if (whitelist.includes(reqDomain) || whitelist.includes(reqIp)) {
-      console.log("Successful connection from authorized IP.");
       res.status(201);
       next();
     }

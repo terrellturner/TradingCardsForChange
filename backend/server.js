@@ -14,7 +14,12 @@ import {
   ipFilter,
 } from "./middleware/errorMiddleware.js";
 
+const port = process.env.PORT || 5000;
+
 const app = express();
+
+//Cookie parser middleware
+app.use(cookieParser());
 
 app.use(errorHandler);
 
@@ -24,17 +29,14 @@ connectDB();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//Cookie parser middleware
-app.use(cookieParser());
-
-app.use(ipFilter);
 app.use(
   cors({
-    origin: process.env.CORS_DOMAIN,
+    origin: "http://localhost:5173",
+    credentials: true,
   }),
 );
 
-console.log(`CORS allowing ${process.env.CORS_DOMAIN} to pass.`);
+app.use(ipFilter);
 
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
@@ -60,5 +62,9 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.use(notFound);
+
+if (process.env.NODE_ENV !== "production") {
+  app.listen(port, () => console.log(`Server running on port ${port}`));
+}
 
 export default app;

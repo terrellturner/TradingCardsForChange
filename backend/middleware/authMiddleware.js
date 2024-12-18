@@ -10,12 +10,27 @@ const protect = asyncHandler(async (req, res, next) => {
   if (token) {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
       req.user = await User.findById(decoded.userId).select("-password");
-      next();
+      if (req.user) {
+        next();
+      } else {
+        console.log("No user found for token");
+        res.status(401);
+        throw new Error("User not found");
+      }
     } catch (error) {
-      throw new Error(
-        "Unauthorized access! Token failed. Contact your administrator.",
-      );
+      console.error("FULL ERROR DETAILS:", error);
+      console.error("Error Name:", error.name);
+      console.error("Error Message:", error.message);
+
+      // Differentiate between different types of errors
+      if (error.name === "JsonWebTokenError") {
+        return res.status(401).json({ message: "Invalid token" });
+      }
+      if (error.name === "TokenExpiredError") {
+        return res.status(401).json({ message: "Token expired" });
+      }
     }
   } else {
     res.status(401);

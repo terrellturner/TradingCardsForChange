@@ -1,5 +1,38 @@
 {
+  "name": "tradingcards4change",
+  "version": "1.0.0",
+  "main": "backend/server.js",
   "dependencies": {
-    "cors": "^2.8.5"
-  }
+    "@paypal/paypal-js": "^8.1.2",
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.6.1",
+    "pathseg": "^1.2.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.1",
+    "concurrently": "^9.0.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.35.2",
+    "globals": "^15.9.0",
+    "nodemon": "^3.1.4",
+    "prettier": "^3.3.3",
+    "prettier-eslint": "^16.3.0"
+  },
+    "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
+    "data-import": "node backend/seeder.js",
+    "data-destroy": "node backend/seeder.js -d"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
