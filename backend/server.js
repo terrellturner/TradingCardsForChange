@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: [
-      "https://tc4c-backend.vercel.app/",
+      "https://tc4c-backend.vercel.app",
       "https://trading-cards-for-change.vercel.app",
     ],
     credentials: true,
@@ -54,8 +54,6 @@ app.get("/api/config/paypal", (req, res) =>
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
-app.use(notFound);
-
 if (process.env.NODE_ENV !== "production") {
   app.listen(port, () => console.log(`Server running on port ${port}`));
 }
@@ -63,5 +61,7 @@ if (process.env.NODE_ENV !== "production") {
 app.get("/", (req, res) => {
   res.send("🤷");
 });
+
+app.use(notFound);
 
 export default app;
