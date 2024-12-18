@@ -31,7 +31,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: process.env.DOMAIN_WHITELIST,
+    origin: [
+      "https://tc4c-backend.vercel.app/",
+      "https://trading-cards-for-change.vercel.app",
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
@@ -51,22 +54,14 @@ app.get("/api/config/paypal", (req, res) =>
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
-if (process.env.NODE_ENV === "production") {
-  //Set a static folder
-  app.use(express.static(path.join(__dirname, "/frontend/dist")));
-  app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html")),
-  );
-} else {
-  app.get("/", (req, res) => {
-    res.send("API running!");
-  });
-}
-
 app.use(notFound);
 
 if (process.env.NODE_ENV !== "production") {
   app.listen(port, () => console.log(`Server running on port ${port}`));
 }
+
+app.get("/", (req, res) => {
+  res.send("🤷");
+});
 
 export default app;
