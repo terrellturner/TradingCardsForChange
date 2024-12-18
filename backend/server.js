@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: process.env.DOMAIN_WHITELIST.split(","),
+    origin: "https://trading-cards-for-change-rosy.vercel.app",
     credentials: true,
   }),
 );
