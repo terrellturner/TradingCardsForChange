@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaShoppingCart } from 'react-icons/fa';
-import { FaUser } from 'react-icons/fa';
+import { FaShoppingCart, FaUser } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { useSelector, useDispatch } from 'react-redux';
@@ -32,12 +31,14 @@ const Header = () => {
 
     return (
         <header>
-            <nav className="text-white flex h-24 flex-row items-center justify-around bg-hops-green font-bold">
-                <Link
-                    to="/"
-                    className="group text-center font-serif text-4xl text-ipa-beige"
-                >
-                    <div className="bg-white h-10 w-24">TC4C</div>
+            <nav className="text-white flex h-32 flex-row items-center justify-around bg-hops-green font-bold">
+                <Link to="/" className="group text-center ">
+                    <div
+                        className="bg-white w-72 font-jacquard text-5xl font-normal not-italic leading-10 text-ipa-beige"
+                        style={{ 'font-family': '"Jacquard 24", serif' }}
+                    >
+                        Twin Cities Brew Crew
+                    </div>
                 </Link>
                 <div className="hidden h-full items-center justify-center text-[#ffffff] md:mr-4 md:flex md:space-x-8">
                     <div className="group">

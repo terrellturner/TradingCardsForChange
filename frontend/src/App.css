@@ -1,0 +1,16 @@
+.carousel-btn > *{
+    stroke: theme('colors.newsletter-black');
+    fill: #ffffff;
+    stroke-width: 1rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    
+}
+
+.carousel-btn:hover{
+    background-color: theme('colors.opaque-newsletter-black');
+}
+
+.carousel-img{
+    transition: translate 300ms ease-in-out
+}

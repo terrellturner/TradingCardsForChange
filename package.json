@@ -20,10 +20,9 @@
     "eslint-plugin-react": "^7.35.2",
     "globals": "^15.9.0",
     "nodemon": "^3.1.4",
-    "prettier": "^3.3.3",
-    "prettier-eslint": "^16.3.0"
+    "prettier": "^3.3.3"
   },
-    "scripts": {
+  "scripts": {
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
     "client": "npm start --prefix frontend",

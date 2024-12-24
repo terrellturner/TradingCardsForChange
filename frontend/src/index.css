@@ -5,3 +5,8 @@
 #root{
     position: relative;
 }
+
+*::before,
+*::after{
+    box-sizing: border-box;
+}

@@ -5,24 +5,24 @@ import Message from '../components/Message';
 import { Link } from 'react-router-dom';
 import { useGetProductsQuery } from '../slices/productsApiSlice';
 import { FaUser } from 'react-icons/fa';
+import ImageCarousel from '../components/ImageCarousel';
+import Loader from '../components/Loader';
 
 const HomePage = () => {
     const { data: products, isLoading, error } = useGetProductsQuery();
+    const heroImages = import.meta.env.VITE_HERO_IMG_URLS.split(',');
 
     return (
         <>
             {isLoading ? (
-                <h2>Loading...</h2>
+                <Loader />
             ) : error ? (
                 <Message>{error.data?.message || error.error}</Message>
             ) : (
                 <>
-                    <div className="flex min-h-full grow flex-col bg-newsletter-black ">
-                        <div className="flex h-full w-1/2">
-                            <img src={Logo} alt="" className="h-full w-full" />
-                            <img src={Logo} alt="" className="h-full w-full" />
-                        </div>
-                        <div className="mx-auto my-5 grid w-4/5 max-w-[90rem] grid-cols-1 gap-10 md:grid-cols-2 2xl:grid-cols-3">
+                    <div className="my-10 flex h-full grow flex-col items-center space-y-10 bg-newsletter-black">
+                        <ImageCarousel imageUrls={heroImages} />
+                        <div className="mx-auto grid w-4/5 max-w-[90rem] grid-cols-1 gap-10 md:grid-cols-2 2xl:grid-cols-3">
                             {products ? (
                                 products.map((product, index = product._id) => {
                                     const startTime = new Date(
