@@ -14,24 +14,23 @@ import RequiredFieldAlert from '../components/RequiredFieldAlert';
 import CheckoutForm from '../components/CheckoutForm';
 import { useCreateOrderMutation } from '../slices/ordersApiSlice';
 import { clearCart, removeFromCart } from '../slices/cartSlice';
+import { motion } from 'motion/react';
+import { defaultMotion } from '../constants';
+import Loader from '../components/Loader';
 
 const CheckoutPage = () => {
-    const [shippingModalOpen, setShippingModalOpen] = useState(false);
-    const [billingModalOpen, setBillingModalOpen] = useState(false);
-    const [contactInfoComplete, setContactInfoComplete] = useState(false);
     const nav = useNavigate();
     const dis = useDispatch();
-
-    const [createOrder, { isLoading, error }] = useCreateOrderMutation();
-
-    const { id: orderId } = useParams();
-
     const cart = useSelector((state) => state.cart);
     const auth = useSelector((state) => state.auth);
+    const { id: orderId } = useParams();
+
+    const [shippingModalOpen, setShippingModalOpen] = useState(false);
+
+    const [newOrder, { isLoading, error }] = useCreateOrderMutation();
+    const [payOrder, { isPaymentLoading }] = usePayOrderMutation();
 
     const { cartItems } = cart;
-
-    const [payOrder, { isPaymentLoading }] = usePayOrderMutation();
 
     const [{ isPending }, payPalDispatch] = usePayPalScriptReducer();
 
@@ -41,38 +40,42 @@ const CheckoutPage = () => {
         error: errorPayPal,
     } = useGetPayPalClientIdQuery();
 
-    const openShippingModalHandler = (e) => {
-        setShippingModalOpen(true);
-    };
-    const closeShippingModalHandler = (e) => {
-        setShippingModalOpen(false);
-    };
-
+    //Create a new order. Will be deleted
+    //If ths user backs out of the transaction.
     const placeOrderHandler = async () => {
-        if (
-            Object.values(cart.shippingAddress).every(
-                (x) => x !== '' && x !== null
-            )
-        ) {
-            try {
-                const res = await createOrder({
-                    orderItems: cart.cartItems,
-                    shippingAddress: cart.shippingAddress,
-                    paymentMethod: cart.paymentMethod,
-                    itemsPrice: cart.itemsPrice,
-                    shippingPrice: cart.shippingPrice,
-                    taxPrice: cart.taxPrice,
-                    totalPrice: cart.totalPrice,
-                }).unwrap();
-                dis(clearCart());
-                nav(`/order/${res._id}`);
-            } catch (err) {
-                toast.error(err);
-            }
-        } else {
-            toast.error('You need to fill in each contact field.');
+        try {
+            const res = await newOrder({
+                orderItems: cart.cartItems,
+                shippingAddress: cart.shippingAddress,
+                paymentMethod: cart.paymentMethod,
+                itemsPrice: cart.itemsPrice,
+                shippingPrice: cart.shippingPrice,
+                taxPrice: cart.taxPrice,
+                totalPrice: cart.totalPrice,
+            }).unwrap();
+            dis(clearCart());
+            nav(`/order/${res._id}`);
+            toast.success("Payment successful.");
+        } catch (err) {
+            toast.error(err);
         }
     };
+
+    async function createOrder(data, actions) {
+        return actions.order
+            .create({
+                purchase_units: [
+                    {
+                        amount: {
+                            value: cart.totalPrice,
+                        },
+                    },
+                ],
+            })
+            .then((orderId) => {
+                return orderId;
+            });
+    }
 
     const removeFromCartHandler = async (id) => {
         dis(removeFromCart(id));
@@ -81,26 +84,47 @@ const CheckoutPage = () => {
         }
     };
 
-    useEffect(() => {
-        if (!errorPayPal && !loadingPayPal && paypal.clientId) {
-            const loadPayPalScript = async () => {
-                payPalDispatch({
-                    type: 'resetOptions',
-                    value: {
-                        'client-id': paypal.clientId,
-                        currency: 'USD',
-                    },
-                });
-                payPalDispatch({ type: 'setLoadingStatus', value: 'pending' });
-            };
-            if (!window.paypal) {
-                loadPayPalScript();
+    function onApprove(data, actions) {
+        return actions.order.capture().then(async function (details) {
+            try {
+                placeOrderHandler();
+            } catch (error) {
+                toast.error(error?.data?.message || error.message);
             }
+        });
+    }
+
+    function onError(error) {
+        toast.error(error.message);
+    }
+
+    useEffect(() => {
+        try {
+            if (!errorPayPal && !loadingPayPal && paypal.clientId) {
+                const loadPayPalScript = async () => {
+                    payPalDispatch({
+                        type: "resetOptions",
+                        value: {
+                            "client-id": paypal.clientId,
+                            currency: "USD",
+                        },
+                    });
+                    payPalDispatch({ type: "setLoadingStatus", value: "pending" });
+                };
+                if (!window.paypal) {
+                    loadPayPalScript();
+                }
+            }
+        } catch (error) {
+            console.log(error);
         }
+
     }, [errorPayPal, loadingPayPal, paypal, payPalDispatch]);
 
     return (
-        <div className="mx-auto flex w-full min-w-52 grow flex-col place-items-center py-5 md:px-20">
+        <motion.div variants={defaultMotion} initial="initial"
+            animate="open"
+            exit="closed" className="mx-auto flex w-full min-w-52 grow flex-col place-items-center py-5 md:px-20">
             <h1 className="self-start p-3 text-4xl font-bold text-off-white">
                 Checkout
             </h1>
@@ -108,7 +132,7 @@ const CheckoutPage = () => {
                 <div className="flex w-1/2 flex-col place-items-center md:flex-row">
                     {shippingModalOpen && (
                         <CheckoutForm
-                            handleClick={closeShippingModalHandler}
+                            handleClick={setShippingModalOpen}
                             cartItems={cart.cartItems}
                         />
                     )}
@@ -118,7 +142,7 @@ const CheckoutPage = () => {
                         </h3>
                         <div
                             className="grid w-full cursor-pointer grid-cols-2 rounded-lg border border-ipa-beige p-5"
-                            onClick={openShippingModalHandler}
+                            onClick={setShippingModalOpen}
                         >
                             <span>
                                 <div className="text-xl font-bold">
@@ -206,7 +230,7 @@ const CheckoutPage = () => {
                             {cart.cartItems.map((item) => (
                                 <div
                                     key={item._id}
-                                    className="text-white flex w-full flex-row place-items-center gap-4 rounded-lg p-5 text-off-white lg:space-x-5"
+                                    className="flex w-full flex-row place-items-center gap-4 rounded-lg p-5 text-off-white lg:space-x-5"
                                 >
                                     <img
                                         src={item.image}
@@ -254,23 +278,15 @@ const CheckoutPage = () => {
                                     .toFixed(2)}
                             </div>
                         </div>
-                        <div>
-                            <PayPalButtons
-                            // createOrder={createOrder}
-                            // onApprove={onApprove}
-                            // onError={onError}
-                            ></PayPalButtons>
-                            <button
-                                onClick={placeOrderHandler}
-                                className="w-full bg-ipa-beige p-5 outline outline-1 "
-                            >
-                                Place Test Order
-                            </button>
-                        </div>
+                        <PayPalButtons
+                            createOrder={createOrder}
+                            onApprove={onApprove}
+                            onError={onError}
+                        />
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 export default CheckoutPage;

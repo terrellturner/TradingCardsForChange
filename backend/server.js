@@ -13,6 +13,7 @@ import {
   errorHandler,
   ipFilter,
 } from "./middleware/errorMiddleware.js";
+import { log } from "console";
 
 const port = process.env.PORT || 5000;
 
@@ -39,7 +40,7 @@ app.use(
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
-  }),
+  })
 );
 
 app.use(ipFilter);
@@ -49,7 +50,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 
 app.get("/api/config/paypal", (req, res) =>
-  res.send({ clientId: process.env.PAYPAL_CLIENT_ID }),
+  res.send({ clientId: process.env.PAYPAL_CLIENT_ID })
 );
 
 const __dirname = path.resolve();

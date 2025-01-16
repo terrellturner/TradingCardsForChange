@@ -1,10 +1,11 @@
+@import url("https://p.typekit.net/p.css?s=1&k=bby2nwg&ht=tk&f=45555.45556&a=4076894&app=typekit&e=css");
+
 .carousel-btn > *{
     stroke: theme('colors.newsletter-black');
     fill: #ffffff;
     stroke-width: 1rem;
     height: 2.5rem;
     width: 2.5rem;
-    
 }
 
 .carousel-btn:hover{
@@ -13,4 +14,25 @@
 
 .carousel-img{
     transition: translate 300ms ease-in-out
+}
+
+#header-logo{
+    fill: theme('colors.ipa-beige') !important;
+    stroke: theme('colors.ipa-beige') !important;
+}
+
+#mobile-slide-out{
+    animation: slide-out 4s ease-in-out;
+}
+
+@keyframes mobile-slide-out{
+    100%{
+        left: 0;
+    }
+}
+
+@keyframes mobile-slide-out{
+    100%{
+        left: 2rem;
+    }
 }

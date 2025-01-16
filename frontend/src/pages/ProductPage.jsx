@@ -5,9 +5,13 @@ import { FaUser } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useGetProductDetailsQuery } from '../slices/productsApiSlice';
 import { addToCart } from '../slices/cartSlice';
+import { motion } from 'motion/react';
 import Message from '../components/Message';
+import { defaultMotion } from '../constants';
+
 
 const ProductPage = () => {
+
     const { id: productId } = useParams();
 
     const dis = useDispatch();
@@ -35,7 +39,12 @@ const ProductPage = () => {
             ) : (
                 <>
                     {/* Navigation button */}
-                    <div className="min-w-80 grow px-12 py-8">
+                    <motion.div variants={
+                        defaultMotion
+                    }
+                        initial="initial"
+                        animate="open"
+                        exit="closed" className="min-w-80 grow px-12 py-8">
                         <Link to="/">
                             <button className="h-12 w-28 rounded-md border-ipa-beige bg-hops-green text-draft-yellow">
                                 Go Back
@@ -116,7 +125,7 @@ const ProductPage = () => {
                                 </span>
                             </div>
                         </section>
-                    </div>
+                    </motion.div>
                 </>
             )}
         </>

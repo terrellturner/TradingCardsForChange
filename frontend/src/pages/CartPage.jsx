@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart } from '../slices/cartSlice';
 import { useNavigate } from 'react-router-dom';
 import { FaGhost, FaTrash } from 'react-icons/fa';
+import { motion } from 'motion/react';
+import { defaultMotion } from '../constants';
 
 const CartPage = () => {
     const dis = useDispatch();
@@ -30,7 +32,10 @@ const CartPage = () => {
     };
 
     return cart.cartItems.length > 0 ? (
-        <div className="mx-auto flex h-full grow flex-col py-5">
+        <motion.div variants={defaultMotion}
+            initial="initial"
+            animate="open"
+            exit="closed" className="mx-auto flex h-full grow flex-col py-5">
             <h1 className="p-3 text-4xl text-off-white">Shopping Cart</h1>
             <div
                 id="cart-page-container"
@@ -149,9 +154,12 @@ const CartPage = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     ) : (
-        <div className="flex grow flex-col items-stretch bg-newsletter-black text-off-white">
+        <motion.div variants={defaultMotion}
+            initial="initial"
+            animate="open"
+            exit="closed" className="flex grow flex-col items-stretch bg-newsletter-black text-off-white">
             <div className="flex h-full grow flex-col items-center justify-center">
                 <FaGhost className="fill-ipa-beige text-9xl" />
                 <div className="text-center text-4xl font-bold">
@@ -159,7 +167,7 @@ const CartPage = () => {
                     <div>The cart's empty...</div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

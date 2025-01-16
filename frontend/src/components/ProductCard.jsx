@@ -3,41 +3,45 @@ import PropTypes from 'prop-types';
 import { FaUser } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-const ProductCard = ({ product, cardClasses, children }) => {
+const ProductCard = React.forwardRef((props, ref) => {
+    const { product, cardClasses, children } = props;
     const inStock = product.countInStock;
     const startTime = new Date(product.startTime);
     const endTime = new Date(product.endTime);
     return (
         <div
+            ref={ref}
             className={`border-gray-700 relative flex flex-col justify-around space-y-3 rounded-lg border bg-off-white p-5 shadow ${cardClasses}`}
         >
-            <div className="absolute right-0 top-0 m-2 h-20 w-20 rounded-lg bg-hops-green p-3 text-center text-ipa-beige shadow-lg">
+            <div className="absolute top-0 right-0 w-20 h-20 p-3 m-2 text-center rounded-lg shadow-lg bg-hops-green text-ipa-beige">
                 <span className="block text-sm font-bold">
                     {startTime.toLocaleString('default', {
                         month: 'short',
                     })}
                 </span>
-                <span className="text-3xl font-black">{`${startTime.getDay()}`}</span>
+                <span className="text-3xl font-black">{`${startTime.getDate()}`}</span>
             </div>
             <Link to={`/product/${product._id}`}>
                 <img
                     src={product.image}
                     alt=""
-                    className="mx-auto h-52 w-full rounded-lg object-cover object-center md:h-72"
+                    className="object-cover object-center w-full mx-auto rounded-lg h-52 md:h-72"
                 />
             </Link>
             <Link to={`/product/${product._id}`}>
-                <strong
-                    className={`text-4xl font-bold ${product.inStock === 0 ? 'line-through' : ''}`}
+                <h3
+                    className={`block truncate text-xl font-bold md:text-2xl ${product.inStock === 0 ? 'line-through' : ''}`}
                 >
                     {product.name}
-                </strong>
+                </h3>
             </Link>
-            <h3>{product.description}</h3>
+            <div className="line-clamp-3">{product.description}</div>
             {children}
         </div>
     );
-};
+});
+
+ProductCard.displayName = 'productCard';
 
 export default ProductCard;
 

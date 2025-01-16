@@ -40,11 +40,15 @@ export const usersApiSlice = apiSlice.injectEndpoints({
             }),
             providesTags: ['Users'],
             keepUnusedDataFor: 5,
+            credentials: 'include',
+            mode: 'cors',
         }),
         deleteUser: builder.mutation({
             query: (userId) => ({
                 url: `${USERS_URL}/${userId}`,
                 method: 'DELETE',
+                credentials: 'include',
+                mode: 'cors',
             }),
         }),
         getUserDetails: builder.query({

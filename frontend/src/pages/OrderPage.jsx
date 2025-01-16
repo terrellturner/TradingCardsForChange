@@ -3,6 +3,8 @@ import { useGetOrderDetailsQuery } from '../slices/ordersApiSlice';
 import { useParams } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import { FaCalendar, FaMapMarkerAlt } from 'react-icons/fa';
+import { motion } from 'motion/react';
+import { defaultMotion } from '../constants';
 
 const OrderPage = () => {
     const { id: orderId } = useParams();
@@ -12,11 +14,13 @@ const OrderPage = () => {
     return isLoading ? (
         <h2>Please wait...</h2>
     ) : (
-        <div className="flex w-full grow flex-col items-center justify-center text-center text-off-white">
+        <motion.div variants={defaultMotion} initial="initial"
+            animate="open"
+            exit="closed" className="flex w-full grow flex-col items-center justify-center text-center text-off-white">
             <h3 className="p-4 text-4xl font-bold">
                 Thank you for your purchase!
             </h3>
-            <div>{order.orderItems.map((item, index) => {})}</div>
+            <div>{order.orderItems.map((item, index) => { })}</div>
             <div className="flex w-1/3 flex-col flex-wrap items-center divide-y divide-ipa-beige rounded-lg border border-ipa-beige md:min-w-[600px]">
                 {order.orderItems.map((item, index) => {
                     const startTime = new Date(item.startTime);
@@ -56,7 +60,7 @@ const OrderPage = () => {
                     <div>${order.totalPrice}</div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

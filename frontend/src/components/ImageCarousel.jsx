@@ -19,29 +19,37 @@ const ImageCarousel = ({ imageUrls }) => {
     };
 
     return (
-        <div className="relative flex h-96 w-full flex-col rounded-lg md:w-2/3">
-            <div className="flex h-full w-full overflow-hidden">
+        <div className="relative flex flex-col w-full rounded-lg h-96 lg:w-2/3">
+            <div className="relative flex w-full h-full overflow-hidden">
                 {imageUrls.map((url) => (
-                    <img
-                        key={url}
-                        src={url}
-                        alt=""
-                        className="carousel-img h-full w-full shrink-0 grow-0 rounded-lg object-cover"
-                        style={{ translate: `${-100 * imageIndex}%` }}
-                    />
+                    <>
+                        <img
+                            key={url}
+                            src={url}
+                            alt=""
+                            className="object-cover w-full h-full rounded-lg carousel-img shrink-0 grow-0"
+                            style={{ translate: `${-100 * imageIndex}%` }}
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 flex h-1/5 w-full bg-newsletter-black bg-opacity-35 pl-5 pt-5 font-sans-serif text-3xl text-[#ffffff]">
+                            <div>
+                                EDH stands for &quot;Everyone&apos;s Drinking
+                                Here!&quot;
+                            </div>
+                        </div>
+                    </>
                 ))}
                 )
             </div>
 
             <button
                 onClick={showPreviousImage}
-                className="carousel-btn absolute bottom-0 left-0 top-0 block p-2 transition-colors delay-100 ease-in-out"
+                className="absolute top-0 bottom-0 left-0 block p-2 transition-colors ease-in-out delay-100 carousel-btn"
             >
                 <FaArrowLeft />
             </button>
             <button
                 onClick={showNextImage}
-                className="carousel-btn absolute bottom-0 right-0 top-0 block p-2 transition-colors delay-100 ease-in-out"
+                className="absolute top-0 bottom-0 right-0 block p-2 transition-colors ease-in-out delay-100 carousel-btn"
             >
                 <FaArrowRight />
             </button>
