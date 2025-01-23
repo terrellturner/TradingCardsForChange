@@ -15,13 +15,15 @@ import moment from 'moment'
 import { desc } from 'motion/react-client';
 
 const HomePage = () => {
-    const { data: products, isLoading, error } = useGetProductsQuery();
+    const { data, isLoading, error } = useGetProductsQuery();
+    const products = data?.products;
+
     const heroImages = import.meta.env.VITE_HERO_IMG_URLS.split(',');
 
     const [isCalendarEventOpen, setIsCalendarEventOpen] = useState(false);
     const [selectedEvent, setSelectedEvent] = useState(null);
 
-    const localizer = momentLocalizer(moment)
+    const localizer = momentLocalizer(moment);
 
     const MotionProductCard = motion.create(ProductCard);
     const MotionSkeleton = motion.create(SkeletonLoader);
@@ -95,7 +97,7 @@ const HomePage = () => {
                                         id: product._id,
                                         image: product.image,
                                         description: product.description,
-                                    }))} ly
+                                    }))}
                                     startAccessor="start"
                                     endAccessor="end"
                                     className='h-[50rem] w-5/6 relative text-ipa-beige max-w-[1200px]'
