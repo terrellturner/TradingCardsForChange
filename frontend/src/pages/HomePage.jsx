@@ -10,9 +10,7 @@ import Loader from '../components/Loader';
 import SkeletonLoader from '../components/SkeletonLoader';
 import { defaultMotion } from '../constants';
 import { Calendar, momentLocalizer } from 'react-big-calendar'
-import CheckoutForm from '../components/CheckoutForm';
 import moment from 'moment'
-import { desc } from 'motion/react-client';
 
 const HomePage = () => {
     const { data, isLoading, error } = useGetProductsQuery();

@@ -1,9 +1,37 @@
 {
   "name": "tradingcards4change",
   "version": "1.0.0",
-  "description": "MERN Ecommerce app for a hypothetical charity.",
+  "main": "backend/server.js",
   "type": "module",
-  "main": "server.js",
+  "dependencies": {
+    "@paypal/paypal-js": "^8.1.2",
+    "@reduxjs/toolkit": "^2.5.0",
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "framer-motion": "^12.0.3",
+    "jsonwebtoken": "^9.0.2",
+    "moment": "^2.30.1",
+    "mongoose": "^8.6.1",
+    "pathseg": "^1.2.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.1.3",
+    "react-toastify": "^11.0.3",
+    "vercel": "^39.3.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.1",
+    "concurrently": "^9.0.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.35.2",
+    "globals": "^15.9.0",
+    "nodemon": "^3.1.4",
+    "prettier": "^3.3.3"
+  },
   "scripts": {
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
@@ -13,28 +41,7 @@
     "data-import": "node backend/seeder.js",
     "data-destroy": "node backend/seeder.js -d"
   },
-  "author": "Terrell Turner",
-  "license": "MIT",
-  "dependencies": {
-    "@paypal/paypal-js": "^8.1.2",
-    "bcryptjs": "^2.4.3",
-    "colors": "^1.4.0",
-    "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.6.1",
-    "pathseg": "^1.2.1"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.9.1",
-    "concurrently": "^9.0.1",
-    "eslint": "^8.57.0",
-    "eslint-plugin-react": "^7.35.2",
-    "globals": "^15.9.0",
-    "nodemon": "^3.1.4",
-    "prettier": "^3.3.3",
-    "prettier-eslint": "^16.3.0"
-  }
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
