@@ -4,13 +4,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import { toast } from 'react-toastify';
 import { FaTrash } from 'react-icons/fa';
-import InputItem from '../components/InputItem';
+import InputItem from '../components/FormInputItem';
 import {
     usePayOrderMutation,
     useGetPayPalClientIdQuery,
 } from '../slices/ordersApiSlice';
 import ContentContainer from '../components/ContentContainer';
-import RequiredFieldAlert from '../components/RequiredFieldAlert';
+import FormRequiredFieldAlert from '../components/FormRequiredFieldAlert';
 import CheckoutForm from '../components/CheckoutForm';
 import { useCreateOrderMutation } from '../slices/ordersApiSlice';
 import { clearCart, removeFromCart } from '../slices/cartSlice';
@@ -153,7 +153,7 @@ const CheckoutPage = () => {
                                 ) : cart.shippingAddress?.fName ? (
                                     cart.shippingAddress?.fName
                                 ) : (
-                                    <RequiredFieldAlert />
+                                    <FormRequiredFieldAlert />
                                 )}
                             </span>
                             <span>
@@ -165,7 +165,7 @@ const CheckoutPage = () => {
                                 ) : cart.shippingAddress?.lName ? (
                                     cart.shippingAddress?.lName
                                 ) : (
-                                    <RequiredFieldAlert />
+                                    <FormRequiredFieldAlert />
                                 )}
                             </span>
                             <span>
@@ -173,7 +173,7 @@ const CheckoutPage = () => {
                                 {cart.shippingAddress.address ? (
                                     cart.shippingAddress.address
                                 ) : (
-                                    <RequiredFieldAlert />
+                                    <FormRequiredFieldAlert />
                                 )}
                             </span>
                             <span>
@@ -183,7 +183,7 @@ const CheckoutPage = () => {
                                 {cart.shippingAddress.addressSecondary ? (
                                     cart.shippingAddress.addressSecondary
                                 ) : (
-                                    <RequiredFieldAlert />
+                                    <FormRequiredFieldAlert />
                                 )}
                             </span>
                             <span>
@@ -191,7 +191,7 @@ const CheckoutPage = () => {
                                 {cart.shippingAddress.city ? (
                                     cart.shippingAddress.city
                                 ) : (
-                                    <RequiredFieldAlert />
+                                    <FormRequiredFieldAlert />
                                 )}
                             </span>
                             <span>
@@ -199,7 +199,7 @@ const CheckoutPage = () => {
                                 {cart.shippingAddress.state ? (
                                     cart.shippingAddress.state
                                 ) : (
-                                    <RequiredFieldAlert />
+                                    <FormRequiredFieldAlert />
                                 )}
                             </span>
                             <span>
@@ -209,7 +209,7 @@ const CheckoutPage = () => {
                                 {cart.shippingAddress.postalCode ? (
                                     cart.shippingAddress.postalCode
                                 ) : (
-                                    <RequiredFieldAlert />
+                                    <FormRequiredFieldAlert />
                                 )}
                             </span>
                             <span>
@@ -219,7 +219,7 @@ const CheckoutPage = () => {
                                 {cart.shippingAddress.country ? (
                                     cart.shippingAddress.country
                                 ) : (
-                                    <RequiredFieldAlert />
+                                    <FormRequiredFieldAlert />
                                 )}
                             </span>
                         </div>

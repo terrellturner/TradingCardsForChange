@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const InputItem = ({
+const FormInputItem = ({
     type,
     id,
     name,
@@ -30,9 +30,9 @@ const InputItem = ({
     );
 };
 
-export default InputItem;
+export default FormInputItem;
 
-InputItem.propTypes = {
+FormInputItem.propTypes = {
     type: PropTypes.string,
     id: PropTypes.string,
     name: PropTypes.string,

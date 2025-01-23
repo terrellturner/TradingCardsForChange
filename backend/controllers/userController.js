@@ -23,7 +23,7 @@ const authUser = asyncHandler(async (req, res) => {
   } else {
     res.status(401);
     throw new Error(
-      "Error! Invalid email or password. Check your credentials and try again.",
+      "Error! Invalid email or password. Check your credentials and try again."
     );
   }
 });
@@ -39,7 +39,7 @@ const registerUser = asyncHandler(async (req, res) => {
   if (userExists) {
     res.status(400);
     throw new Error(
-      "Another user is already registered with this email address.",
+      "Another user is already registered with this email address."
     );
   }
 
@@ -130,8 +130,15 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 //@route    GET /api/users
 //@access   Private/Admin
 const getUsers = asyncHandler(async (req, res) => {
-  const users = await User.find({});
-  res.status(200).json(users);
+  const pageSize = process.env.PAGINATION_LIMIT;
+  const page = Number(req.query.pageNumber) || 1;
+
+  const count = await User.countDocuments({});
+
+  const users = await User.find({})
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+  res.json({ users, page, pages: Math.ceil(count / pageSize) });
 });
 
 //@desc     Get user by id
@@ -189,6 +196,39 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
+//@desc Update password
+//@route PUT /api/users
+//@access Private
+const updatePassword = asyncHandler(async (req, res) => {
+  try {
+    const { currentPw, newPw } = req.body;
+    const user = await User.findById(req.user._id);
+
+    if (user.passwordChangePrompt === false) {
+      console.log(user);
+      return res.status(400).json({
+        message:
+          "ERROR: You have not been cleared for password reset! Initiate reset via your profile or contact an administrator.",
+      });
+    } else if (!(await user.matchPassword(currentPw))) {
+      return res
+        .status(400)
+        .json({ message: "Your current password is incorrect." });
+    }
+
+    //Password hashed in userModel before
+    //being saved to db.
+    user.password = newPw;
+    user.passwordChangePrompt = false;
+    await user.save();
+
+    res.json({ message: "Password successfully updated." });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server error!" });
+  }
+});
+
 export {
   authUser,
   registerUser,
@@ -199,4 +239,5 @@ export {
   deleteUser,
   getUserById,
   updateUser,
+  updatePassword,
 };

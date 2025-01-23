@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import ContentContainer from './ContentContainer';
-import InputItem from './InputItem';
+import InputItem from './FormInputItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveShippingAddress } from '../slices/cartSlice';
 

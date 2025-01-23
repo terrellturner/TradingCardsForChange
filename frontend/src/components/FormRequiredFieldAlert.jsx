@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaCircleExclamation } from 'react-icons/fa6';
 
-const RequiredFieldAlert = () => {
+const FormRequiredFieldAlert = () => {
     return (
         <div className="flex flex-row place-items-center">
             <FaCircleExclamation className="inline fill-ipa-beige" />
@@ -10,4 +10,4 @@ const RequiredFieldAlert = () => {
     );
 };
 
-export default RequiredFieldAlert;
+export default FormRequiredFieldAlert;

@@ -9,6 +9,7 @@ import {
   deleteUser,
   getUserById,
   updateUser,
+  updatePassword,
 } from "../controllers/userController.js";
 import { protect, admin } from "../middleware/authMiddleware.js";
 
@@ -21,6 +22,7 @@ router
   .route("/profile")
   .get(protect, getUserProfile)
   .put(protect, updateUserProfile);
+router.route("/change-password").put(protect, updatePassword);
 router
   .route("/:id")
   .delete(protect, admin, deleteUser)

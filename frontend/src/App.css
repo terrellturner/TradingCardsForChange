@@ -1,6 +1,7 @@
-@import url("https://p.typekit.net/p.css?s=1&k=bby2nwg&ht=tk&f=45555.45556&a=4076894&app=typekit&e=css");
+@import url('https://p.typekit.net/p.css?s=1&k=bby2nwg&ht=tk&f=45555.45556&a=4076894&app=typekit&e=css');
+@import url('https://use.typekit.net/bby2nwg.css');
 
-.carousel-btn > *{
+.carousel-btn > * {
     stroke: theme('colors.newsletter-black');
     fill: #ffffff;
     stroke-width: 1rem;
@@ -8,31 +9,106 @@
     width: 2.5rem;
 }
 
-.carousel-btn:hover{
+.carousel-btn:hover {
     background-color: theme('colors.opaque-newsletter-black');
 }
 
-.carousel-img{
-    transition: translate 300ms ease-in-out
+.carousel-img {
+    transition: translate 300ms ease-in-out;
 }
 
-#header-logo{
+#header-logo {
     fill: theme('colors.ipa-beige') !important;
     stroke: theme('colors.ipa-beige') !important;
 }
 
-#mobile-slide-out{
+#mobile-slide-out {
     animation: slide-out 4s ease-in-out;
 }
 
-@keyframes mobile-slide-out{
-    100%{
+/* React Big Calendar */
+
+.rbc-today {
+    background-color: theme('colors.hops-green');
+}
+
+.rbc-month-view {
+    border: 2px solid theme('colors.ipa-beige');
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.rbc-now {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.rbc-date-cell {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.rbc-off-range-bg {
+    background-color: theme('colors.newsletter-black');
+}
+
+.rbc-off-range {
+    font-size: 0.9rem;
+}
+
+.rbc-header {
+    border-bottom: 2px solid theme('colors.ipa-beige');
+}
+
+.rbc-toolbar button {
+    color: theme('colors.ipa-beige');
+    background-color: theme('colors.newsletter-black');
+    border: 1px solid theme('colors.ipa-beige');
+}
+
+.rbc-day-bg + .rbc-day-bg {
+    border-left: 2px solid theme('colors.ipa-beige');
+}
+
+.rbc-month-row + .rbc-month-row {
+    border-top: 2px solid theme('colors.ipa-beige');
+}
+
+.rbc-header + .rbc-header {
+    border-left: 2px solid theme('colors.ipa-beige');
+}
+
+.rbc-toolbar-label {
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+.rbc-toolbar button:active,
+.rbc-toolbar button.rbc-active {
+    background-image: none;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    background-color: theme('colors.pale-ale-green');
+    border-color: theme('colors.ipa-beige');
+    font-weight: bold;
+}
+
+div.rbc-toolbar button:hover,
+div.rbc-toolbar button:focus,
+div.rbc-toolbar button:active:hover,
+div.rbc-toolbar button:active:focus,
+div.rbc-toolbar button.rbc-active:hover,
+div.rbc-toolbar button.rbc-active:focus {
+    background-color: theme('colors.pale-ale-green');
+}
+
+@keyframes mobile-slide-out {
+    100% {
         left: 0;
     }
 }
 
-@keyframes mobile-slide-out{
-    100%{
+@keyframes mobile-slide-out {
+    100% {
         left: 2rem;
     }
 }

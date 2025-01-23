@@ -17,7 +17,7 @@ export default {
             serif: ['Baskervville SC', 'serif'],
             'sans-serif': ['Poppins', 'sans-serif'],
             jacquard: ['"Jacquard 24"', 'serif'],
-            elfreth: ['Elfreth', 'serif'],
+            elfreth: ['elfreth', 'serif'],
         },
     },
     plugins: [],

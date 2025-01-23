@@ -35,8 +35,9 @@ export const usersApiSlice = apiSlice.injectEndpoints({
             }),
         }),
         getUsers: builder.query({
-            query: () => ({
+            query: (pageNumber) => ({
                 url: USERS_URL,
+                params: { pageNumber },
             }),
             providesTags: ['Users'],
             keepUnusedDataFor: 5,
@@ -64,6 +65,15 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 body: data,
             }),
             invalidatesTags: ['Users'],
+        }),
+        changePassword: builder.mutation({
+            query: (data) => ({
+                url: `${USERS_URL}/change-password`,
+                method: 'PUT',
+                body: data,
+                credentials: 'include',
+                mode: 'cors',
+            }),
         }),
     }),
 });

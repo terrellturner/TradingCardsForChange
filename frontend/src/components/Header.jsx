@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
-import { FaShoppingCart, FaUser, FaHeart, FaCalendar, FaSeedling } from 'react-icons/fa';
+import { FaShoppingCart, FaUser, FaCalendar, FaSeedling } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { useSelector, useDispatch } from 'react-redux';
@@ -42,19 +42,14 @@ const Header = () => {
 
     return (
         <header>
-            <nav className="text-white flex h-24 flex-row items-center justify-between bg-hops-green px-10 font-bold lg:justify-around lg:px-0">
+            <nav className="text-white flex h-24 flex-row items-center justify-between bg-hops-green px-10 font-bold lg:justify-around lg:px-0 w-full">
                 <Link
                     to="/"
                     className="group flex h-full items-center text-center"
                 >
+                    <span className=' mx-10 hidden md:flex text-3xl font-elfreth text-draft-yellow font-thin w-48'>Twin Cities Brew Crew</span>
                     <img
-                        src="/images/logo/TwinCitiesBrewCrew.svg"
-                        alt=""
-                        id="header-logo"
-                        className="hidden w-3/5 fill-ipa-beige stroke-draft-yellow md:block"
-                    />
-                    <img
-                        src="/images/logo/TCBC_Simple.svg"
+                        src="https://pmv1txxicxtao8iw.public.blob.vercel-storage.com/TCBC_Simple-r6cEbuoDVCCu3R6efh1z7i0k5l24BL.svg"
                         alt=""
                         id="header-logo"
                         className="block h-full w-full fill-ipa-beige stroke-draft-yellow py-2 md:hidden"
@@ -108,7 +103,7 @@ const Header = () => {
                             <Link to="/login">Log In</Link>
                         )}
                         <div
-                            className={`absolute z-50 top-8 rounded-md bg-hops-green border border-ipa-beige p-3 whitespace-nowrap ${userButtonToggle ? 'invisible' : ''}`}
+                            className={`absolute z-50 top-8 rounded-md bg-hops-green border border-ipa-beige p-3 whitespace-nowrap ${userButtonToggle ? '' : 'invisible'}`}
                         >
                             <ul className="flex flex-col">
                                 <li

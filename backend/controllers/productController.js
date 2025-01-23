@@ -1,12 +1,19 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import Product from "../models/productModel.js";
 
-//@desc     Fetch all products
+//@desc     Get products
 //@route    GET /api/products
 //@access   Public
 const getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({});
-  res.json(products);
+  const pageSize = process.env.PAGINATION_LIMIT;
+  const page = Number(req.query.pageNumber) || 1;
+
+  const count = await Product.countDocuments({});
+
+  const products = await Product.find({})
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+  res.json({ products, page, pages: Math.ceil(count / pageSize) });
 });
 
 //@desc     Get product by Id

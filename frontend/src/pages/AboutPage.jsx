@@ -4,7 +4,7 @@ const AboutPage = () => {
     return (
         <div className="flex-flex-row justify-center items-center">
             <img
-                src="/images/logo/TCBC_Simple.svg"
+                src="https://pmv1txxicxtao8iw.public.blob.vercel-storage.com/TCBC_Color-ilKYEGVXlbq77GKiuWX2FeYGnoyIm5.svg"
                 alt=""
                 className="hidden w-52 lg:block"
             />

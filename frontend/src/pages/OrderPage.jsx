@@ -28,7 +28,7 @@ const OrderPage = () => {
                     return (
                         <div
                             key={item._id}
-                            className="text-white flex w-full flex-col place-items-center justify-center gap-4 py-4 text-off-white md:flex-row lg:space-x-5"
+                            className="flex w-full flex-col place-items-center justify-center gap-4 py-4 text-off-white md:flex-row lg:space-x-5"
                         >
                             <img
                                 src={item.image}

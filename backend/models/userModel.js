@@ -13,6 +13,12 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
+      select: false,
+    },
+    passwordChangePrompt: {
+      type: Boolean,
+      required: true,
+      default: false,
     },
     email: {
       type: String,
@@ -25,11 +31,12 @@ const userSchema = new mongoose.Schema(
       default: false,
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 userSchema.methods.matchPassword = async function (givenPassword) {
-  return await bcrypt.compare(givenPassword, this.password);
+  const user = await User.findById(this._id).select("+password");
+  return await bcrypt.compare(givenPassword, user.password);
 };
 
 userSchema.pre("save", async function (next) {
