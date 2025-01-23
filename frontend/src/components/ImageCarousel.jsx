@@ -21,10 +21,9 @@ const ImageCarousel = ({ imageUrls }) => {
     return (
         <div className="relative flex flex-col w-full rounded-lg h-96 lg:w-2/3">
             <div className="relative flex w-full h-full overflow-hidden">
-                {imageUrls.map((url) => (
-                    <>
+                {imageUrls.map((url, index) => (
+                    <div key={index}>
                         <img
-                            key={url}
                             src={url}
                             alt=""
                             className="object-cover w-full h-full rounded-lg carousel-img shrink-0 grow-0"
@@ -36,7 +35,7 @@ const ImageCarousel = ({ imageUrls }) => {
                                 Here!&quot;
                             </div>
                         </div>
-                    </>
+                    </div>
                 ))}
                 )
             </div>
