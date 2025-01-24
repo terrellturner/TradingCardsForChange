@@ -87,8 +87,9 @@
 .rbc-toolbar button.rbc-active {
     background-image: none;
     box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    background-color: theme('colors.pale-ale-green');
+    background-color: theme('colors.ipa-beige');
     border-color: theme('colors.ipa-beige');
+    color: theme('colors.newsletter-black');
     font-weight: bold;
 }
 
@@ -98,7 +99,7 @@ div.rbc-toolbar button:active:hover,
 div.rbc-toolbar button:active:focus,
 div.rbc-toolbar button.rbc-active:hover,
 div.rbc-toolbar button.rbc-active:focus {
-    background-color: theme('colors.pale-ale-green');
+    background-color: theme('colors.newsletter-black');
 }
 
 @keyframes mobile-slide-out {
