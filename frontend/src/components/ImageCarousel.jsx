@@ -22,20 +22,20 @@ const ImageCarousel = ({ imageUrls }) => {
         <div className="relative flex flex-col w-full rounded-lg h-96 lg:w-2/3">
             <div className="relative flex w-full h-full overflow-hidden">
                 {imageUrls.map((url, index) => (
-                    <div key={index}>
+                    <React.Fragment key={index}>
                         <img
                             src={url}
-                            alt=""
+                            alt="" key={index}
                             className="object-cover w-full h-full rounded-lg carousel-img shrink-0 grow-0"
                             style={{ translate: `${-100 * imageIndex}%` }}
                         />
-                        <div className="absolute bottom-0 left-0 right-0 flex h-1/5 w-full bg-newsletter-black bg-opacity-35 pl-5 pt-5 font-sans-serif text-3xl text-[#ffffff]">
+                        <div key={index} className="absolute bottom-0 left-0 right-0 flex h-1/5 w-full bg-newsletter-black bg-opacity-35 pl-5 pt-5 font-sans-serif text-3xl text-[#ffffff]">
                             <div>
                                 EDH stands for &quot;Everyone&apos;s Drinking
                                 Here!&quot;
                             </div>
                         </div>
-                    </div>
+                    </React.Fragment>
                 ))}
                 )
             </div>
