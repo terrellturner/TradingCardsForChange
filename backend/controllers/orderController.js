@@ -24,7 +24,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
     // map over the order items and use the price from our items from database
     const dbOrderItems = orderItems.map((itemFromClient) => {
       const matchingItemFromDB = itemsFromDB.find(
-        (itemFromDB) => itemFromDB._id.toString() === itemFromClient._id,
+        (itemFromDB) => itemFromDB._id.toString() === itemFromClient._id
       );
       return {
         ...itemFromClient,
@@ -43,7 +43,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
 
     const order = new Order({
       orderItems: dbOrderItems,
-      user: req.users?._id,
+      user: req.user?._id,
       shippingAddress,
       billingAddress,
       paymentMethod,
@@ -74,7 +74,7 @@ const getCurrentUserOrders = asyncHandler(async (req, res) => {
 const getOrderById = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id).populate(
     "user",
-    "name email",
+    "name email"
   );
 
   if (order) {
@@ -142,8 +142,20 @@ const updateOrderToDelivered = asyncHandler(async (req, res) => {
 //@route    GET request to /api/orders
 //@access   Private/Admin
 const getOrders = asyncHandler(async (req, res) => {
-  const orders = await Order.find({}).populate("user", "id name");
-  res.status(200).json(orders);
+  const pageSize = process.env.PAGINATION_LIMIT;
+  const page = Number(req.query.pageNumber) || 1;
+  const sortField = req.query.sortField || "_id";
+  const sortOrder = req.query.sortOrder || "asc";
+
+  const count = await Order.countDocuments({});
+
+  const sortObj = { [sortField]: sortOrder === "asc" ? 1 : -1 };
+
+  const orders = await Order.find({})
+    .sort(sortObj)
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+  res.json({ orders, page, pages: Math.ceil(count / pageSize) });
 });
 
 export {

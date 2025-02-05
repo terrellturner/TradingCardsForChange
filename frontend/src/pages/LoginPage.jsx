@@ -24,7 +24,11 @@ const LoginPage = () => {
 
     useEffect(() => {
         if (userInfo) {
-            nav(redirect);
+            if (userInfo.requiresPasswordReset) {
+                nav('/reset-password');
+            } else {
+                nav(redirect);
+            }
         }
     }, [userInfo, redirect, nav]);
 
@@ -33,7 +37,6 @@ const LoginPage = () => {
         try {
             const res = await login({ email, password }).unwrap();
             dis(setCredentials({ ...res }));
-            nav(redirect);
         } catch (error) {
             toast.error(error?.data?.message || error.error);
         }

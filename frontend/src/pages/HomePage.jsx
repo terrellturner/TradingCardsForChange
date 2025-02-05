@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductCard from '../components/ProductCard';
 import Message from '../components/Message';
 import { Link } from 'react-router-dom';
-import { useGetProductsQuery } from '../slices/productsApiSlice';
+import { useGetAllProductsQuery } from '../slices/productsApiSlice';
 import { FaUser, FaArrowRight } from 'react-icons/fa';
 import ImageCarousel from '../components/ImageCarousel';
 import { motion, AnimatePresence } from 'motion/react';
@@ -13,8 +13,7 @@ import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 
 const HomePage = () => {
-    const { data, isLoading, error } = useGetProductsQuery();
-    const products = data?.products;
+    const { data, isLoading, error } = useGetAllProductsQuery();
 
     const heroImages = import.meta.env.VITE_HERO_IMG_URLS.split(',');
 
@@ -88,7 +87,7 @@ const HomePage = () => {
                             <div className='relative w-full flex justify-center'>
                                 <Calendar
                                     localizer={localizer}
-                                    events={products.map(product => ({
+                                    events={data.map((product) => ({
                                         title: product.name,
                                         start: new Date(product.startTime),
                                         end: new Date(product.endTime),
@@ -157,7 +156,7 @@ const HomePage = () => {
                         {window.innerWidth < 800 ?
                             (
                                 !isLoading
-                                    ? products.map(
+                                    ? data.map(
                                         (product, index = product._id) => {
                                             const startTime = new Date(
                                                 product.startTime

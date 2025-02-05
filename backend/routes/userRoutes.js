@@ -10,6 +10,7 @@ import {
   getUserById,
   updateUser,
   updatePassword,
+  resetPassword,
 } from "../controllers/userController.js";
 import { protect, admin } from "../middleware/authMiddleware.js";
 
@@ -23,6 +24,7 @@ router
   .get(protect, getUserProfile)
   .put(protect, updateUserProfile);
 router.route("/change-password").put(protect, updatePassword);
+router.route("/reset-password").put(protect, resetPassword);
 router
   .route("/:id")
   .delete(protect, admin, deleteUser)

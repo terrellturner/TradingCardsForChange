@@ -42,7 +42,7 @@ const CheckoutPage = () => {
 
     //Create a new order. Will be deleted
     //If ths user backs out of the transaction.
-    const placeOrderHandler = async () => {
+    const placeOrderHandler = async (payPalOrderId) => {
         try {
             const res = await newOrder({
                 orderItems: cart.cartItems,
@@ -55,6 +55,7 @@ const CheckoutPage = () => {
             }).unwrap();
             dis(clearCart());
             nav(`/order/${res._id}`);
+            console.log(payPalOrderId);
             toast.success("Payment successful.");
         } catch (err) {
             toast.error(err);
@@ -87,7 +88,8 @@ const CheckoutPage = () => {
     function onApprove(data, actions) {
         return actions.order.capture().then(async function (details) {
             try {
-                placeOrderHandler();
+                placeOrderHandler(data.orderID);
+
             } catch (error) {
                 toast.error(error?.data?.message || error.message);
             }

@@ -10,7 +10,10 @@ const authUser = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ email });
 
-  if (user && (await user.matchPassword(password))) {
+  if (
+    (user && (await user.matchPassword(password))) ||
+    user.passwordChangePrompt === true
+  ) {
     generateToken(res, user._id);
 
     res.status(200).json({
@@ -19,6 +22,7 @@ const authUser = asyncHandler(async (req, res) => {
       lastName: user.lastName,
       email: user.email,
       isAdmin: user.isAdmin,
+      requiresPasswordReset: user.passwordChangePrompt,
     });
   } else {
     res.status(401);
@@ -132,10 +136,15 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 const getUsers = asyncHandler(async (req, res) => {
   const pageSize = process.env.PAGINATION_LIMIT;
   const page = Number(req.query.pageNumber) || 1;
+  const sortField = req.query.sortField || "_id";
+  const sortOrder = req.query.sortOrder || "asc";
 
   const count = await User.countDocuments({});
 
+  const sortObj = { [sortField]: sortOrder === "asc" ? 1 : -1 };
+
   const users = await User.find({})
+    .sort(sortObj)
     .limit(pageSize)
     .skip(pageSize * (page - 1));
   res.json({ users, page, pages: Math.ceil(count / pageSize) });
@@ -196,12 +205,33 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
+//@desc Force user to update their password
+//@route PUT /api/users/reset-password
+//@access Private
+const resetPassword = asyncHandler(async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    console.log(userId);
+
+    const user = await User.findById(userId);
+
+    user.passwordChangePrompt = true;
+    await user.save();
+
+    res.json({ message: "User updated successfully." });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server error!" });
+  }
+});
+
 //@desc Update password
-//@route PUT /api/users
+//@route PUT /api/users/change-password
 //@access Private
 const updatePassword = asyncHandler(async (req, res) => {
   try {
-    const { currentPw, newPw } = req.body;
+    const { newPw } = req.body;
     const user = await User.findById(req.user._id);
 
     if (user.passwordChangePrompt === false) {
@@ -210,10 +240,6 @@ const updatePassword = asyncHandler(async (req, res) => {
         message:
           "ERROR: You have not been cleared for password reset! Initiate reset via your profile or contact an administrator.",
       });
-    } else if (!(await user.matchPassword(currentPw))) {
-      return res
-        .status(400)
-        .json({ message: "Your current password is incorrect." });
     }
 
     //Password hashed in userModel before
@@ -239,5 +265,6 @@ export {
   deleteUser,
   getUserById,
   updateUser,
+  resetPassword,
   updatePassword,
 };

@@ -25,11 +25,11 @@ const ImageCarousel = ({ imageUrls }) => {
                     <React.Fragment key={index}>
                         <img
                             src={url}
-                            alt="" key={index}
+                            alt=""
                             className="object-cover w-full h-full rounded-lg carousel-img shrink-0 grow-0"
                             style={{ translate: `${-100 * imageIndex}%` }}
                         />
-                        <div key={index} className="absolute bottom-0 left-0 right-0 flex h-1/5 w-full bg-newsletter-black bg-opacity-35 pl-5 pt-5 font-sans-serif text-3xl text-[#ffffff]">
+                        <div className="absolute bottom-0 left-0 right-0 flex h-1/5 w-full bg-newsletter-black bg-opacity-35 pl-5 pt-5 font-sans-serif text-3xl text-[#ffffff]">
                             <div>
                                 EDH stands for &quot;Everyone&apos;s Drinking
                                 Here!&quot;

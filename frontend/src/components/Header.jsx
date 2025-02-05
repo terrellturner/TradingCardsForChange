@@ -57,7 +57,7 @@ const Header = () => {
                 </Link>
                 <div
                     id="hamburger-btn"
-                    className="z-50 flex h-16 w-16 flex-col items-center justify-center space-y-2 p-3 md:hidden"
+                    className="z-[100] flex h-16 w-16 flex-col items-center justify-center space-y-2 p-3 md:hidden"
                     onClick={toggleNavMenu}
                 >
                     <span className="h-1 w-full bg-ipa-beige"></span>
@@ -137,7 +137,7 @@ const Header = () => {
                     {mobileNavToggle && (
                         <motion.div
                             id="mobile-menu"
-                            className="fixed bottom-0 left-32 right-0 top-0 z-40 flex flex-col items-start space-y-2 bg-hops-green pl-8 pt-32 text-lg text-ipa-beige shadow-2xl md:hidden"
+                            className="fixed bottom-0 left-32 right-0 top-0 z-[90] flex flex-col items-start space-y-2 bg-hops-green pl-8 pt-32 text-lg text-ipa-beige shadow-2xl md:hidden"
                             variants={mobileNavMotionVariants}
                             initial="closed"
                             animate="open"

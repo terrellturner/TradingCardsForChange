@@ -35,11 +35,15 @@ export const usersApiSlice = apiSlice.injectEndpoints({
             }),
         }),
         getUsers: builder.query({
-            query: (pageNumber) => ({
-                url: USERS_URL,
-                params: { pageNumber },
+            query: ({
+                pageNumber = 1,
+                sortField = '_id',
+                sortOrder = 'asc',
+            }) => ({
+                url: '/api/users',
+                params: { pageNumber, sortField, sortOrder },
             }),
-            providesTags: ['Users'],
+            providesTags: ['User'],
             keepUnusedDataFor: 5,
             credentials: 'include',
             mode: 'cors',
@@ -66,6 +70,15 @@ export const usersApiSlice = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ['Users'],
         }),
+        resetPassword: builder.mutation({
+            query: (userId) => ({
+                url: `${USERS_URL}/reset-password`,
+                method: 'PUT',
+                body: { userId },
+                credentials: 'include',
+                mode: 'cors',
+            }),
+        }),
         changePassword: builder.mutation({
             query: (data) => ({
                 url: `${USERS_URL}/change-password`,
@@ -87,4 +100,6 @@ export const {
     useDeleteUserMutation,
     useGetUserDetailsQuery,
     useUpdateUserMutation,
+    useResetPasswordMutation,
+    useChangePasswordMutation,
 } = usersApiSlice;

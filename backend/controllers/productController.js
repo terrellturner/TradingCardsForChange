@@ -1,19 +1,32 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import Product from "../models/productModel.js";
 
-//@desc     Get products
-//@route    GET /api/products
+//@desc     Get products (paginated)
+//@route    GET /api/products/{page}
 //@access   Public
 const getProducts = asyncHandler(async (req, res) => {
   const pageSize = process.env.PAGINATION_LIMIT;
   const page = Number(req.query.pageNumber) || 1;
+  const sortField = req.query.sortField || "_id";
+  const sortOrder = req.query.sortOrder || "asc";
 
   const count = await Product.countDocuments({});
 
+  const sortObj = { [sortField]: sortOrder === "asc" ? 1 : -1 };
+
   const products = await Product.find({})
+    .sort(sortObj)
     .limit(pageSize)
     .skip(pageSize * (page - 1));
   res.json({ products, page, pages: Math.ceil(count / pageSize) });
+});
+
+//@desc     Fetch all products
+//@route    GET /api/products
+//@access   Public
+const getAllProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({});
+  res.json(products);
 });
 
 //@desc     Get product by Id
@@ -29,4 +42,4 @@ const getProductById = asyncHandler(async (req, res) => {
   }
 });
 
-export { getProducts, getProductById };
+export { getProducts, getProductById, getAllProducts };
