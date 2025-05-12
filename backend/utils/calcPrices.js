@@ -5,7 +5,11 @@ function addDecimals(num) {
 export function calcPrices(orderItems) {
   // Calculate the items price
   const itemsPrice = addDecimals(
-    orderItems.reduce((acc, item) => acc + item.price * item.qty, 0),
+    orderItems.reduce((acc, item) => {
+      return item.bookings.map(
+        (booking) => acc + item.price * booking.reservationSeats.qty
+      );
+    }, 0)
   );
   // Calculate the shipping price
   const shippingPrice = addDecimals(itemsPrice > 100 ? 0 : 10);
