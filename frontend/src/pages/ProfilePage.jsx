@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import Message from '../../components/UI/Message';
-import Loader from '../../components/UI/Loader';
-import { toast } from 'react-toastify';
+import { useParams } from 'react-router-dom';
 import {
 	useGetUserDetailsQuery,
 	useUpdateUserMutation,
-} from '../../slices/usersApiSlice';
+} from '../slices/usersApiSlice';
+import { useNavigate, Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import Loader from '../components/UI/Loader';
 
-const EditUserDetailsPage = () => {
+const ProfilePage = () => {
 	const { id: userId } = useParams();
 
 	const [firstName, setFirstName] = useState('');
@@ -56,7 +56,7 @@ const EditUserDetailsPage = () => {
 				</button>
 			</Link>
 			<div className="flex w-full flex-col space-y-5 place-self-center rounded border border-creased-khaki bg-emerald-green p-10 text-off-white md:w-1/2">
-				<h1 className="text-3xl">Edit User</h1>
+				<h1 className="text-3xl">Welcome, {user.firstName}.</h1>
 				{loadingUpdate && <Loader />}
 				{isLoading ? (
 					<Loader />
@@ -117,4 +117,4 @@ const EditUserDetailsPage = () => {
 	);
 };
 
-export default EditUserDetailsPage;
+export default ProfilePage;
