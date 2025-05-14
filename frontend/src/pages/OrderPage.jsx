@@ -1,67 +1,113 @@
 import React from 'react';
 import { useGetOrderDetailsQuery } from '../slices/ordersApiSlice';
 import { useParams } from 'react-router-dom';
-import ProductCard from '../components/ProductCard';
-import { FaCalendar, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaCalendar, FaMapMarkerAlt, FaPrint } from 'react-icons/fa';
 import { motion } from 'motion/react';
 import { defaultMotion } from '../constants';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import * as ics from 'ics';
+import { saveAs } from 'file-saver';
 
 const OrderPage = () => {
-    const { id: orderId } = useParams();
+	const { id: orderId } = useParams();
 
-    const { data: order, isLoading } = useGetOrderDetailsQuery(orderId);
+	const { data: order, isLoading } = useGetOrderDetailsQuery(orderId);
 
-    return isLoading ? (
-        <h2>Please wait...</h2>
-    ) : (
-        <motion.div variants={defaultMotion} initial="initial"
-            animate="open"
-            exit="closed" className="flex w-full grow flex-col items-center justify-center text-center text-off-white">
-            <h3 className="p-4 text-4xl font-bold">
-                Thank you for your purchase!
-            </h3>
-            <div>{order.orderItems.map((item, index) => { })}</div>
-            <div className="flex w-1/3 flex-col flex-wrap items-center divide-y divide-ipa-beige rounded-lg border border-ipa-beige md:min-w-[600px]">
-                {order.orderItems.map((item, index) => {
-                    const startTime = new Date(item.startTime);
-                    const endTime = new Date(item.startTime);
-                    return (
-                        <div
-                            key={item._id}
-                            className="flex w-full flex-col place-items-center justify-center gap-4 py-4 text-off-white md:flex-row lg:space-x-5"
-                        >
-                            <img
-                                src={item.image}
-                                className="aspect-square h-32 rounded-lg object-cover md:h-16"
-                                alt=""
-                            />
-                            <div className="flex flex-col text-left">
-                                <div className="text-xl font-bold">
-                                    {item.name}
-                                </div>
-                                <div>Seats: {item.qty}</div>
-                            </div>
-                            <div>${item.qty * item.price}</div>
-                            <button className="my-2 flex aspect-square place-items-center justify-around rounded-lg border border-ipa-beige p-4 text-ipa-beige lg:p-3">
-                                <FaCalendar />
-                            </button>
-                            <button className="my-2 flex aspect-square place-items-center justify-around rounded-lg border border-ipa-beige p-4 text-ipa-beige lg:p-3">
-                                <FaMapMarkerAlt />
-                            </button>
-                        </div>
-                    );
-                })}
-                <div className="flex w-full flex-row justify-between p-6">
-                    <div className="">Taxes & Other Fees</div>
-                    <div>${order.taxPrice}</div>
-                </div>
-                <div className="flex w-full flex-row justify-between p-6 text-xl font-bold">
-                    <div className="">Total</div>
-                    <div>${order.totalPrice}</div>
-                </div>
-            </div>
-        </motion.div>
-    );
+	const handleCreateEventInviteLink = (item) => {
+		ics.createEvent(
+			{
+				title: item.title,
+				description: item.description,
+				busyStatus: 'BUSY',
+				start: [2018, 1, 15, 6, 30],
+				duration: { minutes: 50 },
+			},
+			(error, value) => {
+				if (error) {
+					console.log(error);
+				}
+				const blob = new Blob([value], { type: 'text/calendar' });
+				saveAs(blob, `${item.title}.ics`);
+				console.log(`Download initiated for${item.title}.ics`);
+			}
+		);
+	};
+
+	return isLoading ? (
+		<h2>Please wait...</h2>
+	) : (
+		<motion.div
+			variants={defaultMotion}
+			initial="initial"
+			animate="open"
+			exit="closed"
+			className="flex w-full grow flex-col items-center justify-center space-y-24 text-center text-off-white"
+		>
+			<h3 className="p-4 text-4xl font-bold">Thank you for your purchase!</h3>
+			<div className="flex w-1/3 flex-col flex-wrap items-center divide-y divide-creased-khaki rounded-lg border border-creased-khaki md:min-w-[600px]">
+				{order.orderItems.map((item, index) => {
+					const startTime = new Date(item.startTime);
+					const endTime = new Date(item.startTime);
+					return (
+						<div
+							key={item._id}
+							className="flex w-full flex-col place-items-center justify-between gap-4 p-4 px-10 text-off-white md:flex-row lg:space-x-5"
+						>
+							<div className="flex flex-row place-items-center space-x-8">
+								<img
+									src={item.image}
+									className="aspect-square h-32 rounded-lg object-cover md:h-16"
+									alt=""
+								/>
+								<div className="flex flex-col text-left">
+									<div className="line-clamp-2 max-w-44 text-lg font-bold">
+										{item.name}
+									</div>
+									<div>Seats: {item.qty}</div>
+								</div>
+							</div>
+							<div className="flex flex-row place-items-center space-x-4">
+								<div>${item.price.toFixed(2)}</div>
+								<button
+									onClick={() => {
+										handleCreateEventInviteLink(item);
+									}}
+									className="my-2 flex aspect-square place-items-center justify-around rounded-lg border border-creased-khaki p-4 text-creased-khaki lg:p-3"
+								>
+									<FaCalendar />
+								</button>
+								<button className="my-2 flex aspect-square place-items-center justify-around rounded-lg border border-creased-khaki p-4 text-creased-khaki lg:p-3">
+									<FaMapMarkerAlt />
+								</button>
+							</div>
+						</div>
+					);
+				})}
+				<div className="flex w-full flex-row justify-between p-6">
+					<div className="font-bold">Placed At:</div>
+					<div className="">
+						{new Date(order.createdAt).toLocaleDateString('en-US')} @{' '}
+						{new Date(order.createdAt).toLocaleTimeString('en-US')}
+					</div>
+				</div>
+				<div className="flex w-full flex-row justify-between p-6">
+					<div className="font-bold">Taxes & Other Fees</div>
+					<div>${order.taxPrice.toFixed(2)}</div>
+				</div>
+				<div className="flex w-full flex-row justify-between p-6 text-2xl font-bold text-creased-khaki">
+					<div className="">Total</div>
+					<div>${order.totalPrice}</div>
+				</div>
+			</div>
+			<button className="flex flex-row place-items-center space-x-1 rounded-lg bg-creased-khaki p-6 font-bold text-noir-de-vigne">
+				<span>
+					<FaPrint />
+				</span>
+				<span>Print</span>
+			</button>
+		</motion.div>
+	);
 };
 
 export default OrderPage;
