@@ -49,6 +49,7 @@ const CheckoutPage = () => {
 				taxPrice: cart.taxPrice,
 				totalPrice: cart.totalPrice,
 			}).unwrap();
+			console.log('Booking created.');
 
 			const orderId = res._id;
 
@@ -67,10 +68,13 @@ const CheckoutPage = () => {
 				)
 			);
 
+			console.log('Order created.');
+
 			dispatch(clearCart());
 			navigate(`/order/${res._id}`);
 			toast.success('Payment successful.');
 		} catch (err) {
+			console.error('Order failed. Full error:', JSON.stringify(err, null, 2));
 			toast.error(err);
 		}
 	};
