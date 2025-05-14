@@ -10,11 +10,7 @@ import bookingRoutes from "./routes/bookingRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import {
-  notFound,
-  errorHandler,
-  ipFilter,
-} from "./middleware/errorMiddleware.js";
+import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 const port = process.env.PORT || 5000;
 
@@ -22,8 +18,6 @@ const app = express();
 
 //Cookie parser middleware
 app.use(cookieParser());
-
-app.use(errorHandler);
 
 connectDB();
 
@@ -44,8 +38,6 @@ app.use(
   })
 );
 
-app.use(ipFilter);
-
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
@@ -62,9 +54,11 @@ app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 app.listen(port, () => console.log(`Server running on port ${port}`));
 
 app.get("/", (req, res) => {
-  res.send("🤷");
+  res.status(200).send("🆗👍");
 });
 
 app.use(notFound);
+
+app.use(errorHandler);
 
 export default app;
