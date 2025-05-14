@@ -14,7 +14,6 @@ const ProfilePage = () => {
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
 	const [email, setEmail] = useState('');
-	const [isAdmin, setIsAdmin] = useState(false);
 
 	const {
 		data: user,
@@ -32,25 +31,28 @@ const ProfilePage = () => {
 			setFirstName(user.firstName);
 			setLastName(user.lastName);
 			setEmail(user.email);
-			setIsAdmin(user.isAdmin);
 		}
 	}, [user]);
 
 	const submitHandler = async (e) => {
 		e.preventDefault();
 		try {
-			await updateUser({ userId, firstName, lastName, email, isAdmin });
+			await updateUser({ userId, firstName, lastName, email });
 			toast.success('User updated!');
 			refetch();
-			navigate('/admin/users');
+			navigate('/');
 		} catch (error) {
 			toast.error(error?.data?.message || error.error);
 		}
 	};
 
+	if (isLoading) {
+		return <Loader />;
+	}
+
 	return (
 		<div className="space-y-5 p-10">
-			<Link to="/admin/users">
+			<Link to="/">
 				<button className="rounded-lg border border-creased-khaki bg-emerald-green p-3 text-creased-khaki">
 					Go Back
 				</button>
@@ -60,8 +62,6 @@ const ProfilePage = () => {
 				{loadingUpdate && <Loader />}
 				{isLoading ? (
 					<Loader />
-				) : error ? (
-					<Message variant="danger">{error.data.message}</Message>
 				) : (
 					<form onSubmit={submitHandler} className="space-y-3">
 						<fieldset id="name" className="flex flex-col space-y-1">
@@ -92,16 +92,6 @@ const ProfilePage = () => {
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
 								className="p-2 text-black"
-							></input>
-						</fieldset>
-						<fieldset id="isAdmin" className="my-2">
-							<a>Is Admin?</a>
-							<input
-								type="checkbox"
-								label="Is Admin?"
-								checked={isAdmin}
-								onChange={(e) => setIsAdmin(e.target.checked)}
-								className="mx-2"
 							></input>
 						</fieldset>
 						<button
