@@ -40,8 +40,8 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
         getOrders: builder.query({
             query: ({
                 pageNumber = 1,
-                sortField = '_id',
-                sortOrder = 'asc',
+                sortField = 'createdAt',
+                sortOrder = 'desc',
             }) => ({
                 url: `${ORDERS_URL}`,
                 params: { pageNumber, sortField, sortOrder },
