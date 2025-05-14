@@ -1,96 +1,117 @@
-@import url('https://p.typekit.net/p.css?s=1&k=bby2nwg&ht=tk&f=45555.45556&a=4076894&app=typekit&e=css');
-@import url('https://use.typekit.net/bby2nwg.css');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 .carousel-btn > * {
-    stroke: theme('colors.newsletter-black');
-    fill: #ffffff;
-    stroke-width: 1rem;
-    height: 2.5rem;
-    width: 2.5rem;
+	stroke: theme('colors.noir-de-vigne');
+	fill: #ffffff;
+	stroke-width: 1rem;
+	height: 2.5rem;
+	width: 2.5rem;
 }
 
 .carousel-btn:hover {
-    background-color: theme('colors.opaque-newsletter-black');
+	background-color: theme('colors.opaque-noir-de-vigne');
 }
 
 .carousel-img {
-    transition: translate 300ms ease-in-out;
+	transition: translate 300ms ease-in-out;
 }
 
 #header-logo {
-    fill: theme('colors.ipa-beige') !important;
-    stroke: theme('colors.ipa-beige') !important;
+	fill: theme('colors.creased-khaki') !important;
+	stroke: theme('colors.creased-khaki') !important;
 }
 
 #mobile-slide-out {
-    animation: slide-out 4s ease-in-out;
+	animation: slide-out 4s ease-in-out;
 }
 
 /* React Big Calendar */
 
 .rbc-today {
-    background-color: theme('colors.hops-green');
+	background-color: theme('colors.emerald-green');
 }
 
 .rbc-month-view {
-    border: 2px solid theme('colors.ipa-beige');
-    border-radius: 1rem;
-    overflow: hidden;
+	border: 2px solid theme('colors.creased-khaki');
+	border-radius: 1rem;
+	overflow: hidden;
 }
 
 .rbc-now {
-    font-size: 1.2rem;
-    font-weight: bold;
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
+.rbc-event {
+	color: theme('colors.noir-de-vigne');
+	font-weight: bold;
+	background-color: theme('colors.creased-khaki');
+	width: 93%;
+	margin: auto auto auto auto;
+}
+
+.rbc-event.rbc-selected {
+	color: theme('colors.noir-de-vigne');
+	font-weight: bold;
+	background-color: theme('colors.creased-khaki');
+}
+
+.rbc-event-content {
+	background-color: theme('colors.creased-khaki');
 }
 
 .rbc-date-cell {
-    font-size: 1.2rem;
-    font-weight: bold;
+	font-size: 1.2rem;
+	font-weight: bold;
 }
 
 .rbc-off-range-bg {
-    background-color: theme('colors.newsletter-black');
+	background-color: theme('colors.noir-de-vigne');
 }
 
 .rbc-off-range {
-    font-size: 0.9rem;
+	font-size: 0.9rem;
 }
 
 .rbc-header {
-    border-bottom: 2px solid theme('colors.ipa-beige');
+	border-bottom: 2px solid theme('colors.creased-khaki');
 }
 
 .rbc-toolbar button {
-    color: theme('colors.ipa-beige');
-    background-color: theme('colors.newsletter-black');
-    border: 1px solid theme('colors.ipa-beige');
+	color: theme('colors.creased-khaki');
+	background-color: theme('colors.noir-de-vigne');
+	border: 1px solid theme('colors.creased-khaki');
 }
 
 .rbc-day-bg + .rbc-day-bg {
-    border-left: 2px solid theme('colors.ipa-beige');
+	border-left: 2px solid theme('colors.creased-khaki');
 }
 
 .rbc-month-row + .rbc-month-row {
-    border-top: 2px solid theme('colors.ipa-beige');
+	border-top: 2px solid theme('colors.creased-khaki');
 }
 
 .rbc-header + .rbc-header {
-    border-left: 2px solid theme('colors.ipa-beige');
+	border-left: 2px solid theme('colors.creased-khaki');
+}
+
+.rbc-toolbar {
+	font-weight: bold;
 }
 
 .rbc-toolbar-label {
-    font-size: 1.6rem;
-    font-weight: bold;
+	font-size: 1.6rem;
+	font-weight: bold;
 }
 
 .rbc-toolbar button:active,
 .rbc-toolbar button.rbc-active {
-    background-image: none;
-    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    background-color: theme('colors.ipa-beige');
-    border-color: theme('colors.ipa-beige');
-    color: theme('colors.newsletter-black');
-    font-weight: bold;
+	background-image: none;
+	box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+	background-color: theme('colors.creased-khaki');
+	border-color: theme('colors.creased-khaki');
+	color: theme('colors.noir-de-vigne');
+	font-weight: bold;
 }
 
 div.rbc-toolbar button:hover,
@@ -99,17 +120,20 @@ div.rbc-toolbar button:active:hover,
 div.rbc-toolbar button:active:focus,
 div.rbc-toolbar button.rbc-active:hover,
 div.rbc-toolbar button.rbc-active:focus {
-    background-color: theme('colors.newsletter-black');
+	background-color: theme('colors.creased-khaki');
+	color: theme('colors.noir-de-vigne');
+	border-color: theme('colors.creased-khaki');
+	font-weight: bold;
 }
 
 @keyframes mobile-slide-out {
-    100% {
-        left: 0;
-    }
+	100% {
+		left: 0;
+	}
 }
 
 @keyframes mobile-slide-out {
-    100% {
-        left: 2rem;
-    }
+	100% {
+		left: 2rem;
+	}
 }
