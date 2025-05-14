@@ -30,7 +30,7 @@ const LoginPage = () => {
 				navigate(redirect);
 			}
 		}
-	}, [userInfo, redirect, nav]);
+	}, [userInfo, redirect, navigate]);
 
 	const submitHandler = async (e) => {
 		e.preventDefault();

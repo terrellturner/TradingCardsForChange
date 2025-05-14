@@ -57,7 +57,7 @@ const CartPage = () => {
 						return item.bookings.map((booking) => (
 							<div
 								key={booking.bookingDate}
-								className="flex flex-col space-y-8 rounded-lg border border-creased-khaki p-5 text-off-white text-white md:w-full md:min-w-[420px] md:flex-row md:space-x-8"
+								className="flex flex-col space-y-8 rounded-lg border border-creased-khaki p-5  text-white md:w-full md:min-w-[420px] md:flex-row md:space-x-8"
 							>
 								<img
 									src={item.image}
