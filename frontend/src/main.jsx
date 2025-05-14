@@ -26,8 +26,9 @@ import UserDetailPage from './pages/admin/UserDetailPage.jsx';
 import ProductListPage from './pages/admin/ProductListPage.jsx';
 import ProductDetailPage from './pages/admin/ProductDetailPage.jsx';
 import OrdersPage from './pages/admin/OrderListPage.jsx';
-import ResetPasswordRoute from './components/routes/ResetPasswordRoute.jsx';
+import AuthenticatedUserRoute from './components/routes/AuthenticatedUserRoute.jsx';
 import ResetPassword from './pages/PasswordResetPage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -40,9 +41,10 @@ const router = createBrowserRouter(
 			<Route path="/login" element={<LoginPage />}></Route>
 			<Route path="/reset-password" element={<ResetPassword />}></Route>
 
-			<Route element={<ResetPasswordRoute />}>
-				<Route path="/checkout/" element={<CheckoutPage />}></Route>
+			<Route element={<AuthenticatedUserRoute />}>
+				<Route path="/checkout/" element={<CheckoutPage />} />
 				<Route path="/order/:id" element={<OrderPage />} />
+				<Route path="/user/:id/" element={<ProfilePage />} />
 
 				<Route path="" element={<AdminRoute />}>
 					<Route path="/admin/products" element={<ProductListPage />} />
