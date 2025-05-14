@@ -10,6 +10,18 @@ const authUser = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ email });
 
+  if (!user) {
+    res.status(401);
+    throw new Error("Error! Invalid email or password.");
+  }
+
+  if (user.isDeactivated) {
+    res.status(403);
+    throw new Error(
+      "Error! Your account has been deactivated. Contact your administrator."
+    );
+  }
+
   if (
     (user && (await user.matchPassword(password))) ||
     user.passwordChangePrompt === true
@@ -193,6 +205,7 @@ const updateUser = asyncHandler(async (req, res) => {
     user.lastName = req.body.lastName || user.lastName;
     user.email = req.body.email || user.email;
     user.isAdmin = Boolean(req.body.isAdmin);
+    user.isDeactivated = req.body.isDeactivated || user.isDeactivated;
 
     const updatedUser = await user.save();
     res.status(200).json({
@@ -201,6 +214,7 @@ const updateUser = asyncHandler(async (req, res) => {
       lastName: updatedUser.lastName,
       email: updatedUser.email,
       isAdmin: updatedUser.isAdmin,
+      isDeactivated: updatedUser.isDeactivated,
     });
   }
 });

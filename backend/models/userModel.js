@@ -30,6 +30,11 @@ const userSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
+    isDeactivated: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   { timestamps: true }
 );
