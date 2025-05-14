@@ -28,6 +28,8 @@ export const bookingApiSlice = apiSlice.injectEndpoints({
 				url: `${BOOKINGS_URL}/${bookingId}`,
 				method: 'PUT',
 				body: { status },
+				credentials: 'include',
+				mode: 'cors',
 			}),
 			invalidatesTags: ['Products'],
 		}),
