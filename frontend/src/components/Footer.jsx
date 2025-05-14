@@ -1,12 +1,11 @@
-import React from "react";
+import React from 'react';
 
 const Footer = () => {
-  return (
-    <header>
-      <nav className="flex flex-row items-center justify-between font-bold text-white h-10 bg-hops-green">
-      </nav>
-    </header>
-  );
+	return (
+		<header>
+			<nav className="bg-emerald-green flex h-10 flex-row items-center justify-between font-bold text-white"></nav>
+		</header>
+	);
 };
 
 export default Footer;

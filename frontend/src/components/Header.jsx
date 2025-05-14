@@ -7,6 +7,8 @@ import { useLogoutMutation } from '../slices/usersApiSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../slices/authSlice';
 import { clearCart } from '../slices/cartSlice';
+import { HashLink } from 'react-router-hash-link';
+import Logo from '../components/UI/Logo';
 
 const Header = () => {
 	const { cartItems } = useSelector((state) => state.cart);
@@ -44,16 +46,11 @@ const Header = () => {
 		<header>
 			<nav className="flex h-24 w-full flex-row items-center justify-between bg-emerald-green px-10 font-bold text-white lg:justify-around lg:px-0">
 				<Link to="/" className="group flex h-full items-center text-center">
-					<span className=" mx-10 hidden w-48 font-elfreth text-3xl font-thin text-creased-khaki md:flex">
-						Twin Cities Brew Crew
+					<span className=" mx-10 hidden w-48 font-serif text-2xl font-thin uppercase text-creased-khaki md:flex">
+						Trading Cards For Change
 					</span>
-					<img
-						src="https://pmv1txxicxtao8iw.public.blob.vercel-storage.com/TCBC_Simple-r6cEbuoDVCCu3R6efh1z7i0k5l24BL.svg"
-						alt=""
-						id="header-logo"
-						className="block h-full w-full fill-creased-khaki stroke-creased-khaki py-2 md:hidden"
-					/>
 				</Link>
+				<Logo classNames={`md:hidden flex`} />
 				<div
 					id="hamburger-btn"
 					className="z-[100] flex h-16 w-16 flex-col items-center justify-center space-y-2 p-3 md:hidden"
@@ -66,7 +63,9 @@ const Header = () => {
 				<div className="hidden h-full items-center justify-center text-[#ffffff] md:mr-4 md:flex md:space-x-8 md:text-lg">
 					<div className="group flex flex-row items-center justify-center">
 						<FaCalendar className="m-1 inline-block fill-creased-khaki" />
-						<Link to="/events">Events</Link>
+						<HashLink smooth to={`/#calendar`}>
+							Events
+						</HashLink>
 					</div>
 					<div className="group flex flex-row items-center justify-center">
 						<FaSeedling className="m-1 inline-block fill-creased-khaki" />
@@ -113,7 +112,7 @@ const Header = () => {
 							<ul className="flex flex-col">
 								<li
 									onClick={() => {
-										navigate('/profile');
+										navigate(`/user/${userInfo._id}`);
 									}}
 								>
 									Profile
@@ -154,7 +153,9 @@ const Header = () => {
 						>
 							<div className="group">
 								<FaCalendar className="m-1 inline-block" />
-								<Link to="/events">Events</Link>
+								<HashLink smooth to={`/#calendar`}>
+									Events
+								</HashLink>
 							</div>
 							<div className="group">
 								<FaSeedling className="m-1 inline-block" />
