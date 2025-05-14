@@ -27,7 +27,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: process.env.CORS_DOMAINS.split(","),
+    origin:
+      process.env.CORS_DOMAINS ?
+        process.env.CORS_DOMAINS.split(",").map((item) => item.trim())
+      : [],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
