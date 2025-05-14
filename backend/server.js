@@ -27,10 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: [
-      "https://tradingcardsforchange-frontend.onrender.com/",
-      "http://localhost:5173",
-    ],
+    origin: process.env.CORS_DOMAINS.split(","),
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
