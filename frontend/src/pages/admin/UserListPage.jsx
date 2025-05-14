@@ -23,7 +23,6 @@ import { toast } from 'react-toastify';
 import Pagination from '../../components/UI/Pagination';
 import SortDropdown from '../../components/SortDropdown';
 import ConfirmationPrompt from '../../components/UI/ConfirmationPrompt';
-import Message from '../../components/UI/Message';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const UserListPage = () => {
@@ -126,7 +125,8 @@ const UserListPage = () => {
 	if (isLoading || loadingDeleteUser || loadingPasswordReset || loadingUpdate) {
 		return <Loader />;
 	} else if (error) {
-		return <Message>{error.data?.message || error.error}</Message>;
+		toast.error(error?.data?.message || error.error);
+		return;
 	}
 
 	return (

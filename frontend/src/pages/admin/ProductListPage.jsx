@@ -29,7 +29,6 @@ import Pagination from '../../components/UI/Pagination';
 import SortDropdown from '../../components/SortDropdown';
 import { PRODUCTS_URL } from '../../constants';
 import ConfirmationPrompt from '../../components/UI/ConfirmationPrompt';
-import Message from '../../components/UI/Message';
 
 const ProductListPage = () => {
 	const navigate = useNavigate();
@@ -139,7 +138,8 @@ const ProductListPage = () => {
 	if (isLoading || loadingCreateProduct || loadingDeleteProduct) {
 		return <Loader />;
 	} else if (error) {
-		return <Message>{error.data?.message || error.error}</Message>;
+		toast.error(error?.data?.message || error.error);
+		return;
 	}
 
 	return (

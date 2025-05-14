@@ -1,5 +1,4 @@
 import React from 'react';
-import Message from '../components/UI/Message';
 import { useGetAllProductsQuery } from '../slices/productsApiSlice';
 import { motion } from 'framer-motion';
 import Loader from '../components/UI/Loader';
@@ -11,6 +10,7 @@ import CalendarSection from '../components/Homepage/CalendarSection';
 import MobileEventSection from '../components/Homepage/MobileEventSection';
 import { selectEvents } from '../utils/processedEventsSelectors';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const HomePage = () => {
 	const { data: products, isLoading, error } = useGetAllProductsQuery();
@@ -32,9 +32,8 @@ const HomePage = () => {
 	}
 
 	if (error) {
-		return (
-			<Message variant="danger">{error.data?.message || error.error}</Message>
-		);
+		toast.error(error?.data?.message || error.error);
+		return;
 	}
 
 	return (

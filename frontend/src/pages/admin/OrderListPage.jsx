@@ -18,7 +18,7 @@ import Loader from '../../components/UI/Loader';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import Pagination from '../../components/UI/Pagination';
 import SortDropdown from '../../components/SortDropdown';
-import Message from '../../components/UI/Message';
+import { toast } from 'react-toastify';
 
 const OrderListPage = () => {
 	const tableHeaders = [
@@ -65,7 +65,8 @@ const OrderListPage = () => {
 	if (isLoading) {
 		return <Loader />;
 	} else if (error) {
-		return <Message>{error.data?.message || error.error}</Message>;
+		toast.error(error?.data?.message || error.error);
+		return <Loader />;
 	}
 
 	return (

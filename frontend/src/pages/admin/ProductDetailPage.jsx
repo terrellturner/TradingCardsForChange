@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import Message from '../../components/UI/Message';
 import Loader from '../../components/UI/Loader';
 import { toast } from 'react-toastify';
 import {
@@ -248,8 +247,6 @@ const ProductDetailPage = () => {
 				{loadingUpdate && <Loader />}
 				{isLoading ? (
 					<Loader />
-				) : error ? (
-					<Message variant="danger">{error.data.message}</Message>
 				) : (
 					<>
 						<form
