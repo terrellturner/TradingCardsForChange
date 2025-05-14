@@ -36,6 +36,7 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
   })
 );
+console.log(`CORS configured to allow origins: ${process.env.CORS_DOMAINS}`);
 
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
