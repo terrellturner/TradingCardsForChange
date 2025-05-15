@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
+#header-logo {
+	fill: theme('colors.creased-khaki') !important;
+	stroke: theme('colors.creased-khaki') !important;
+}
+
+#mobile-slide-out {
+	animation: slide-out 4s ease-in-out;
+}
+
 .carousel-btn > * {
 	stroke: theme('colors.noir-de-vigne');
 	fill: #ffffff;
@@ -16,13 +25,8 @@
 	transition: translate 300ms ease-in-out;
 }
 
-#header-logo {
-	fill: theme('colors.creased-khaki') !important;
-	stroke: theme('colors.creased-khaki') !important;
-}
-
-#mobile-slide-out {
-	animation: slide-out 4s ease-in-out;
+.loading-logo-spin {
+	animation: slow-spin 10s ease-in-out infinite;
 }
 
 /* React Big Calendar */
@@ -135,5 +139,11 @@ div.rbc-toolbar button.rbc-active:focus {
 @keyframes mobile-slide-out {
 	100% {
 		left: 2rem;
+	}
+}
+
+@keyframes slow-spin {
+	to {
+		transform: rotate(360deg);
 	}
 }

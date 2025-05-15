@@ -7,9 +7,9 @@ import WavyDecorationBottom from '/images/wave-bottom.svg?&react';
 
 const IntroductionSection = () => {
 	return (
-		<motion.div className="flex w-full flex-col overflow-hidden pb-10 text-center">
+		<motion.div className="flex w-full flex-col overflow-hidden text-center">
 			<img src={WavyDecorationTop} alt="" className="-mt-28 md:mt-0" />
-			<div className="space-y-10 bg-egyptian-earth px-10 py-10 pt-44 lg:px-0">
+			<div className="space-y-10 bg-egyptian-earth px-10 py-10 pt-44 md:pt-0 lg:px-0">
 				<a className="text-xl text-noir-de-vigne">Welcome to</a>
 				<h2 className="flex flex-col px-2 font-serif text-6xl text-creased-khaki md:text-7xl lg:px-64 xl:px-96">
 					<a>Trading Cards For Change!</a>
