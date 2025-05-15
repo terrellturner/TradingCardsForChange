@@ -29,10 +29,8 @@ const ImageCarousel = ({ imageUrls }) => {
 							className="carousel-img h-full w-full shrink-0 grow-0 rounded-lg object-cover"
 							style={{ translate: `${-100 * imageIndex}%` }}
 						/>
-						<div className="absolute bottom-0 left-0 right-0 flex w-full bg-noir-de-vigne bg-opacity-35 pb-2 pl-5 pt-5 font-sans-serif text-3xl text-[#ffffff] md:h-1/5 md:pb-0">
-							<div>
-								EDH stands for &quot;Everyone&apos;s Drinking Here!&quot;
-							</div>
+						<div className="absolute bottom-0 left-0 right-0 flex w-full overflow-hidden truncate bg-noir-de-vigne bg-opacity-35 pb-2 pl-5 pt-5 font-sans-serif text-2xl text-[#ffffff] md:h-1/5 md:pb-0">
+							<div>Order a brew and crack open some packs this weekend!</div>
 						</div>
 					</React.Fragment>
 				))}

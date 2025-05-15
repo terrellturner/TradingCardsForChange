@@ -42,7 +42,7 @@ const HomePage = () => {
 			initial="initial"
 			animate="open"
 			exit="closed"
-			className="my-10 flex h-full grow flex-col items-center space-y-10 bg-noir-de-vigne md:space-y-10"
+			className="flex h-full grow flex-col items-center bg-noir-de-vigne md:space-y-10"
 		>
 			<HeroSection />
 			<IntroductionSection />

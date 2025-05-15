@@ -6,7 +6,7 @@ const HeroSection = () => {
 	const heroImages = import.meta.env.VITE_HERO_IMG_URLS.split(',');
 	return (
 		<div className="flex w-full flex-row place-items-center justify-center px-6 md:px-16 lg:space-x-6">
-			<Logo />
+			<Logo classNames={`hidden lg:flex`} />
 			<ImageCarousel imageUrls={heroImages} />
 		</div>
 	);

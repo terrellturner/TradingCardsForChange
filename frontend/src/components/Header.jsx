@@ -74,7 +74,7 @@ const Header = () => {
 					<div className="group">
 						<Link
 							to="/cart"
-							className="flex flex-row items-center justify-center "
+							className="flex flex-row items-center justify-center"
 						>
 							<FaShoppingCart className="m-1 inline-block fill-creased-khaki" />
 							Cart
@@ -89,7 +89,7 @@ const Header = () => {
 						</Link>
 					</div>
 					<div
-						className="group relative flex cursor-pointer flex-row items-center justify-center"
+						className="group relative flex cursor-pointer flex-row flex-nowrap items-center justify-center"
 						onClick={() => {
 							userInfo && setUserButtonToggle(!userButtonToggle);
 						}}

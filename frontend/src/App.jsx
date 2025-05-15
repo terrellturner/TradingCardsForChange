@@ -13,7 +13,7 @@ const App = () => {
 	return (
 		<div className="flex min-h-dvh flex-col justify-between">
 			<Header />
-			<main id="main" className="flex grow flex-col bg-noir-de-vigne">
+			<main id="main" className="flex grow flex-col bg-noir-de-vigne md:py-20">
 				<AnimatePresence mode="wait" initial={false}>
 					<Outlet key={location.pathname} />
 				</AnimatePresence>

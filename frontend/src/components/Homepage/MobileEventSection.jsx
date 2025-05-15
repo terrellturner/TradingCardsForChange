@@ -32,7 +32,7 @@ const MobileEventSection = ({ mobileEvents }) => {
 		},
 	};
 	return (
-		<div className="mx-auto grid w-4/5 max-w-[90rem] grid-cols-1 gap-10 md:hidden md:min-h-[70dvh] md:grid-cols-2 2xl:grid-cols-3">
+		<div className="mx-auto my-10 grid w-4/5 max-w-[90rem] grid-cols-1 gap-10 md:hidden md:min-h-[70dvh] md:grid-cols-2 2xl:grid-cols-3">
 			<AnimatePresence>
 				{mobileEvents.slice(0, 10).map((product, index) => {
 					return (
