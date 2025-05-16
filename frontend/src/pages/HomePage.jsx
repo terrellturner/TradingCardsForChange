@@ -56,17 +56,19 @@ const HomePage = () => {
 		>
 			<HeroSection sortedEvents={sortedEventsLatest} />
 			<IntroductionSection />
-			<CalendarSection
-				isLoading={isLoading}
-				products={products}
-				eventList={sortedEvents}
-			/>
-			{/* Mobile list view <800px */}
-			<MobileEventSection
-				isLoading={isLoading}
-				products={products}
-				mobileEvents={sortedEventsLatest}
-			/>
+			<div id="events" className="w-full">
+				<CalendarSection
+					isLoading={isLoading}
+					products={products}
+					eventList={sortedEvents}
+				/>
+				{/* Mobile list view <800px */}
+				<MobileEventSection
+					isLoading={isLoading}
+					products={products}
+					mobileEvents={sortedEventsLatest}
+				/>
+			</div>
 		</motion.div>
 	);
 };

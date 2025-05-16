@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
-import { FaShoppingCart, FaUser, FaCalendar, FaSeedling } from 'react-icons/fa';
+import {
+	FaShoppingCart,
+	FaUser,
+	FaCalendar,
+	FaSeedling,
+	FaDoorOpen,
+} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { useSelector, useDispatch } from 'react-redux';
@@ -53,11 +59,13 @@ const Header = () => {
 						Trading Cards For Change
 					</span>
 				</Link>
-				<img
-					src={CafeLogoOnly}
-					className="aspect-square h-full py-3 md:hidden"
-					alt=""
-				/>
+				<Link to={'/'}>
+					<img
+						src={CafeLogoOnly}
+						className="aspect-square h-full py-3 md:hidden"
+						alt=""
+					/>
+				</Link>
 				<div
 					id="hamburger-btn"
 					className="z-[100] flex h-16 w-16 flex-col items-center justify-center space-y-2 p-3 md:hidden"
@@ -70,7 +78,7 @@ const Header = () => {
 				<div className="hidden h-full items-center justify-center text-creased-khaki md:mr-4 md:flex md:space-x-8 md:text-lg">
 					<div className="group flex flex-row items-center justify-center">
 						<FaCalendar className="m-1 inline-block fill-egyptian-earth" />
-						<HashLink smooth to={`/#calendar`}>
+						<HashLink smooth to={`/#events`}>
 							Events
 						</HashLink>
 					</div>
@@ -117,13 +125,7 @@ const Header = () => {
 							className={`absolute top-8 z-50 whitespace-nowrap rounded-md border border-creased-khaki bg-emerald-green p-3 ${userButtonToggle ? '' : 'invisible'}`}
 						>
 							<ul className="flex flex-col">
-								<li
-									onClick={() => {
-										navigate(`/user/${userInfo._id}`);
-									}}
-								>
-									Profile
-								</li>
+								<Link to={`/user/${userInfo._id}`}>Profile</Link>
 								<li onClick={logoutHandler}>Logout</li>
 								{userInfo && userInfo.isAdmin && (
 									<>
@@ -152,24 +154,33 @@ const Header = () => {
 					{mobileNavToggle && (
 						<motion.div
 							id="mobile-menu"
-							className="fixed bottom-0 left-32 right-0 top-0 z-[90] flex flex-col items-start space-y-2 bg-emerald-green pl-8 pt-32 text-lg text-creased-khaki shadow-2xl md:hidden"
+							className="fixed bottom-0 left-32 right-0 top-0 z-[90] flex flex-col items-start space-y-2 bg-emerald-green pl-8 pt-32 text-xl text-creased-khaki shadow-2xl md:hidden"
 							variants={mobileNavMotionVariants}
 							initial="closed"
 							animate="open"
 							exit="closed"
 						>
+							{userInfo ? (
+								<div className="p-3 text-3xl text-egyptian-earth">
+									Hi, {userInfo?.firstName}!
+								</div>
+							) : (
+								''
+							)}
 							<div className="group">
 								<FaCalendar className="m-1 inline-block" />
-								<HashLink smooth to={`/#calendar`}>
+								<HashLink onClick={toggleNavMenu} smooth to={`/#events`}>
 									Events
 								</HashLink>
 							</div>
 							<div className="group">
 								<FaSeedling className="m-1 inline-block" />
-								<Link to="/about">About Us</Link>
+								<Link onClick={toggleNavMenu} to="/about">
+									About Us
+								</Link>
 							</div>
 							<div className="group">
-								<Link to="/cart">
+								<Link onClick={toggleNavMenu} to="/cart">
 									<FaShoppingCart className="m-1 inline-block" />
 									Cart
 									{cartItems?.length > 0 && (
@@ -179,37 +190,29 @@ const Header = () => {
 									)}
 								</Link>
 							</div>
-							<div
-								className="group relative cursor-pointer truncate"
-								onClick={() => {
-									userInfo && setUserButtonToggle(!userButtonToggle);
-								}}
-							>
-								<FaUser className="m-1 inline-block" />
-								{userInfo ? (
-									userInfo.lastName ? (
-										<a>
-											{userInfo.firstName} {userInfo.lastName}
-										</a>
-									) : (
-										<a>{userInfo.firstName}</a>
-									)
-								) : (
-									<Link to="/login">Log In</Link>
-								)}
-								<div className={`${userButtonToggle ? 'invisible' : ''}`}>
-									<ul className="flex flex-col">
-										<li
-											onClick={() => {
-												navigate('/profile');
-											}}
-										>
-											Profile
-										</li>
-										<li onClick={logoutHandler}>Logout</li>
-									</ul>
-								</div>
-							</div>
+							{userInfo ? (
+								<>
+									<Link
+										to={`/user/${userInfo._id}`}
+										onClick={toggleNavMenu}
+										className="flex flex-row items-center justify-center"
+									>
+										<FaUser className="m-1" /> Profile
+									</Link>
+									<Link
+										to={`/user/${userInfo._id}`}
+										onClick={() => {
+											logoutHandler();
+											toggleNavMenu();
+										}}
+										className="flex flex-row items-center justify-center"
+									>
+										<FaDoorOpen className="m-1" /> Logout
+									</Link>
+								</>
+							) : (
+								<Link to="/login">Log In</Link>
+							)}
 						</motion.div>
 					)}
 				</AnimatePresence>

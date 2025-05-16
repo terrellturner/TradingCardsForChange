@@ -26,7 +26,7 @@ const IntroductionSection = () => {
 					<span>Our Story</span> <FaArrowRight className="-mb-1" />
 				</Link>
 			</div>
-			<img src={WavyDecorationBottom} alt="" />
+			<img src={WavyDecorationBottom} alt="" className="-mt-1" />
 		</motion.div>
 	);
 };
