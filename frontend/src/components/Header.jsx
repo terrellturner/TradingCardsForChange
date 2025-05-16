@@ -125,7 +125,7 @@ const Header = () => {
 							className={`absolute top-8 z-50 whitespace-nowrap rounded-md border border-creased-khaki bg-emerald-green p-3 ${userButtonToggle ? '' : 'invisible'}`}
 						>
 							<ul className="flex flex-col">
-								<Link to={`/user/${userInfo._id}`}>Profile</Link>
+								<Link to={`/user/${userInfo?._id}`}>Profile</Link>
 								<li onClick={logoutHandler}>Logout</li>
 								{userInfo && userInfo.isAdmin && (
 									<>
