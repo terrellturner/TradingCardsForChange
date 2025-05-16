@@ -26,7 +26,7 @@
 }
 
 .loading-logo-spin {
-	animation: slow-spin 10s ease-in-out infinite;
+	animation: slow-spin 20s linear infinite;
 }
 
 /* React Big Calendar */

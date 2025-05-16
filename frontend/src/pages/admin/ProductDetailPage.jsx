@@ -100,7 +100,8 @@ const ProductDetailPage = () => {
 			brand,
 			category,
 			cardSet,
-			countInStock,
+			// Setting the "count" to the max capacity value. Update to determine if it's an event vs. a product in the future.
+			maximumEventCapacity: countInStock,
 			description,
 			type,
 			eventLocation,
@@ -198,7 +199,7 @@ const ProductDetailPage = () => {
 			setBrand(product.brand ?? '');
 			setCategory(product.category ?? '');
 			setCardSet(product.cardSet ?? '');
-			setCountInStock(product.countInStock ?? 0);
+			setCountInStock(product.maximumEventCapacity ?? 0);
 			setDescription(product.description ?? '');
 			setType(product.type ?? '');
 			setEventLocation(product.eventLocation ?? '');
@@ -253,8 +254,8 @@ const ProductDetailPage = () => {
 							onSubmit={submitHandler}
 							className="grid-col grid w-full grid-cols-2 flex-wrap gap-4"
 						>
-							{/* Product Type */}
-							<fieldset
+							{/* Product Type - On hold for MVP. */}
+							{/* <fieldset
 								id="type"
 								className="col-span-2 flex flex-col space-y-1"
 							>
@@ -267,7 +268,7 @@ const ProductDetailPage = () => {
 									<option value="product">Product</option>
 									<option value="event">Event</option>
 								</select>
-							</fieldset>
+							</fieldset> */}
 							{/* Product Title/Name */}
 							<fieldset
 								id="name"
@@ -349,6 +350,17 @@ const ProductDetailPage = () => {
 									placeholder="Enter card set"
 									value={cardSet}
 									onChange={(e) => setCardSet(e.target.value)} // Corrected onChange
+									className="p-2 text-black"
+								></input>
+							</fieldset>
+							{/* Location of the event as a string.*/}
+							<fieldset id="cardSet" className="flex flex-col space-y-1">
+								<label className="font-bold">Event Location</label>
+								<input
+									type="text"
+									placeholder="Enter event location"
+									value={eventLocation}
+									onChange={(e) => setEventLocation(e.target.value)} // Corrected onChange
 									className="p-2 text-black"
 								></input>
 							</fieldset>

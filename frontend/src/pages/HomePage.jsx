@@ -24,8 +24,18 @@ const HomePage = () => {
 	} = useSelector(selectEvents);
 
 	const sortedEvents = events.sort((a, b) => {
-		return new Date(a.start) - new Date(b.start);
+		return new Date(b.startTime) - new Date(a.startTime);
 	});
+	const sortedEventsLatest = events
+		.filter((event) => {
+			return new Date(event.startTime) >= new Date();
+		})
+		.sort((a, b) => {
+			return new Date(a.startTime) - new Date(b.startTime);
+		})
+		.slice(0, 5);
+
+	console.log(sortedEventsLatest);
 
 	if (isLoading || isEventListLoading) {
 		return <Loader />;
@@ -44,7 +54,7 @@ const HomePage = () => {
 			exit="closed"
 			className="flex h-full grow flex-col items-center bg-noir-de-vigne "
 		>
-			<HeroSection />
+			<HeroSection sortedEvents={sortedEventsLatest} />
 			<IntroductionSection />
 			<CalendarSection
 				isLoading={isLoading}
@@ -55,7 +65,7 @@ const HomePage = () => {
 			<MobileEventSection
 				isLoading={isLoading}
 				products={products}
-				mobileEvents={sortedEvents}
+				mobileEvents={sortedEventsLatest}
 			/>
 		</motion.div>
 	);

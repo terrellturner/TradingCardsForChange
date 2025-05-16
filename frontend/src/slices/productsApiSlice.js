@@ -12,6 +12,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
 			keepUnusedDataFor: 5,
 			credentials: 'include',
 			mode: 'cors',
+			invalidatesTags: ['ProductEdit'],
 		}),
 		getAllProducts: builder.query({
 			query: () => ({
@@ -20,6 +21,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
 			providesTags: ['Products'],
 			credentials: 'include',
 			mode: 'cors',
+			invalidatesTags: ['ProductEdit'],
 		}),
 		getProductDetails: builder.query({
 			query: (productId) => ({
@@ -43,6 +45,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
 				credentials: 'include',
 				mode: 'cors',
 			}),
+			providesTags: ['ProductEdit'],
 			invalidatesTags: ['Products'],
 		}),
 		uploadProductImage: builder.mutation({

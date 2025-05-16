@@ -77,7 +77,6 @@ const ProductCard = React.forwardRef((props, ref) => {
 						{!bookingIsLoading && bookingInfo && (
 							<>
 								<span>
-									{console.log(bookingInfo)}
 									{bookingInfo.totalReservations}/
 									{product.maximumEventCapacity ?? 0}
 								</span>

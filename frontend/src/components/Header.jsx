@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../slices/authSlice';
 import { clearCart } from '../slices/cartSlice';
 import { HashLink } from 'react-router-hash-link';
-import Logo from '../components/UI/Logo';
+import CafeLogoOnly from '/images/logo/TC4C-Logo-Only.svg?&react';
 
 const Header = () => {
 	const { cartItems } = useSelector((state) => state.cart);
@@ -44,13 +44,20 @@ const Header = () => {
 
 	return (
 		<header>
-			<nav className="flex h-24 w-full flex-row items-center justify-between bg-emerald-green px-10 font-bold text-white lg:justify-around lg:px-0">
-				<Link to="/" className="group flex h-full items-center text-center">
-					<span className=" mx-10 hidden w-48 font-serif text-2xl font-thin uppercase text-creased-khaki md:flex">
+			<nav className="lg:justify-stetch flex h-24 w-full flex-row items-center justify-between bg-emerald-green px-8 font-bold text-white">
+				<Link
+					to="/"
+					className="group hidden h-full items-center text-center md:flex"
+				>
+					<span className=" mx-10 w-48 font-serif text-2xl font-thin uppercase text-creased-khaki ">
 						Trading Cards For Change
 					</span>
 				</Link>
-				<Logo classNames={`md:hidden flex`} />
+				<img
+					src={CafeLogoOnly}
+					className="aspect-square h-full py-3 md:hidden"
+					alt=""
+				/>
 				<div
 					id="hamburger-btn"
 					className="z-[100] flex h-16 w-16 flex-col items-center justify-center space-y-2 p-3 md:hidden"
@@ -60,15 +67,15 @@ const Header = () => {
 					<span className="h-1 w-full bg-creased-khaki"></span>
 					<span className="h-1 w-full bg-creased-khaki"></span>
 				</div>
-				<div className="hidden h-full items-center justify-center text-[#ffffff] md:mr-4 md:flex md:space-x-8 md:text-lg">
+				<div className="hidden h-full items-center justify-center text-creased-khaki md:mr-4 md:flex md:space-x-8 md:text-lg">
 					<div className="group flex flex-row items-center justify-center">
-						<FaCalendar className="m-1 inline-block fill-creased-khaki" />
+						<FaCalendar className="m-1 inline-block fill-egyptian-earth" />
 						<HashLink smooth to={`/#calendar`}>
 							Events
 						</HashLink>
 					</div>
 					<div className="group flex flex-row items-center justify-center">
-						<FaSeedling className="m-1 inline-block fill-creased-khaki" />
+						<FaSeedling className="m-1 inline-block fill-egyptian-earth" />
 						<Link to="/about">About Us</Link>
 					</div>
 					<div className="group">
@@ -76,7 +83,7 @@ const Header = () => {
 							to="/cart"
 							className="flex flex-row items-center justify-center"
 						>
-							<FaShoppingCart className="m-1 inline-block fill-creased-khaki" />
+							<FaShoppingCart className="m-1 inline-block fill-egyptian-earth" />
 							Cart
 							{cartItems.length > 0 && (
 								<div className="m-1 inline rounded-full bg-wasabi px-2 text-center text-off-white">
@@ -94,7 +101,7 @@ const Header = () => {
 							userInfo && setUserButtonToggle(!userButtonToggle);
 						}}
 					>
-						<FaUser className="m-1 inline-block fill-creased-khaki" />
+						<FaUser className="m-1 inline-block fill-egyptian-earth" />
 						{userInfo ? (
 							userInfo.lastName ? (
 								<a>

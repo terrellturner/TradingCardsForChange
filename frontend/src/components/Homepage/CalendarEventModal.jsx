@@ -3,18 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ProductCard from '../ProductCard';
 import { Link } from 'react-router-dom';
 
-
 const CalendarEventModal = ({
 	selectedEvent,
 	setSelectedEvent,
 	setIsCalendarEventOpen,
 }) => {
 	const MotionProductCard = motion(ProductCard);
-
-	console.log('Query Args:', {
-		productId: selectedEvent._id,
-		eventStartTime: new Date(selectedEvent.start).toISOString(),
-	});
 
 	const productCardVariants = {
 		initial: {
@@ -64,8 +58,7 @@ const CalendarEventModal = ({
 				animate="open"
 				exit="closed"
 				handleCloseModal={handleCloseModal}
-			>
-			</MotionProductCard>
+			></MotionProductCard>
 		</motion.div>
 	);
 };

@@ -111,7 +111,8 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.image = req.body.image || product.image;
     product.cardSet = req.body.cardSet || product.cardSet;
     product.category = req.body.category || product.category;
-    product.countInStock = req.body.countInStock || product.countInStock;
+    product.maximumEventCapacity =
+      req.body.maximumEventCapacity || product.maximumEventCapacity;
     product.eventLocation = req.body.eventLocation || product.eventLocation;
     product.type = req.body.type || product.type;
     product.isArchived = req.body.isArchived || product.isArchived;

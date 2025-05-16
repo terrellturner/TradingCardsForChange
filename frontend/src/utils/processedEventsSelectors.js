@@ -13,12 +13,14 @@ const selectRawEvents = createSelector(
 export const selectEvents = createSelector([selectRawEvents], (rawEvents) => {
 	const newEvents = [];
 	for (const event of rawEvents) {
-		if (event.recurringPattern) {
+		if (event.isRecurring) {
 			newEvents.push(...createEventRecurrences(event));
 		} else {
 			newEvents.push(event);
 		}
 	}
+	console.log(newEvents);
+
 	return {
 		events: newEvents,
 		isLoading: rawEvents?.isLoading ?? false,
