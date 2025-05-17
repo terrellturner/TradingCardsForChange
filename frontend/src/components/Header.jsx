@@ -71,9 +71,15 @@ const Header = () => {
 					className="z-[100] flex h-16 w-16 flex-col items-center justify-center space-y-2 p-3 md:hidden"
 					onClick={toggleNavMenu}
 				>
-					<span className="h-1 w-full bg-creased-khaki"></span>
-					<span className="h-1 w-full bg-creased-khaki"></span>
-					<span className="h-1 w-full bg-creased-khaki"></span>
+					<span
+						className={`h-1 w-full origin-center bg-creased-khaki transition ${mobileNavToggle ? 'translate-y-[0.40rem] rotate-45' : ''}`}
+					></span>
+					<span
+						className={`h-1 w-full bg-creased-khaki transition ${mobileNavToggle ? 'my-0 hidden' : ''}`}
+					></span>
+					<span
+						className={`h-1 w-full origin-center bg-creased-khaki transition ${mobileNavToggle ? ' -translate-y-[0.40rem] -rotate-45' : ''}`}
+					></span>
 				</div>
 				<div className="hidden h-full items-center justify-center text-creased-khaki md:mr-4 md:flex md:space-x-8 md:text-lg">
 					<div className="group flex flex-row items-center justify-center">

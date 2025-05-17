@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useGetAllProductsQuery } from '../slices/productsApiSlice';
 import { motion } from 'framer-motion';
 import Loader from '../components/UI/Loader';
@@ -13,19 +13,25 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 const HomePage = () => {
-	const { data: products, isLoading, error } = useGetAllProductsQuery();
+	const { data: products, isLoading } = useGetAllProductsQuery();
 
 	const {
 		events,
 		isLoading: isEventListLoading,
-		isSuccess,
-		isError,
 		error: eventError,
 	} = useSelector(selectEvents);
+
+	useEffect(() => {
+		if (eventError) {
+			toast.error(eventError?.data?.message || eventError.error);
+			return;
+		}
+	}, [eventError]);
 
 	const sortedEvents = events.sort((a, b) => {
 		return new Date(b.startTime) - new Date(a.startTime);
 	});
+	
 	const sortedEventsLatest = events
 		.filter((event) => {
 			return new Date(event.startTime) >= new Date();
@@ -39,11 +45,6 @@ const HomePage = () => {
 
 	if (isLoading || isEventListLoading) {
 		return <Loader />;
-	}
-
-	if (error) {
-		toast.error(error?.data?.message || error.error);
-		return;
 	}
 
 	return (

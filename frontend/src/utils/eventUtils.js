@@ -11,7 +11,7 @@ const createEventRecurrences = (event) => {
 
 	try {
 		const rule = RRule.fromString(event.rrule);
-		const dates = rule.between(startDate, endDate);
+		const dates = rule.between(startDate, endDate, true);
 
 		const eventDurationMs =
 			new Date(event.endTime).valueOf() - new Date(event.startTime).valueOf();

@@ -129,21 +129,3 @@ div.rbc-toolbar button.rbc-active:focus {
 	border-color: theme('colors.creased-khaki');
 	font-weight: bold;
 }
-
-@keyframes mobile-slide-out {
-	100% {
-		left: 0;
-	}
-}
-
-@keyframes mobile-slide-out {
-	100% {
-		left: 2rem;
-	}
-}
-
-@keyframes slow-spin {
-	to {
-		transform: rotate(360deg);
-	}
-}
