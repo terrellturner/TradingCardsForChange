@@ -45,16 +45,16 @@ const OrderPage = () => {
 			className="flex w-full grow flex-col items-center justify-center space-y-24 text-center text-off-white"
 		>
 			<h3 className="p-4 text-4xl font-bold">Thank you for your purchase!</h3>
-			<div className="flex w-1/3 flex-col flex-wrap items-center divide-y divide-creased-khaki rounded-lg border border-creased-khaki md:min-w-[600px]">
+			<div className="mx-10 flex flex-col flex-wrap items-center divide-y divide-creased-khaki rounded-lg border border-creased-khaki md:w-1/3 md:min-w-[600px]">
 				{order.orderItems.map((item, index) => {
 					const startTime = new Date(item.startTime);
 					const endTime = new Date(item.startTime);
 					return (
 						<div
 							key={item._id}
-							className="flex w-full flex-col place-items-center justify-between gap-4 p-4 px-10 text-off-white md:flex-row lg:space-x-5"
+							className="flex w-full flex-col justify-between gap-4 p-4 px-10 text-off-white md:flex-row md:place-items-center lg:space-x-5"
 						>
-							<div className="flex flex-row place-items-center space-x-8">
+							<div className="flex flex-col space-x-8 md:flex-row md:place-items-center">
 								<img
 									src={item.image}
 									className="aspect-square h-32 rounded-lg object-cover md:h-16"

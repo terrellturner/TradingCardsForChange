@@ -50,7 +50,7 @@ const Header = () => {
 
 	return (
 		<header>
-			<nav className="lg:justify-stetch flex h-24 w-full flex-row items-center justify-between bg-emerald-green px-8 font-bold text-white">
+			<nav className="lg:justify-stetch flex h-24 w-full flex-row items-center justify-between bg-emerald-green px-4 font-bold text-white md:px-6">
 				<Link
 					to="/"
 					className="group hidden h-full items-center text-center md:flex"
@@ -59,10 +59,10 @@ const Header = () => {
 						Trading Cards For Change
 					</span>
 				</Link>
-				<Link to={'/'}>
+				<Link className="h-full" to={'/'}>
 					<img
 						src={CafeLogoOnly}
-						className="aspect-square h-full py-3 md:hidden"
+						className="flex aspect-square h-full px-3 md:hidden"
 						alt=""
 					/>
 				</Link>
@@ -72,13 +72,13 @@ const Header = () => {
 					onClick={toggleNavMenu}
 				>
 					<span
-						className={`h-1 w-full origin-center bg-creased-khaki transition ${mobileNavToggle ? 'translate-y-[0.40rem] rotate-45' : ''}`}
+						className={`h-1 w-full origin-center bg-creased-khaki transition  ${mobileNavToggle ? 'translate-y-[0.40rem] rotate-45' : ''}`}
 					></span>
 					<span
 						className={`h-1 w-full bg-creased-khaki transition ${mobileNavToggle ? 'my-0 hidden' : ''}`}
 					></span>
 					<span
-						className={`h-1 w-full origin-center bg-creased-khaki transition ${mobileNavToggle ? ' -translate-y-[0.40rem] -rotate-45' : ''}`}
+						className={`h-1 w-full origin-center bg-creased-khaki transition  ${mobileNavToggle ? ' -translate-y-[0.40rem] -rotate-45' : ''}`}
 					></span>
 				</div>
 				<div className="hidden h-full items-center justify-center text-creased-khaki md:mr-4 md:flex md:space-x-8 md:text-lg">

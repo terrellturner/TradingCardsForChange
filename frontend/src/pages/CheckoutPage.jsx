@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
@@ -21,9 +21,11 @@ const CheckoutPage = () => {
 	const cart = useSelector((state) => state.cart);
 	const auth = useSelector((state) => state.auth);
 
+	const modalRef = useRef(null);
+
 	const { cartItems } = cart;
 
-	const [shippingModalOpen, setShippingModalOpen] = useState(false);
+	const [shippingModalOpen, setShippingModalToggle] = useState(false);
 
 	const { userInfo } = useSelector((state) => state.auth);
 
@@ -37,6 +39,37 @@ const CheckoutPage = () => {
 
 	const [newBooking] = useCreateBookingMutation();
 	const [newOrder] = useCreateOrderMutation();
+
+	useEffect(() => {
+		const handleModalOuterClick = (e) => {
+			if (modalRef.current && !modalRef.current.contains(e.target)) {
+				setShippingModalToggle(false);
+			}
+		};
+
+		try {
+			if (!errorPayPal && !loadingPayPal && paypal.clientId) {
+				const loadPayPalScript = async () => {
+					payPalDispatch({
+						type: 'resetOptions',
+						value: {
+							'client-id': paypal.clientId,
+							currency: 'USD',
+						},
+					});
+					payPalDispatch({ type: 'setLoadingStatus', value: 'pending' });
+				};
+				if (!window.paypal) {
+					loadPayPalScript();
+				}
+			}
+		} catch (error) {
+			console.log(error);
+		}
+
+		document.addEventListener('click', handleModalOuterClick);
+	}),
+		[errorPayPal, loadingPayPal, paypal, payPalDispatch];
 
 	const placeOrderHandler = async () => {
 		try {
@@ -116,27 +149,9 @@ const CheckoutPage = () => {
 		toast.error(error.message);
 	}
 
-	useEffect(() => {
-		try {
-			if (!errorPayPal && !loadingPayPal && paypal.clientId) {
-				const loadPayPalScript = async () => {
-					payPalDispatch({
-						type: 'resetOptions',
-						value: {
-							'client-id': paypal.clientId,
-							currency: 'USD',
-						},
-					});
-					payPalDispatch({ type: 'setLoadingStatus', value: 'pending' });
-				};
-				if (!window.paypal) {
-					loadPayPalScript();
-				}
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	}, [errorPayPal, loadingPayPal, paypal, payPalDispatch]);
+	function handleShippingModalToggle() {
+		setShippingModalToggle(!shippingModalOpen);
+	}
 
 	return (
 		<motion.div
@@ -146,14 +161,14 @@ const CheckoutPage = () => {
 			exit="closed"
 			className="mx-auto flex w-full min-w-52 grow flex-col place-items-center py-5 md:px-20"
 		>
-			<h1 className="self-start p-3 text-4xl font-bold text-off-white">
+			<h1 className="mb-10 self-start p-3 text-4xl font-bold text-off-white">
 				Checkout
 			</h1>
 			<div className="-mt-10 flex w-full grow flex-col place-content-center space-y-5 md:space-x-10 md:space-y-0 lg:flex-row">
-				<div className="flex w-1/2 flex-col place-items-center md:flex-row">
+				<div className="flex flex-col place-items-center md:w-1/2 md:flex-row">
 					{shippingModalOpen && (
 						<CheckoutForm
-							handleClick={setShippingModalOpen}
+							handleClick={handleShippingModalToggle}
 							cartItems={cart.cartItems}
 						/>
 					)}
@@ -163,7 +178,7 @@ const CheckoutPage = () => {
 						</h3>
 						<div
 							className="grid w-full cursor-pointer grid-cols-2 rounded-lg border border-creased-khaki p-5"
-							onClick={setShippingModalOpen}
+							onClick={handleShippingModalToggle}
 						>
 							<span>
 								<div className="text-xl font-bold">First Name </div>
