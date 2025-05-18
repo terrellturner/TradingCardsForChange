@@ -31,6 +31,17 @@
 
 /* React Big Calendar */
 
+.rbc-event.current-future-event {
+	background-color: theme('colors.egyptian-earth');
+	color: theme('colors.creased-khaki');
+	font-size: 1.1rem;
+}
+
+.rbc-event.past-event {
+	background-color: theme('colors.zinc.600');
+	color: theme(colors.zinc.400);
+}
+
 .rbc-today {
 	background-color: theme('colors.emerald-green');
 }
@@ -47,21 +58,16 @@
 }
 
 .rbc-event {
-	color: theme('colors.noir-de-vigne');
-	font-weight: bold;
-	background-color: theme('colors.creased-khaki');
 	width: 93%;
 	margin: auto auto auto auto;
+	font: theme(fontFamily.sans-serif);
 }
 
 .rbc-event.rbc-selected {
-	color: theme('colors.noir-de-vigne');
 	font-weight: bold;
-	background-color: theme('colors.creased-khaki');
 }
 
 .rbc-event-content {
-	background-color: theme('colors.creased-khaki');
 }
 
 .rbc-date-cell {

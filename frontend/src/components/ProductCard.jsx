@@ -101,13 +101,20 @@ const ProductCard = React.forwardRef((props, ref) => {
 					)}
 				</div>
 				<div className=" flex flex-row place-items-end space-x-1">
-					<Link
-						to={`/product/${product._id}?rsvpDate=${new Date(product.startTime).toISOString()}`}
-					>
-						<button className=" flex basis-full rounded-lg bg-emerald-green p-2 text-center font-bold text-creased-khaki">
-							<div className="bg-emerald-green p-1 text-xl">RSVP</div>
+					{product.startTime > new Date() ||
+					bookingInfo.totalReservations >= product.maximumEventCapacity ? (
+						<Link
+							to={`/product/${product._id}?rsvpDate=${new Date(product.startTime).toISOString()}`}
+						>
+							<button className=" flex basis-full rounded-lg bg-emerald-green p-2 text-center font-bold text-creased-khaki">
+								<div className="p-1 text-xl">RSVP</div>
+							</button>
+						</Link>
+					) : (
+						<button className="flex basis-full cursor-default rounded-lg bg-zinc-600 p-2 text-center font-bold text-zinc-400">
+							<div className="p-1 text-xl">Sold Out!</div>
 						</button>
-					</Link>
+					)}
 				</div>
 			</div>
 		</div>

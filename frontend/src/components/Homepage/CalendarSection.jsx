@@ -40,7 +40,7 @@ const CalendarSection = ({ eventList }) => {
 				{
 					<div
 						id="calendar"
-						className="relative hidden w-full justify-center md:flex"
+						className={`relative hidden w-full justify-center md:flex`}
 					>
 						<Calendar
 							localizer={localizer}
@@ -56,10 +56,15 @@ const CalendarSection = ({ eventList }) => {
 							}))}
 							startAccessor="start"
 							endAccessor="end"
-							className="relative h-[50rem] w-5/6 max-w-[1200px] text-creased-khaki"
+							className={`relative h-[50rem] w-5/6 max-w-[1200px] text-creased-khaki`}
 							style={{ height: '50rem' }}
 							onSelectEvent={(e) => {
 								handleEventClick(e);
+							}}
+							eventPropGetter={(event) => {
+								return event.start > new Date()
+									? { className: `current-future-event` }
+									: { className: `past-event` };
 							}}
 						/>
 						{isCalendarEventOpen && selectedEvent && (
