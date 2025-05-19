@@ -24,12 +24,7 @@ const cartSlice = createSlice({
 			const existingItemIndex = state.cartItems.findIndex(
 				(x) => x._id === newItem._id
 			);
-			if (existingItemIndex !== -1) {
-				state.cartItems[existingItemIndex] = {
-					...state.cartItems[existingItemIndex],
-					...newItem,
-				};
-			} else {
+			if (existingItemIndex === -1) {
 				state.cartItems.push(newItem);
 			}
 
@@ -38,11 +33,13 @@ const cartSlice = createSlice({
 		addBookingToCart: (state, action) => {
 			const { productData, bookingDetails } = action.payload;
 
-			let existingItem = state.cartItems.find(
+			const existingItem = state.cartItems.find(
 				(item) => item._id === productData._id
 			);
 
-			if (!existingItem?.bookings) {
+			console.log(existingItem);
+
+			if (!existingItem.bookings) {
 				existingItem.bookings = [];
 			}
 
@@ -52,11 +49,15 @@ const cartSlice = createSlice({
 					new Date(bookingDetails.bookingDate).getTime()
 			);
 
+			console.log(existingBookingIndex);
+
 			if (existingBookingIndex !== -1) {
 				existingItem.bookings[existingBookingIndex].reservationSeats.qty +=
 					bookingDetails.reservationSeats.qty;
 			} else {
-				existingItem.bookings.push(bookingDetails);
+				existingItem.bookings.push({
+					...bookingDetails,
+				});
 			}
 			return updateCart(state);
 		},

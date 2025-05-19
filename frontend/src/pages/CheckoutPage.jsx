@@ -74,13 +74,13 @@ const CheckoutPage = () => {
 	const placeOrderHandler = async () => {
 		try {
 			const res = await newOrder({
-				orderItems: cart.cartItems.map((item) => ({
-					...item,
-					qty: item.bookings.reduce(
-						(total, booking) => total + booking.reservationSeats.qty,
-						0
-					),
-				})),
+				orderItems: cart.cartItems.flatMap((item) =>
+					item.bookings.map((booking) => {
+						console.log({ ...item, qty: booking.reservationSeats.qty });
+
+						return { ...item, qty: booking.reservationSeats.qty };
+					})
+				),
 				shippingAddress: cart.shippingAddress,
 				paymentMethod: cart.paymentMethod,
 				itemsPrice: cart.itemsPrice,
@@ -131,13 +131,6 @@ const CheckoutPage = () => {
 			});
 	}
 
-	const removeFromCartHandler = async (id) => {
-		dispatch(removeFromCart(id));
-		if (cartItems.length === 1) {
-			navigate('/cart');
-		}
-	};
-
 	function onApprove(data, actions) {
 		return actions.order.capture().then(async function () {
 			try {
@@ -167,8 +160,8 @@ const CheckoutPage = () => {
 			<h1 className="mb-10 self-start p-3 text-4xl font-bold text-off-white">
 				Checkout
 			</h1>
-			<div className="-mt-10 flex w-full grow flex-col place-content-center space-y-5 md:space-x-10 md:space-y-0 lg:flex-row">
-				<div className="flex flex-col place-items-center md:w-1/2 md:flex-row">
+			<div className="-mt-10 flex w-full grow flex-col place-content-center space-y-5 md:space-y-0 lg:flex-row lg:space-x-10">
+				<div className="flex flex-col md:flex-row lg:w-1/2">
 					{shippingModalOpen && (
 						<CheckoutForm
 							handleClick={handleShippingModalToggle}
@@ -285,9 +278,9 @@ const CheckoutPage = () => {
 				</div>
 				<div
 					id="cart-total-checkout-container"
-					className="flex flex-col place-items-center md:flex-row"
+					className="flex flex-col justify-center p-10 md:flex-row md:p-20"
 				>
-					<div className="z-0 space-y-3 divide-y-2 divide-creased-khaki rounded-lg border border-creased-khaki p-8">
+					<div className="z-0 w-full space-y-3 divide-y-2 divide-creased-khaki rounded-lg border border-creased-khaki p-10 md:px-14">
 						<div className="px-3">
 							<div className="text-3xl text-off-white">
 								Subtotal ({cart.itemsPrice})

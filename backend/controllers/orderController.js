@@ -17,10 +17,8 @@ const addOrderItems = asyncHandler(async (req, res) => {
     throw new Error("No order items");
   } else {
     const itemsFromDB = await Product.find({
-      _id: { $in: orderItems?.map((x) => x._id) },
+      _id: { $in: orderItems.map((x) => x._id) },
     });
-
-    console.log(orderItems);
 
     const dbOrderItems = orderItems.map((itemFromClient) => {
       const matchingItemFromDB = itemsFromDB.find(
@@ -37,8 +35,6 @@ const addOrderItems = asyncHandler(async (req, res) => {
         product: itemFromClient._id,
         price: matchingItemFromDB.price,
         eventLocation: matchingItemFromDB.eventLocation,
-        startTime: matchingItemFromDB.startTime,
-        endTime: matchingItemFromDB.endTime,
         _id: undefined,
       };
     });
@@ -58,6 +54,8 @@ const addOrderItems = asyncHandler(async (req, res) => {
       shippingPrice,
       totalPrice,
     });
+
+    console.log(dbOrderItems);
 
     const createdOrder = await order.save();
 
