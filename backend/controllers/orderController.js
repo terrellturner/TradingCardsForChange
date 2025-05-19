@@ -12,20 +12,26 @@ const addOrderItems = asyncHandler(async (req, res) => {
   const { orderItems, shippingAddress, billingAddress, paymentMethod } =
     req.body;
 
-  if (orderItems && orderItems.length === 0) {
+  if (!Array.isArray(orderItems) && orderItems.length === 0) {
     res.status(400);
     throw new Error("No order items");
   } else {
-    // get the ordered items from our database
     const itemsFromDB = await Product.find({
-      _id: { $in: orderItems.map((x) => x._id) },
+      _id: { $in: orderItems?.map((x) => x._id) },
     });
 
-    // map over the order items and use the price from our items from database
+    console.log(orderItems);
+
     const dbOrderItems = orderItems.map((itemFromClient) => {
       const matchingItemFromDB = itemsFromDB.find(
         (itemFromDB) => itemFromDB._id.toString() === itemFromClient._id
       );
+
+      if (!matchingItemFromDB) {
+        res.status(404);
+        throw new Error("Product not found");
+      }
+
       return {
         ...itemFromClient,
         product: itemFromClient._id,

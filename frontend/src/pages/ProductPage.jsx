@@ -54,7 +54,7 @@ const ProductPage = () => {
 	);
 
 	const addToCartHandler = () => {
-		dispatch(addToCart({ ...product, qty }));
+		dispatch(addToCart(product));
 		addBookingHandler();
 		navigate('/cart');
 	};
@@ -62,10 +62,12 @@ const ProductPage = () => {
 	const addBookingHandler = () => {
 		dispatch(
 			addBookingToCart({
-				product: product?._id,
-				reservationSeats: { qty },
-				bookingDate: new Date(selectedDate).toISOString(),
-				status: 'pending',
+				productData: { ...product },
+				bookingDetails: {
+					reservationSeats: { qty },
+					bookingDate: new Date(selectedDate).toISOString(),
+					status: 'pending',
+				},
 			})
 		);
 	};

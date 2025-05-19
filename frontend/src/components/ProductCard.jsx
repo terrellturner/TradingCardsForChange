@@ -6,6 +6,7 @@ import { FaTimes } from 'react-icons/fa';
 import { useGetBookingsPerEventQuery } from '../slices/bookingApiSlice';
 import { FaUser, FaClock, FaArchive } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
+import Loader from './UI/Loader';
 
 const ProductCard = React.forwardRef((props, ref) => {
 	const { product, cardClasses, handleCloseModal, mobileLayout } = props;
@@ -22,6 +23,10 @@ const ProductCard = React.forwardRef((props, ref) => {
 		productId: product._id,
 		eventStartTime: new Date(product.startTime).toISOString(),
 	});
+
+	if (bookingIsLoading) {
+		return <Loader />;
+	}
 
 	return (
 		<div
@@ -101,8 +106,11 @@ const ProductCard = React.forwardRef((props, ref) => {
 					)}
 				</div>
 				<div className=" flex flex-row place-items-end space-x-1">
-					{product.startTime > new Date() ||
-					bookingInfo.totalReservations >= product.maximumEventCapacity ? (
+					{console.log(
+						bookingInfo.totalReservations < product.maximumEventCapacity
+					)}
+					{new Date(product.startTime) > new Date() &&
+					bookingInfo.totalReservations < product.maximumEventCapacity ? (
 						<Link
 							to={`/product/${product._id}?rsvpDate=${new Date(product.startTime).toISOString()}`}
 						>

@@ -22,9 +22,8 @@ const cartSlice = createSlice({
 			const newItem = action.payload;
 
 			const existingItemIndex = state.cartItems.findIndex(
-				(x) => x._id === newItem.id
+				(x) => x._id === newItem._id
 			);
-
 			if (existingItemIndex !== -1) {
 				state.cartItems[existingItemIndex] = {
 					...state.cartItems[existingItemIndex],
@@ -33,42 +32,56 @@ const cartSlice = createSlice({
 			} else {
 				state.cartItems.push(newItem);
 			}
+
 			return updateCart(state);
 		},
 		addBookingToCart: (state, action) => {
-			const booking = action.payload;
+			const { productData, bookingDetails } = action.payload;
 
-			const existingItem = state.cartItems.find(
-				(x) => x._id === booking.product
+			let existingItem = state.cartItems.find(
+				(item) => item._id === productData._id
 			);
 
-			if (existingItem) {
-				existingItem.bookings
-					? (existingItem.bookings = [...existingItem.bookings, booking])
-					: (existingItem.bookings = new Array(booking));
-				console.log(booking, existingItem.bookings);
-			} else {
-				throw new Error('Product does not exist!');
+			if (!existingItem?.bookings) {
+				existingItem.bookings = [];
 			}
 
+			const existingBookingIndex = existingItem.bookings.findIndex(
+				(b) =>
+					new Date(b.bookingDate).getTime() ===
+					new Date(bookingDetails.bookingDate).getTime()
+			);
+
+			if (existingBookingIndex !== -1) {
+				existingItem.bookings[existingBookingIndex].reservationSeats.qty +=
+					bookingDetails.reservationSeats.qty;
+			} else {
+				existingItem.bookings.push(bookingDetails);
+			}
 			return updateCart(state);
 		},
 		removeFromCart: (state, action) => {
 			state.cartItems = state.cartItems.filter((x) => x._id !== action.payload);
 			return updateCart(state);
 		},
-		removeBookingFromCart: (state, action) => {
-			const { id: productId, bookingDate } = action.payload;
+		updateExistingBooking: (state, action) => {
+			const { id: productId, bookingDate, bookingSeats } = action.payload;
 
 			const productIndex = state.cartItems.findIndex(
 				(x) => x._id === productId
 			);
-			if (productIndex !== -1) {
+
+			const bookingIndex = state.cartItems[productIndex].bookings.findIndex(
+				(x) => new Date(x.bookingDate).getTime() === bookingDate
+			);
+
+			if (productIndex !== -1 && bookingIndex !== -1) {
 				const product = state.cartItems[productIndex];
 				if (product.bookings) {
-					product.bookings = product.bookings.filter(
-						(booking) => new Date(booking.bookingDate).getTime() !== bookingDate
-					);
+					bookingSeats > 0
+						? (product.bookings[bookingIndex].reservationSeats.qty =
+								bookingSeats)
+						: product.bookings.splice(bookingIndex, 1);
 				}
 				if (product.bookings.length === 0) {
 					state.cartItems.splice(productIndex, 1);
@@ -96,7 +109,7 @@ export const {
 	addToCart,
 	addBookingToCart,
 	removeFromCart,
-	removeBookingFromCart,
+	updateExistingBooking,
 	saveShippingAddress,
 	saveBillingAddress,
 	clearCart,

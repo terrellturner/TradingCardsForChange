@@ -56,6 +56,7 @@ const CalendarSection = ({ eventList }) => {
 							}))}
 							startAccessor="start"
 							endAccessor="end"
+							views={['month', 'week', 'day']}
 							className={`relative h-[50rem] w-5/6 max-w-[1200px] text-creased-khaki`}
 							style={{ height: '50rem' }}
 							onSelectEvent={(e) => {

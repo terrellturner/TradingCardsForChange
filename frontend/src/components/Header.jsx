@@ -99,10 +99,11 @@ const Header = () => {
 						>
 							<FaShoppingCart className="m-1 inline-block fill-egyptian-earth" />
 							Cart
-							{cartItems.length > 0 && (
+							{cartItems?.length > 0 && (
 								<div className="m-1 inline rounded-full bg-wasabi px-2 text-center text-off-white">
 									{cartItems.reduce(
-										(a, c) => a + Object.keys(c.bookings).length,
+										(a, c) =>
+											a + (c.bookings ? Object.keys(c.bookings).length : 0),
 										0
 									)}
 								</div>

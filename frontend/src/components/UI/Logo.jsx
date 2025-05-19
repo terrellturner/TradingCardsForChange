@@ -44,7 +44,7 @@ const Logo = ({ classNames }) => {
 				<div className="relative flex h-full w-full items-center justify-center">
 					<img
 						src={CafeLogoTextOnly}
-						className="loading-logo-spin  aspect-square h-4/5 w-full grow"
+						className="loading-logo-spin aspect-square h-4/5 w-full grow"
 						alt=""
 					/>
 					<img

@@ -14,6 +14,7 @@ import { useCreateBookingMutation } from '../slices/bookingApiSlice';
 import { clearCart, removeFromCart } from '../slices/cartSlice';
 import { motion } from 'motion/react';
 import { defaultMotion } from '../constants';
+import EventBookingQuantityPicker from '../components/UI/EventBookingQuantityPicker';
 
 const CheckoutPage = () => {
 	const navigate = useNavigate();
@@ -68,13 +69,18 @@ const CheckoutPage = () => {
 		}
 
 		document.addEventListener('click', handleModalOuterClick);
-	}),
-		[errorPayPal, loadingPayPal, paypal, payPalDispatch];
+	}, [errorPayPal, loadingPayPal, paypal, payPalDispatch, modalRef]);
 
 	const placeOrderHandler = async () => {
 		try {
 			const res = await newOrder({
-				orderItems: cart.cartItems,
+				orderItems: cart.cartItems.map((item) => ({
+					...item,
+					qty: item.bookings.reduce(
+						(total, booking) => total + booking.reservationSeats.qty,
+						0
+					),
+				})),
 				shippingAddress: cart.shippingAddress,
 				paymentMethod: cart.paymentMethod,
 				itemsPrice: cart.itemsPrice,
@@ -82,13 +88,12 @@ const CheckoutPage = () => {
 				taxPrice: cart.taxPrice,
 				totalPrice: cart.totalPrice,
 			}).unwrap();
-			console.log('Booking created.');
 
 			const orderId = res._id;
 
 			await Promise.all(
-				cart.cartItems.map((item) =>
-					item.bookings.flatMap((booking) =>
+				cart.cartItems?.map((item) =>
+					item.bookings?.flatMap((booking) =>
 						newBooking({
 							product: item._id,
 							reservationSeats: booking.reservationSeats.qty,
@@ -100,8 +105,6 @@ const CheckoutPage = () => {
 					)
 				)
 			);
-
-			console.log('Order created.');
 
 			dispatch(clearCart());
 			navigate(`/order/${res._id}`);
@@ -251,8 +254,8 @@ const CheckoutPage = () => {
 						</div>
 						<div className="flex flex-col">
 							<h2 className="pb-5 text-2xl text-off-white">Order Items</h2>
-							{cart.cartItems.map((item) =>
-								item.bookings.map((booking) => (
+							{cart.cartItems?.map((item) =>
+								item.bookings?.map((booking) => (
 									<div
 										key={`${item._id}-${booking.reservationSeats.qty}-${booking.bookingDate}`}
 										className="flex w-full flex-row place-items-center gap-4 rounded-lg p-5 text-off-white lg:space-x-5"
@@ -263,17 +266,17 @@ const CheckoutPage = () => {
 											alt=""
 										/>
 										<div className="flex flex-col pl-4">
-											<div className="text-xl font-bold">{item.name}</div>
-											<div>Seats: {booking.reservationSeats.qty}</div>
+											<div className="flex flex-col lg:block">
+												<span className="text-xl font-bold">{item.name}</span>
+												<span className="mx-2 text-creased-khaki">
+													{new Date(booking.bookingDate).toLocaleDateString()}
+												</span>
+											</div>
+											<EventBookingQuantityPicker
+												booking={booking}
+												product={item}
+											/>
 										</div>
-										<button
-											onClick={() => {
-												removeFromCartHandler(item._id);
-											}}
-											className="my-2 flex aspect-square place-items-center justify-around rounded-lg border border-creased-khaki p-4 text-creased-khaki lg:p-3"
-										>
-											<FaTrash />
-										</button>
 									</div>
 								))
 							)}

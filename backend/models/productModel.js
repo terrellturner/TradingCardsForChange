@@ -42,6 +42,14 @@ const productSchema = new mongoose.Schema(
       required: true,
       default: 0,
     },
+    bookings: {
+      type: Array,
+      required: true,
+      default: [],
+      required: function () {
+        return this.type === "event";
+      },
+    },
     maximumEventCapacity: {
       type: Number,
       required: function () {
