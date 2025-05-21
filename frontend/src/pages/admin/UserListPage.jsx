@@ -94,7 +94,7 @@ const UserListPage = () => {
 		try {
 			await resetPassword(user._id);
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 			toast.error(error?.data?.message || error.error);
 		}
 	};
@@ -109,9 +109,9 @@ const UserListPage = () => {
 				email: user.email,
 				isDeactivated: true,
 			});
-			console.log('Deactivated.');
+			console.warn('User Deactivated.');
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 			toast.error(error?.data?.message || error.error);
 		}
 	};

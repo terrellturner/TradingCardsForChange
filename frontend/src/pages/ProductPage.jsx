@@ -21,7 +21,6 @@ const ProductPage = () => {
 
 	const { id: productId } = useParams();
 	const rsvpDate = searchParams.get('rsvpDate') || '';
-	console.log(rsvpDate);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -104,10 +103,7 @@ const ProductPage = () => {
 				)
 			);
 			if (product.rrule) {
-				console.log(product);
-
 				setAvailableDates(createEventRecurrences(product));
-				console.log(availableDates);
 			}
 		}
 
@@ -116,7 +112,6 @@ const ProductPage = () => {
 		} else if (availableDates && availableDates.length > 0) {
 			setSelectedDate(new Date(availableDates[0].startTime).toISOString());
 		}
-		console.log(qtyOptionsArray);
 	}, [bookingInfo, product]);
 
 	if (isLoading || !bookingQuerySucccessful) {

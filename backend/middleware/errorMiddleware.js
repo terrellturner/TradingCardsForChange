@@ -15,7 +15,7 @@ const errorHandler = (err, req, res, next) => {
 
   res.status(statusCode).json({
     message,
-    stack: process.env.NODE_ENV === "production" ? "😂" : err.stack,
+    stack: process.env.NODE_ENV === "production" ? "🥞" : err.stack,
   });
 };
 
@@ -33,7 +33,7 @@ const ipFilter = (req, res, next) => {
       next();
     }
   } catch (err) {
-    console.log(`Unauthorized access! IP: ${reqIp}, Domain: ${reqDomain}`);
+    console.error(`Unauthorized access! IP: ${reqIp}, Domain: ${reqDomain}`);
     return res.status(401).json({
       error: "Unauthorized access",
       message: "Your IP or domain is not authorized to access this resource.",

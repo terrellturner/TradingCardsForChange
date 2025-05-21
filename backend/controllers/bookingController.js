@@ -58,9 +58,6 @@ const getBookingsPerEvent = asyncHandler(async (req, res) => {
       date: parsedBookingDate.toISOString(),
       totalReservations,
     });
-    console.log(
-      `Total of ${totalReservations} for ${productId} at ${parsedBookingDate}.`
-    );
   } catch (error) {
     throw new Error(
       `Resource not found for event: ${productId} at ${parsedBookingDate}. ${error.message}`

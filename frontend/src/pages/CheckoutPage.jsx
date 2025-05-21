@@ -65,7 +65,7 @@ const CheckoutPage = () => {
 				}
 			}
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 
 		document.addEventListener('click', handleModalOuterClick);
@@ -74,13 +74,7 @@ const CheckoutPage = () => {
 	const placeOrderHandler = async () => {
 		try {
 			const res = await newOrder({
-				orderItems: cart.cartItems.flatMap((item) =>
-					item.bookings.map((booking) => {
-						console.log({ ...item, qty: booking.reservationSeats.qty });
-
-						return { ...item, qty: booking.reservationSeats.qty };
-					})
-				),
+				orderItems: cart.cartItems,
 				shippingAddress: cart.shippingAddress,
 				paymentMethod: cart.paymentMethod,
 				itemsPrice: cart.itemsPrice,

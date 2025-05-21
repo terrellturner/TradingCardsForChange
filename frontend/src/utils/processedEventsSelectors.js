@@ -19,7 +19,6 @@ export const selectEvents = createSelector([selectRawEvents], (rawEvents) => {
 			newEvents.push(event);
 		}
 	}
-	console.log(newEvents);
 
 	return {
 		events: newEvents,

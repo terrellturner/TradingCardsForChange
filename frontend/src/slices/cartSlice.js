@@ -37,8 +37,6 @@ const cartSlice = createSlice({
 				(item) => item._id === productData._id
 			);
 
-			console.log(existingItem);
-
 			if (!existingItem.bookings) {
 				existingItem.bookings = [];
 			}
@@ -48,8 +46,6 @@ const cartSlice = createSlice({
 					new Date(b.bookingDate).getTime() ===
 					new Date(bookingDetails.bookingDate).getTime()
 			);
-
-			console.log(existingBookingIndex);
 
 			if (existingBookingIndex !== -1) {
 				existingItem.bookings[existingBookingIndex].reservationSeats.qty +=

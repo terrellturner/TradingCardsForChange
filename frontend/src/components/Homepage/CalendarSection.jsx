@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'motion/react';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
@@ -9,10 +9,17 @@ import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import enUS from 'date-fns/locale/en-US';
 import CalendarEventModal from './CalendarEventModal';
+import { useUpdateBookingMutation } from '../../slices/bookingApiSlice';
 
 const CalendarSection = ({ eventList }) => {
 	const [isCalendarEventOpen, setIsCalendarEventOpen] = useState(false);
 	const [selectedEvent, setSelectedEvent] = useState(null);
+
+	const [updateBooking, { isLoading }] = useUpdateBookingMutation();
+
+	useEffect(() => {}, []);
+
+	console.info(eventList);
 
 	const locales = {
 		'en-US': enUS,
@@ -31,9 +38,25 @@ const CalendarSection = ({ eventList }) => {
 		setIsCalendarEventOpen(true);
 	};
 
+	const onSnoozeEvent = async (event) => {
+		try {
+			await updateBooking().unwrap();
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const onArchiveProduct = async (event) => {
+		try {
+			await updateBooking().unwrap();
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	return (
 		<AnimatePresence>
-			<div className="flex w-full flex-col items-center space-y-5">
+			<div className="flex w-full flex-col items-center space-y-5 overflow-hidden">
 				<h3 className="mb-6 text-center font-serif text-7xl text-creased-khaki">
 					Scheduled Events
 				</h3>
@@ -53,6 +76,8 @@ const CalendarSection = ({ eventList }) => {
 								description: product.description,
 								maximumEventCapacity: product.maximumEventCapacity,
 								isRecurring: product.isRecurring,
+								onArchiveProduct,
+								onSnoozeEvent,
 							}))}
 							startAccessor="start"
 							endAccessor="end"
@@ -86,7 +111,7 @@ const CalendarSection = ({ eventList }) => {
 export default CalendarSection;
 
 CalendarSection.propTypes = {
-	products: PropTypes.arrayOf(
+	eventList: PropTypes.arrayOf(
 		PropTypes.shape({
 			title: PropTypes.string,
 			start: PropTypes.string,

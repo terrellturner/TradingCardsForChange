@@ -1,12 +1,9 @@
 import React from 'react';
 import ProductCard from '../ProductCard';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 
 const MobileEventSection = ({ mobileEvents }) => {
 	const MotionProductCard = motion(ProductCard);
-
-	const now = new Date();
-	now.setHours(0, 0, 0, 0);
 
 	const productCardVariants = {
 		initial: {

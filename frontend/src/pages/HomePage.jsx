@@ -31,7 +31,7 @@ const HomePage = () => {
 	const sortedEvents = events.sort((a, b) => {
 		return new Date(b.startTime) - new Date(a.startTime);
 	});
-	
+
 	const sortedEventsLatest = events
 		.filter((event) => {
 			return new Date(event.startTime) >= new Date();
@@ -40,8 +40,6 @@ const HomePage = () => {
 			return new Date(a.startTime) - new Date(b.startTime);
 		})
 		.slice(0, 5);
-
-	console.log(sortedEventsLatest);
 
 	if (isLoading || isEventListLoading) {
 		return <Loader />;

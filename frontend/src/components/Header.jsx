@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -20,6 +20,8 @@ const Header = () => {
 	const { cartItems } = useSelector((state) => state.cart);
 	const { userInfo } = useSelector((state) => state.auth);
 
+	const closeMenuTimeRef = useRef(null);
+
 	const [userButtonToggle, setUserButtonToggle] = useState(false);
 	const [mobileNavToggle, setMobileNavToggle] = useState(false);
 
@@ -40,12 +42,25 @@ const Header = () => {
 			dispatch(clearCart());
 			navigate('/login');
 		} catch (error) {
-			console.log(error.error);
+			console.error(error.error);
 		}
 	};
 
-	const toggleNavMenu = () => {
-		setMobileNavToggle(!mobileNavToggle);
+	const userMenuMouseEnter = () => {
+		if (closeMenuTimeRef.current) {
+			clearTimeout(closeMenuTimeRef.current);
+			closeMenuTimeRef.current = null;
+		}
+		if (userInfo) {
+			setUserButtonToggle(true);
+		}
+	};
+
+	const userMenuMouseLeave = () => {
+		closeMenuTimeRef.current = setTimeout(
+			() => setUserButtonToggle(false),
+			100
+		);
 	};
 
 	return (
@@ -66,10 +81,10 @@ const Header = () => {
 						alt=""
 					/>
 				</Link>
-				<div
+				<button
 					id="hamburger-btn"
 					className="z-[100] flex h-16 w-16 flex-col items-center justify-center space-y-2 p-3 md:hidden"
-					onClick={toggleNavMenu}
+					onClick={() => setMobileNavToggle(!mobileNavToggle)}
 				>
 					<span
 						className={`h-1 w-full origin-center bg-creased-khaki transition  ${mobileNavToggle ? 'translate-y-[0.40rem] rotate-45' : ''}`}
@@ -80,7 +95,7 @@ const Header = () => {
 					<span
 						className={`h-1 w-full origin-center bg-creased-khaki transition  ${mobileNavToggle ? ' -translate-y-[0.40rem] -rotate-45' : ''}`}
 					></span>
-				</div>
+				</button>
 				<div className="hidden h-full items-center justify-center text-creased-khaki md:mr-4 md:flex md:space-x-8 md:text-lg">
 					<div className="group flex flex-row items-center justify-center">
 						<FaCalendar className="m-1 inline-block fill-egyptian-earth" />
@@ -102,8 +117,7 @@ const Header = () => {
 							{cartItems?.length > 0 && (
 								<div className="m-1 inline rounded-full bg-wasabi px-2 text-center text-off-white">
 									{cartItems.reduce(
-										(a, c) =>
-											a + (c.bookings ? Object.keys(c.bookings).length : 0),
+										(a, c) => a + (c.bookings ? c.bookings.length : 0),
 										0
 									)}
 								</div>
@@ -112,9 +126,8 @@ const Header = () => {
 					</div>
 					<div
 						className="group relative flex cursor-pointer flex-row flex-nowrap items-center justify-center"
-						onClick={() => {
-							userInfo && setUserButtonToggle(!userButtonToggle);
-						}}
+						onMouseEnter={() => userMenuMouseEnter()}
+						onMouseLeave={() => userMenuMouseLeave()}
 					>
 						<FaUser className="m-1 inline-block fill-egyptian-earth" />
 						{userInfo ? (
@@ -176,23 +189,36 @@ const Header = () => {
 							)}
 							<div className="group">
 								<FaCalendar className="m-1 inline-block" />
-								<HashLink onClick={toggleNavMenu} smooth to={`/#events`}>
+								<HashLink
+									onClick={() => setMobileNavToggle(!mobileNavToggle)}
+									smooth
+									to={`/#events`}
+								>
 									Events
 								</HashLink>
 							</div>
 							<div className="group">
 								<FaSeedling className="m-1 inline-block" />
-								<Link onClick={toggleNavMenu} to="/about">
+								<Link
+									onClick={() => setMobileNavToggle(!mobileNavToggle)}
+									to="/about"
+								>
 									About Us
 								</Link>
 							</div>
 							<div className="group">
-								<Link onClick={toggleNavMenu} to="/cart">
+								<Link
+									onClick={() => setMobileNavToggle(!mobileNavToggle)}
+									to="/cart"
+								>
 									<FaShoppingCart className="m-1 inline-block" />
 									Cart
 									{cartItems?.length > 0 && (
 										<div className="m-1 inline rounded-full bg-wasabi px-2 text-center text-off-white">
-											{cartItems.reduce((a, c) => a + c.qty, 0)}
+											{cartItems.reduce(
+												(a, c) => a + (c.bookings ? c.bookings.length : 0),
+												0
+											)}
 										</div>
 									)}
 								</Link>
@@ -201,7 +227,7 @@ const Header = () => {
 								<>
 									<Link
 										to={`/user/${userInfo._id}`}
-										onClick={toggleNavMenu}
+										onClick={() => setMobileNavToggle(!mobileNavToggle)}
 										className="flex flex-row items-center justify-center"
 									>
 										<FaUser className="m-1" /> Profile
@@ -210,7 +236,7 @@ const Header = () => {
 										to={`/user/${userInfo._id}`}
 										onClick={() => {
 											logoutHandler();
-											toggleNavMenu();
+											setMobileNavToggle(!mobileNavToggle);
 										}}
 										className="flex flex-row items-center justify-center"
 									>

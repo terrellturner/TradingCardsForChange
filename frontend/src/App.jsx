@@ -11,7 +11,7 @@ import { AnimatePresence } from 'motion/react';
 const App = () => {
 	const location = useLocation();
 	return (
-		<div className="flex min-h-dvh min-w-96 flex-col justify-between">
+		<div className="flex h-full flex-col">
 			<Header />
 			<main id="main" className="flex grow flex-col bg-noir-de-vigne md:py-20">
 				<AnimatePresence mode="wait" initial={false}>

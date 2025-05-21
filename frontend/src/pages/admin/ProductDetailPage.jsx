@@ -90,8 +90,6 @@ const ProductDetailPage = () => {
 			}
 		}
 
-		console.log(recurringPatternData);
-
 		const updatedProduct = {
 			productId,
 			name,
@@ -119,12 +117,9 @@ const ProductDetailPage = () => {
 			await updateProduct(updatedProduct).unwrap();
 			toast.success('Product updated!');
 			navigate('/admin/products');
-			console.log(updatedProduct.recurringPattern.customOccurrenceConfig);
-			console.log(updatedProduct);
 		} catch (error) {
 			toast.error(error?.data?.message || error.error);
 			console.error('Update error:', error);
-			console.log(updatedProduct);
 		}
 	};
 
@@ -182,7 +177,6 @@ const ProductDetailPage = () => {
 	const calculateEventFrequency = (freq, byNDay) => {
 		if (byNDay && byNDay.length > 1) {
 			setFrequency('custom');
-			console.log(frequency);
 		} else {
 			setFrequency(checkFrequency(freq));
 		}
@@ -191,7 +185,6 @@ const ProductDetailPage = () => {
 	useEffect(() => {
 		if (product) {
 			const rule = RRule.fromString(product.rrule);
-			console.log(rule);
 
 			setName(product.name ?? '');
 			setPrice(product.price ?? 0);
@@ -218,7 +211,6 @@ const ProductDetailPage = () => {
 						})
 						.filter(Boolean);
 					setWeekOfMonth(newWeekOfMonth);
-					console.log(weekOfMonth);
 				}
 				calculateEventFrequency(rule.options.freq, rule.options.bynweekday);
 			} else {
@@ -417,7 +409,6 @@ const ProductDetailPage = () => {
 														type="button"
 														onClick={() => {
 															setFrequency(option.toLowerCase());
-															console.log(frequency);
 														}}
 														className={`case w-24 grow cursor-pointer rounded-lg p-2 font-bold capitalize
 											

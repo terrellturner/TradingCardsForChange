@@ -17,8 +17,6 @@ const createEventRecurrences = (event) => {
 			new Date(event.endTime).valueOf() - new Date(event.startTime).valueOf();
 
 		for (const date of dates) {
-			console.log(date);
-
 			recurringEvents.push({
 				_id: event._id,
 				title: event.title,
@@ -26,11 +24,12 @@ const createEventRecurrences = (event) => {
 				endTime: new Date(date).valueOf() + eventDurationMs,
 				allDay: false,
 				eventLocation: event.eventLocation || 'Default',
-				countInStock: event.countInStock,
 				maximumEventCapacity: event.maximumEventCapacity,
 				image: event.image,
 				description: event.description,
-				isRecurring: event.recurringPattern,
+				recurringPattern: event.recurringPattern
+					? event.recurringPattern
+					: null,
 			});
 		}
 		return recurringEvents;

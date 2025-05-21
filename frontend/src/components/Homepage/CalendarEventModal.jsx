@@ -7,6 +7,8 @@ const CalendarEventModal = ({
 	selectedEvent,
 	setSelectedEvent,
 	setIsCalendarEventOpen,
+	onArchiveProduct,
+	onSnoozeEvent,
 }) => {
 	const MotionProductCard = motion(ProductCard);
 
@@ -52,6 +54,8 @@ const CalendarEventModal = ({
 					countInStock: selectedEvent.countInStock,
 					maximumEventCapacity: selectedEvent.maximumEventCapacity,
 					isRecurring: selectedEvent.isRecurring,
+					onArchiveProduct,
+					onSnoozeEvent,
 				}}
 				variants={productCardVariants}
 				initial="initial"

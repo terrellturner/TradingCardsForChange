@@ -48,7 +48,6 @@ const getAllProducts = asyncHandler(async (req, res) => {
           endTime: new Date(event.endTime.valueOf()),
           allDay: false,
           eventLocation: event.eventLocation || "Default",
-          countInStock: event.countInStock,
           maximumEventCapacity: event.maximumEventCapacity,
           image: event.image,
           description: event.description,
@@ -132,8 +131,6 @@ const updateProduct = asyncHandler(async (req, res) => {
       ];
     }
 
-    console.log(req.body.recurringPattern);
-
     if (req.body.recurringPattern) {
       const { recurringInterval, endDate } = req.body.recurringPattern;
       product.recurringPattern.customOccurrenceConfig =
@@ -143,7 +140,7 @@ const updateProduct = asyncHandler(async (req, res) => {
       product.recurringPattern.endDate = endDate;
     } else {
       product.rrule = undefined;
-      product.recurringPattern = {};
+      product.recurringPattern = null;
     }
 
     try {

@@ -36,7 +36,6 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
   })
 );
-console.log(`CORS configured to allow origins: ${process.env.CORS_DOMAINS}`);
 
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
@@ -51,10 +50,10 @@ app.get("/api/config/paypal", (req, res) =>
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
-app.listen(port, () => console.log(`Server running on port ${port}`));
+app.listen(port, () => console.info(`Server running on port ${port}`));
 
 app.get("/", (req, res) => {
-  res.status(200).send("🆗👍");
+  res.status(200).send("🌞");
 });
 
 app.use(notFound);

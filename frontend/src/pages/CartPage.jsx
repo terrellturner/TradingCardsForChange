@@ -1,26 +1,19 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { FaGhost, FaTrash } from 'react-icons/fa';
+import { FaGhost } from 'react-icons/fa';
 import { motion } from 'motion/react';
 import { defaultMotion } from '../constants';
 import EventBookingQuantityPicker from '../components/UI/EventBookingQuantityPicker';
 
 const CartPage = () => {
-	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
-	const [cartTrigger, setCartTrigger] = useState(false);
 
 	const cart = useSelector((state) => state.cart);
 	const { cartItems } = cart;
 
 	const checkoutHandler = async () => {
-		try {
-			navigate(`/checkout/`);
-		} catch (err) {
-			console.log(err);
-		}
+		navigate(`/checkout/`);
 	};
 
 	return cart.cartItems.length > 0 ? (
@@ -29,7 +22,7 @@ const CartPage = () => {
 			initial="initial"
 			animate="open"
 			exit="closed"
-			className="mx-auto flex h-full grow flex-col py-5"
+			className="mx-auto flex w-full min-w-52 grow flex-col place-items-center py-5 md:px-20"
 		>
 			<h1 className="p-5 text-4xl text-off-white">Shopping Cart</h1>
 			<div
@@ -50,7 +43,7 @@ const CartPage = () => {
 								<img
 									src={item.image}
 									className="aspect-square h-[200px] rounded-lg object-cover"
-									alt=""
+									alt={`${item.name} - ${booking.bookingDate}`}
 								/>
 								<div className="flex flex-col justify-between">
 									<div>
@@ -121,7 +114,7 @@ const CartPage = () => {
 			initial="initial"
 			animate="open"
 			exit="closed"
-			className="flex grow flex-col items-stretch bg-noir-de-vigne text-off-white"
+			className="flex h-full grow flex-col items-stretch bg-noir-de-vigne text-off-white"
 		>
 			<div className="flex h-full grow flex-col items-center justify-center">
 				<FaGhost className="fill-creased-khaki text-9xl" />

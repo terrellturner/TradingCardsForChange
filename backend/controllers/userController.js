@@ -226,8 +226,6 @@ const resetPassword = asyncHandler(async (req, res) => {
   try {
     const { userId } = req.body;
 
-    console.log(userId);
-
     const user = await User.findById(userId);
 
     user.passwordChangePrompt = true;
@@ -235,7 +233,7 @@ const resetPassword = asyncHandler(async (req, res) => {
 
     res.json({ message: "User updated successfully." });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({ message: "Server error!" });
   }
 });
@@ -249,7 +247,6 @@ const updatePassword = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
 
     if (user.passwordChangePrompt === false) {
-      console.log(user);
       return res.status(400).json({
         message:
           "ERROR: You have not been cleared for password reset! Initiate reset via your profile or contact an administrator.",
@@ -264,7 +261,7 @@ const updatePassword = asyncHandler(async (req, res) => {
 
     res.json({ message: "Password successfully updated." });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({ message: "Server error!" });
   }
 });

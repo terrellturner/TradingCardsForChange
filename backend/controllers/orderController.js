@@ -33,8 +33,12 @@ const addOrderItems = asyncHandler(async (req, res) => {
       return {
         ...itemFromClient,
         product: itemFromClient._id,
+        bookings: itemFromClient.bookings,
         price: matchingItemFromDB.price,
         eventLocation: matchingItemFromDB.eventLocation,
+        description: matchingItemFromDB.description,
+        name: matchingItemFromDB.name,
+        image: matchingItemFromDB.image,
         _id: undefined,
       };
     });
@@ -54,8 +58,6 @@ const addOrderItems = asyncHandler(async (req, res) => {
       shippingPrice,
       totalPrice,
     });
-
-    console.log(dbOrderItems);
 
     const createdOrder = await order.save();
 

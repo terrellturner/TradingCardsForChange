@@ -96,7 +96,7 @@ const ProductListPage = () => {
 	const createProductHandler = async (productTemplate = defaultProduct) => {
 		try {
 			const res = await createProduct(productTemplate).unwrap();
-			console.log(res);
+			toast.done('Product created.');
 
 			navigate(`/admin/product/${res._id}/edit`);
 		} catch (error) {

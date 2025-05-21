@@ -15,7 +15,7 @@ const protect = asyncHandler(async (req, res, next) => {
       if (req.user) {
         next();
       } else {
-        console.log("No user found for token");
+        console.error("No user found for token");
         res.status(401);
         throw new Error("User not found");
       }
