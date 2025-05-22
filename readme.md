@@ -1,5 +1,7 @@
 # Trading Cards For Change (TC4C)
 
+![Trading Cards For Change Banner](https://raw.githubusercontent.com/terrellturner/TradingCardsForChange/main/frontend/public/images/logo/TC4C-Text-Logo.svg)
+
 Hello! My name is Terrell, and this is my cornerstone Github repo. Trading Cards for Change (or TC4C for short) is an approximation of most use cases an event-based charity might run into, leveraging the power of the MERN stack to provide a custom solution without the painful fees from bigger reservation services. This e-commerce platform allows admins to track the event creation and management process while giving customers an easy way to view and purchase reservations for a given event. This project represents everything I've learned over **four years** of being a freelance web developer, serving as my "trial by fire" in the fundamentals of each technology listed. I laughed, cried, and probably bled a little too. Most importantly, I learned **a lot** and continue to apply this knowledge in everything else webdev-related.
 
 ## What is Trading Cards for Change?
@@ -125,7 +127,7 @@ Despite its connotation with smaller business, I decided to stick with MERN due 
     *   In the `TradingCards4Change/backend` directory, create a `.env` file. You can use `backend/.env.example` (to be created) as a template. It will require variables like `MONGO_URI`, `JWT_SECRET`, `NODE_ENV`, `PORT`.
 
     *   In the `TradingCards4Change/frontend` directory, create a `.env` file. You can use `frontend/.env.example` (to be created) as a template. It will likely require `VITE_API_URL` pointing to your backend.
-    
+
 6.  **Run the Backend Server:**
     ```bash
     cd backend
