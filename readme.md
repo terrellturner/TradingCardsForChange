@@ -16,7 +16,7 @@ The project began with a need, and so I set out to solve that need. The original
 
 Having built React sites in the past, this was my first time having to dive deep into the docs to learn as much as possible in order to not only make something that worked, but something that made sense as well. React, Express, and Node are all extremely established in their respective roles and are the technologies I learned the most about through this whole project.
 
-Despite its connotation with smaller business, I decided to stick with MERN due to the time budget I had set for this project. While it would have been nice to dive into PostgreSQL implementations, the goal was to have a working MVP as quickly as possible. Given the massive amount of MongoDB/Mongoose support online due to its ubiquity, the decision to stick with MERN couldn't have been clearer.
+I decided to stick with MERN due to the time budget I had set for this project. While it would have been nice to dive into PostgreSQL implementations, the goal was to have a working MVP as quickly as possible. Given the massive amount of MongoDB/Mongoose support online due to its ubiquity, the decision to stick with MERN couldn't have been clearer.
 
 ### Front-end:
 
