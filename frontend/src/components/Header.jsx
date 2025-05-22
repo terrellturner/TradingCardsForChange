@@ -7,6 +7,9 @@ import {
 	FaCalendar,
 	FaSeedling,
 	FaDoorOpen,
+	FaBook,
+	FaUsers,
+	FaBookmark,
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useLogoutMutation } from '../slices/usersApiSlice';
@@ -65,7 +68,7 @@ const Header = () => {
 
 	return (
 		<header>
-			<nav className="lg:justify-stetch flex h-24 w-full flex-row items-center justify-between bg-emerald-green px-4 font-bold text-white md:px-6">
+			<nav className="lg:justify-stetch flex h-24 w-full flex-row items-center justify-between bg-emerald-green px-4 text-white md:px-6">
 				<Link
 					to="/"
 					className="group hidden h-full items-center text-center md:flex"
@@ -98,13 +101,13 @@ const Header = () => {
 				</button>
 				<div className="hidden h-full items-center justify-center text-creased-khaki md:mr-4 md:flex md:space-x-8 md:text-lg">
 					<div className="group flex flex-row items-center justify-center">
-						<FaCalendar className="m-1 inline-block fill-egyptian-earth" />
+						<FaCalendar className="m-1 inline-block" />
 						<HashLink smooth to={`/#events`}>
 							Events
 						</HashLink>
 					</div>
 					<div className="group flex flex-row items-center justify-center">
-						<FaSeedling className="m-1 inline-block fill-egyptian-earth" />
+						<FaSeedling className="m-1 inline-block" />
 						<Link to="/about">About Us</Link>
 					</div>
 					<div className="group">
@@ -112,7 +115,7 @@ const Header = () => {
 							to="/cart"
 							className="flex flex-row items-center justify-center"
 						>
-							<FaShoppingCart className="m-1 inline-block fill-egyptian-earth" />
+							<FaShoppingCart className="m-1 inline-block" />
 							Cart
 							{cartItems?.length > 0 && (
 								<div className="m-1 inline rounded-full bg-wasabi px-2 text-center text-off-white">
@@ -129,7 +132,7 @@ const Header = () => {
 						onMouseEnter={() => userMenuMouseEnter()}
 						onMouseLeave={() => userMenuMouseLeave()}
 					>
-						<FaUser className="m-1 inline-block fill-egyptian-earth" />
+						<FaUser className="m-1 inline-block " />
 						{userInfo ? (
 							userInfo.lastName ? (
 								<a>
@@ -142,7 +145,7 @@ const Header = () => {
 							<Link to="/login">Log In</Link>
 						)}
 						<div
-							className={`absolute top-8 z-50 whitespace-nowrap rounded-md border border-creased-khaki bg-emerald-green p-3 ${userButtonToggle ? '' : 'invisible'}`}
+							className={`absolute top-8 z-50 whitespace-nowrap rounded-md border border-creased-khaki bg-emerald-green p-5 ${userButtonToggle ? '' : 'invisible'}`}
 						>
 							<ul className="flex flex-col">
 								<Link to={`/user/${userInfo?._id}`}>Profile</Link>
@@ -161,9 +164,6 @@ const Header = () => {
 										<Link to="/admin/users">
 											<li>Users</li>
 										</Link>
-										<button className="mt-4 rounded-lg bg-creased-khaki px-4 py-3 text-noir-de-vigne">
-											Create New Event
-										</button>
 									</>
 								)}
 							</ul>
@@ -172,7 +172,7 @@ const Header = () => {
 				</div>
 				<AnimatePresence>
 					{mobileNavToggle && (
-						<motion.div
+						<motion.ul
 							id="mobile-menu"
 							className="fixed bottom-0 left-32 right-0 top-0 z-[90] flex flex-col items-start space-y-2 bg-emerald-green pl-8 pt-32 text-xl text-creased-khaki shadow-2xl md:hidden"
 							variants={mobileNavMotionVariants}
@@ -181,37 +181,43 @@ const Header = () => {
 							exit="closed"
 						>
 							{userInfo ? (
-								<div className="p-3 text-3xl text-egyptian-earth">
-									Hi, {userInfo?.firstName}!
+								<div className="p-3 text-2xl ">
+									Hi,{' '}
+									<span className="text-3xl font-bold">
+										{userInfo?.firstName}!
+									</span>
 								</div>
 							) : (
 								''
 							)}
-							<div className="group">
-								<FaCalendar className="m-1 inline-block" />
+							<li className="group">
+								<FaCalendar className="m-1 inline-block fill-egyptian-earth font-bold" />
 								<HashLink
+									className="font-bold"
 									onClick={() => setMobileNavToggle(!mobileNavToggle)}
 									smooth
 									to={`/#events`}
 								>
 									Events
 								</HashLink>
-							</div>
-							<div className="group">
-								<FaSeedling className="m-1 inline-block" />
+							</li>
+							<li className="group">
+								<FaSeedling className="m-1 inline-block fill-egyptian-earth font-bold" />
 								<Link
+									className="font-bold"
 									onClick={() => setMobileNavToggle(!mobileNavToggle)}
 									to="/about"
 								>
 									About Us
 								</Link>
-							</div>
-							<div className="group">
+							</li>
+							<li className="group">
 								<Link
+									className="font-bold"
 									onClick={() => setMobileNavToggle(!mobileNavToggle)}
 									to="/cart"
 								>
-									<FaShoppingCart className="m-1 inline-block" />
+									<FaShoppingCart className="m-1 inline-block fill-egyptian-earth" />
 									Cart
 									{cartItems?.length > 0 && (
 										<div className="m-1 inline rounded-full bg-wasabi px-2 text-center text-off-white">
@@ -222,15 +228,15 @@ const Header = () => {
 										</div>
 									)}
 								</Link>
-							</div>
+							</li>
 							{userInfo ? (
 								<>
 									<Link
 										to={`/user/${userInfo._id}`}
 										onClick={() => setMobileNavToggle(!mobileNavToggle)}
-										className="flex flex-row items-center justify-center"
+										className="flex flex-row items-center justify-center font-bold"
 									>
-										<FaUser className="m-1" /> Profile
+										<FaUser className="m-1 fill-egyptian-earth" /> Profile
 									</Link>
 									<Link
 										to={`/user/${userInfo._id}`}
@@ -238,15 +244,49 @@ const Header = () => {
 											logoutHandler();
 											setMobileNavToggle(!mobileNavToggle);
 										}}
-										className="flex flex-row items-center justify-center"
+										className="flex flex-row items-center justify-center font-bold"
 									>
-										<FaDoorOpen className="m-1" /> Logout
+										<FaDoorOpen className="m-1 fill-egyptian-earth" />
+										Logout
 									</Link>
+									{userInfo && userInfo.isAdmin && (
+										<>
+											<span className="pt-5 text-2xl uppercase text-creased-khaki">
+												Admin
+											</span>
+											<ul className="flex flex-col space-y-2 pl-3 ">
+												<Link
+													onClick={() => setMobileNavToggle(!mobileNavToggle)}
+													className="flex flex-row place-items-center space-x-1 font-bold"
+													to="/admin/orders"
+												>
+													<FaBook className="fill-egyptian-earth" />
+													<li>Order Log</li>
+												</Link>
+												<Link
+													onClick={() => setMobileNavToggle(!mobileNavToggle)}
+													className="flex flex-row place-items-center space-x-1 font-bold"
+													to="/admin/products"
+												>
+													<FaBookmark className="fill-egyptian-earth" />
+													<li>Edit Events</li>
+												</Link>
+												<Link
+													onClick={() => setMobileNavToggle(!mobileNavToggle)}
+													className="flex flex-row place-items-center space-x-1 font-bold"
+													to="/admin/users"
+												>
+													<FaUsers className="fill-egyptian-earth" />
+													<li>Manage Users</li>
+												</Link>
+											</ul>
+										</>
+									)}
 								</>
 							) : (
 								<Link to="/login">Log In</Link>
 							)}
-						</motion.div>
+						</motion.ul>
 					)}
 				</AnimatePresence>
 			</nav>
