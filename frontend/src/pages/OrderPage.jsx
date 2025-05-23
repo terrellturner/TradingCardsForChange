@@ -82,7 +82,7 @@ const OrderPage = () => {
 										<span className="truncate font-bold text-creased-khaki">
 											Seats:
 										</span>
-										<span className="truncate">
+										<span className="text-bold truncate">
 											{booking.reservationSeats.qty}
 										</span>
 									</div>
@@ -90,7 +90,7 @@ const OrderPage = () => {
 										<span className="truncate font-bold text-creased-khaki">
 											Subtotal:
 										</span>
-										<span className="truncate">
+										<span className="text-bold truncate">
 											{`$${(item.price * booking.reservationSeats.qty).toFixed(2)}`}
 										</span>
 									</div>
