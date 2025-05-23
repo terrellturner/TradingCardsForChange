@@ -149,20 +149,20 @@ const CheckoutPage = () => {
 			initial="initial"
 			animate="open"
 			exit="closed"
-			className="mx-auto flex w-full min-w-52 grow flex-col place-items-center py-5 md:px-20"
+			className="mx-5 flex max-w-screen-2xl grow flex-col place-items-center p-1 py-12 md:mx-auto md:p-10"
 		>
-			<h1 className="mb-10 self-start p-3 text-4xl font-bold text-off-white">
+			<h1 className="mb-10 self-start text-4xl font-bold text-off-white">
 				Checkout
 			</h1>
-			<div className="-mt-10 flex w-full grow flex-col place-content-center space-y-5 md:space-y-0 lg:flex-row lg:space-x-10">
-				<div className="flex flex-col md:flex-row lg:w-1/2">
+			<div className="flex w-full grow flex-col place-content-center items-center justify-between space-y-5 md:space-y-0 lg:flex-row ">
+				<div className="flex flex-col md:flex-row lg:w-2/3">
 					{shippingModalOpen && (
 						<CheckoutForm
 							handleClick={handleShippingModalToggle}
 							cartItems={cart.cartItems}
 						/>
 					)}
-					<ContentContainer className="flex w-full flex-col space-y-10 border-none">
+					<ContentContainer className="flex w-full flex-col space-y-2 border-none">
 						<h3 className="text-center text-2xl lg:text-left">
 							Contact Information
 						</h3>
@@ -239,60 +239,59 @@ const CheckoutPage = () => {
 								)}
 							</span>
 						</div>
-						<div className="flex flex-col">
-							<h2 className="pb-5 text-2xl text-off-white">Order Items</h2>
-							{cart.cartItems?.map((item) =>
-								item.bookings?.map((booking) => (
-									<div
-										key={`${item._id}-${booking.reservationSeats.qty}-${booking.bookingDate}`}
-										className="flex w-full flex-row place-items-center gap-4 rounded-lg p-5 text-off-white lg:space-x-5"
-									>
-										<img
-											src={item.image}
-											className="aspect-square h-16 rounded-lg object-cover"
-											alt=""
-										/>
-										<div className="flex flex-col pl-4">
-											<div className="flex flex-col lg:block">
-												<span className="text-xl font-bold">{item.name}</span>
-												<span className="mx-2 text-creased-khaki">
-													{new Date(booking.bookingDate).toLocaleDateString()}
-												</span>
-											</div>
-											<EventBookingQuantityPicker
-												booking={booking}
-												product={item}
+						<div className="flex flex-col space-y-4 py-4 md:p-12">
+							<h2 className="text-3xl text-off-white">Order Items</h2>
+							<div className="flex flex-col space-y-8">
+								{cart.cartItems?.map((item) =>
+									item.bookings?.map((booking) => (
+										<div
+											key={`${item._id}-${booking.reservationSeats.qty}-${booking.bookingDate}`}
+											className="flex flex-row place-items-center gap-4 rounded-lg border border-creased-khaki p-4 text-off-white md:border-0 lg:space-x-5"
+										>
+											<img
+												src={item.image}
+												className="aspect-square h-16 rounded-lg object-cover"
+												alt=""
 											/>
+											<div className="flex flex-col pl-4">
+												<div className="flex min-w-0 flex-col">
+													<span className="line-clamp-2 max-w-52 font-bold md:max-w-lg md:truncate md:text-xl">
+														{item.name}
+													</span>
+													<span className="font-bold text-creased-khaki">
+														{new Date(booking.bookingDate).toLocaleDateString()}
+													</span>
+												</div>
+												<EventBookingQuantityPicker
+													booking={booking}
+													product={item}
+												/>
+											</div>
 										</div>
-									</div>
-								))
-							)}
+									))
+								)}
+							</div>
 						</div>
 					</ContentContainer>
 				</div>
-				<div
-					id="cart-total-checkout-container"
-					className="flex flex-col justify-center p-10 md:flex-row md:p-20"
-				>
-					<div className="z-0 w-full space-y-3 divide-y-2 divide-creased-khaki rounded-lg border border-creased-khaki p-10 md:px-14">
-						<div className="px-3">
-							<div className="text-3xl text-off-white">
-								Subtotal ({cart.itemsPrice})
-							</div>
-							<div className="text-lg text-off-white">${cart.totalPrice}</div>
+				<div className="z-0 flex h-2/3 w-full flex-col justify-center space-y-12 divide-creased-khaki rounded-lg border border-creased-khaki p-10 md:px-7 lg:mx-12 lg:w-1/3 lg:p-6">
+					<div className="">
+						<div className="text-3xl text-off-white">
+							Subtotal ({cart.itemsPrice})
 						</div>
-						<PayPalButtons
-							createOrder={createOrder}
-							onApprove={onApprove}
-							onError={onError}
-						/>
-						<button
-							onClick={placeOrderHandler}
-							className="bg-creased-khaki p-4 text-2xl font-bold text-emerald-green"
-						>
-							Test Order
-						</button>
+						<div className="text-lg text-off-white">${cart.totalPrice}</div>
 					</div>
+					<PayPalButtons
+						createOrder={createOrder}
+						onApprove={onApprove}
+						onError={onError}
+					/>
+					<button
+						onClick={placeOrderHandler}
+						className="w-full rounded-lg border border-creased-khaki bg-egyptian-earth p-6 px-12 text-2xl font-bold text-creased-khaki"
+					>
+						Test Order
+					</button>
 				</div>
 			</div>
 		</motion.div>

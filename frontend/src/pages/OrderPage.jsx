@@ -58,7 +58,7 @@ const OrderPage = () => {
 			initial="initial"
 			animate="open"
 			exit="closed"
-			className="m-6 flex min-w-0 grow flex-col items-center justify-center space-y-10 text-center text-off-white md:space-y-24"
+			className="m-6 flex min-w-0 grow flex-col items-center justify-center space-y-10 py-12 text-center text-off-white md:space-y-24"
 		>
 			<h3 className="text-4xl font-bold">Thank you for your purchase!</h3>
 			<div className="flex w-full min-w-0 flex-col flex-wrap items-center divide-y divide-creased-khaki rounded-lg border border-creased-khaki md:w-1/2">
@@ -75,19 +75,17 @@ const OrderPage = () => {
 									alt={`${item.name} | ${item.description}`}
 								/>
 								<div className="flex w-full flex-col text-left md:min-w-0">
-									<div className="w-full truncate text-lg font-bold text-creased-khaki md:text-xl">
+									<div className="w-full truncate text-xl font-bold md:text-xl">
 										{item.name}
 									</div>
 									<div className="flex min-w-0 flex-row justify-between">
-										<span className="truncate font-bold text-creased-khaki">
-											Seats:
-										</span>
+										<span className="truncate text-creased-khaki">Seats:</span>
 										<span className="text-bold truncate">
 											{booking.reservationSeats.qty}
 										</span>
 									</div>
 									<div className="flex min-w-0 flex-row justify-between">
-										<span className="truncate font-bold text-creased-khaki">
+										<span className="truncate text-creased-khaki">
 											Subtotal:
 										</span>
 										<span className="text-bold truncate">

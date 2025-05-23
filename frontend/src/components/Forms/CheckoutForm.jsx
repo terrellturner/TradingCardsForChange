@@ -49,7 +49,7 @@ const CustomerShippingBillingForm = (props) => {
 				onClick={props.handleClick}
 				className="fixed bottom-0 left-0 right-0 top-0 bg-noir-de-vigne bg-opacity-80"
 			></div>
-			<ContentContainer className="fixed left-1/2 top-1/2 z-50 flex h-2/3 w-4/5 -translate-x-1/2 -translate-y-1/2 flex-col overflow-scroll border-2 bg-noir-de-vigne md:h-auto md:w-2/5 md:overflow-hidden md:p-12">
+			<ContentContainer className="fixed left-1/2 top-1/2 z-50 flex h-2/3 w-4/5 -translate-x-1/2 -translate-y-1/2 flex-col overflow-scroll border bg-noir-de-vigne p-4 md:h-auto md:w-2/5 md:overflow-hidden md:p-12">
 				<h3 className="text-2xl font-bold">Contact Information</h3>
 				<span>Please enter your contact information below.</span>
 				<form
@@ -138,7 +138,7 @@ const CustomerShippingBillingForm = (props) => {
 					/>
 					<button
 						onClick={props.handleClick}
-						className="rounded-lg border-2 p-4 text-creased-khaki"
+						className="rounded-lg border p-4 text-creased-khaki"
 					>
 						Cancel
 					</button>

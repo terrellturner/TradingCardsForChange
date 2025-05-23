@@ -5,7 +5,7 @@ const ContentContainer = (props) => {
 	return (
 		<div
 			onClick={props.handleClick}
-			className={`rounded-lg border border-creased-khaki p-5 text-off-white ${props.className}`}
+			className={`rounded-lg border border-creased-khaki text-off-white ${props.className}`}
 		>
 			{props.children}
 		</div>

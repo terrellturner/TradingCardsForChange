@@ -57,7 +57,7 @@ const CalendarSection = ({ eventList }) => {
 	return (
 		<AnimatePresence>
 			<div className="flex w-full flex-col items-center space-y-5 overflow-hidden">
-				<h3 className="mb-6 text-center font-serif text-7xl text-creased-khaki">
+				<h3 className="py-12 text-center font-serif text-6xl text-creased-khaki md:py-6 md:text-7xl">
 					Scheduled Events
 				</h3>
 				{

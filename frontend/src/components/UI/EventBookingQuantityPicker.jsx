@@ -53,7 +53,7 @@ const EventBookingQuantityPicker = ({ booking, product }) => {
 				name="qty"
 				id="qty"
 				value={reservationSeats}
-				className="my-2 w-full rounded-xl border-2 border-creased-khaki bg-noir-de-vigne px-2 md:w-1/2"
+				className="my-2 w-full rounded-xl border border-creased-khaki bg-noir-de-vigne px-2 md:w-1/2"
 				onChange={(e) =>
 					modifyBookingHandler(
 						product._id,

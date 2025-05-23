@@ -232,7 +232,7 @@ const ProductListPage = () => {
 					{productData.map((product) => (
 						<div
 							key={product._id}
-							className=" flex w-full flex-col rounded-2xl border-2 border-creased-khaki bg-emerald-green p-6"
+							className=" flex w-full flex-col rounded-2xl border border-creased-khaki bg-emerald-green p-6"
 						>
 							<div className="truncate text-xl font-bold text-off-white">
 								{product.name}

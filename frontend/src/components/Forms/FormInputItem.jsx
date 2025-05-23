@@ -21,7 +21,7 @@ const FormInputItem = ({
 				id={id}
 				name={name}
 				placeholder={placeholder}
-				className="rounded-md border-2 border-creased-khaki bg-noir-de-vigne p-2"
+				className="rounded-md border border-creased-khaki bg-noir-de-vigne p-2"
 				onChange={(e) => {
 					setValue(e.target.value);
 				}}

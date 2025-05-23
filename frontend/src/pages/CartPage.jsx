@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { FaGhost } from 'react-icons/fa';
+import { FaGhost, FaShoppingCart } from 'react-icons/fa';
 import { motion } from 'motion/react';
 import { defaultMotion } from '../constants';
 import EventBookingQuantityPicker from '../components/UI/EventBookingQuantityPicker';
 
 const CartPage = () => {
+	const [cartCount, setCartCount] = useState(Number);
 	const navigate = useNavigate();
 
 	const cart = useSelector((state) => state.cart);
@@ -16,29 +17,36 @@ const CartPage = () => {
 		navigate(`/checkout/`);
 	};
 
+	useEffect(() => {
+		setCartCount(cartItems.length);
+	}, [cartItems, cartCount]);
+
 	return cart.cartItems.length > 0 ? (
 		<motion.div
 			variants={defaultMotion}
 			initial="initial"
 			animate="open"
 			exit="closed"
-			className="mx-auto flex w-full min-w-52 grow flex-col place-items-center py-5 md:px-20"
+			className="mx-auto flex w-full min-w-52 grow flex-col justify-center space-y-2 px-6 py-5 md:px-72"
 		>
-			<h1 className="p-5 text-4xl text-off-white">Shopping Cart</h1>
+			<div className="flex flex-row place-items-center space-x-2">
+				<FaShoppingCart className="fill-creased-khaki stroke-egyptian-earth stroke-[20px] text-4xl" />
+				<h1 className=" p-8 pl-0 text-4xl font-bold text-off-white">My Cart</h1>
+			</div>{' '}
 			<div
 				id="cart-page-container"
-				className="flex flex-col py-20 md:w-full md:flex-row md:place-content-around"
+				className="flex flex-col space-y-4 md:w-full md:flex-row md:place-content-around md:space-y-0 md:py-20"
 			>
 				{/* Cart Items */}
 				<div
 					id="cart-item-container"
-					className="flex-col place-items-center space-y-8 p-10"
+					className="flex-col place-items-center space-y-8"
 				>
 					{cartItems.map((item) => {
 						return item?.bookings?.map((booking) => (
 							<div
 								key={booking.bookingDate}
-								className="flex flex-col space-y-8 rounded-lg border border-creased-khaki p-5  text-white md:w-full md:min-w-[420px] md:flex-row md:space-x-8"
+								className="flex flex-col space-y-8 rounded-lg border border-creased-khaki p-5 text-white  md:w-3/4 md:min-w-[420px] md:flex-row md:space-x-8"
 							>
 								<img
 									src={item.image}
@@ -70,13 +78,13 @@ const CartPage = () => {
 				{/* Cart Summary */}
 				<div
 					id="cart-total-checkout-container"
-					className="flex flex-col place-items-center px-10 "
+					className="flex flex-col place-items-center"
 				>
 					<div className="rounded-lg border border-creased-khaki p-8 md:min-w-[300px]">
 						<div className="flex flex-col space-y-5 px-3">
-							<div className="pb-5 text-3xl text-off-white">
-								Order Summary (
-								{cartItems.reduce((a, c) => a + c.bookings.length, 0)} items)
+							<div className="flex flex-row flex-wrap space-y-1 pb-5 text-3xl text-creased-khaki">
+								<span className="font-bold ">Order Summary</span>({cartCount}{' '}
+								{cartCount > 1 ? 'items' : 'item'})
 							</div>
 							<div className="grid grid-cols-1 divide-y divide-creased-khaki rounded-lg border-creased-khaki">
 								<div className="flex flex-row justify-between p-4 text-off-white">

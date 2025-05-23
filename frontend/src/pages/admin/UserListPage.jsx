@@ -227,7 +227,7 @@ const UserListPage = () => {
 					{userData.map((user) => (
 						<div
 							key={user._id}
-							className=" flex w-full flex-col rounded-2xl border-2 border-creased-khaki bg-emerald-green p-6"
+							className=" flex w-full flex-col rounded-2xl border border-creased-khaki bg-emerald-green p-6"
 						>
 							<div className="truncate text-3xl font-bold text-off-white">
 								{user.firstName} {user.lastName}

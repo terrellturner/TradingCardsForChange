@@ -128,14 +128,14 @@ const ProductPage = () => {
 				initial="initial"
 				animate="open"
 				exit="closed"
-				className="min-w-80 grow px-12 py-8"
+				className="mx-auto min-w-80 max-w-screen-2xl grow space-y-4 px-12 py-8"
 			>
 				<Link to="/">
-					<button className="h-12 w-28 rounded-md border-creased-khaki bg-emerald-green text-creased-khaki">
+					<button className="h-12 w-28 rounded-md border border-solid border-creased-khaki bg-emerald-green text-creased-khaki md:h-16 md:w-32">
 						Go Back
 					</button>
 				</Link>
-				<section className="mx-auto flex max-w-screen-2xl flex-col flex-wrap place-items-center space-y-5 py-8  md:flex-row md:justify-around md:space-y-14 xl:flex-nowrap">
+				<section className="flex flex-col flex-wrap place-items-center space-y-5 md:flex-row md:justify-around md:space-y-14 xl:flex-nowrap">
 					<img
 						src={product.image}
 						className="aspect-square object-cover md:max-h-80 md:w-1/2"
@@ -157,7 +157,7 @@ const ProductPage = () => {
 						</span>
 					</div>
 					{/* Order Details */}
-					<div className="flex h-1/3 w-full flex-col justify-around divide-y-2 rounded-md border border-creased-khaki md:mx-36 md:p-10 lg:mx-0 lg:w-1/2">
+					<div className="flex h-1/3 w-full flex-col justify-around divide-y-2 rounded-md border border-creased-khaki md:p-10 lg:w-1/2">
 						<div className="flex justify-between space-x-3 border-creased-khaki p-4 text-off-white">
 							<span>Ticket Price: </span>
 							<span>${product.price}</span>
@@ -178,7 +178,7 @@ const ProductPage = () => {
 									name="reservation"
 									id="reservation"
 									value={selectedDate}
-									className="w-full border-creased-khaki bg-noir-de-vigne md:w-1/2"
+									className="w-full truncate border-creased-khaki bg-noir-de-vigne md:w-1/2"
 									onChange={(e) => {
 										() => {
 											handleChangeDate(e);
@@ -222,7 +222,7 @@ const ProductPage = () => {
 								>
 									{qtyOptionsArray.map((e) => {
 										return (
-											<option key={e} value={e}>
+											<option className="" key={e} value={e}>
 												{e}
 											</option>
 										);
@@ -230,10 +230,10 @@ const ProductPage = () => {
 								</select>
 							)}
 						</div>
-						<span className="flex justify-center border-creased-khaki p-4 pb-0 text-off-white">
+						<span className="flex h-24 justify-center border-creased-khaki p-6 text-off-white md:pb-0">
 							<button
 								disabled={product.countInStock === 0}
-								className="disabled: h-12 w-28 rounded-md bg-emerald-green text-creased-khaki disabled:text-noir-de-vigne"
+								className="disabled: h-full w-full rounded-md border border-creased-khaki bg-emerald-green text-creased-khaki disabled:text-noir-de-vigne"
 								onClick={addToCartHandler}
 							>
 								Add to Cart

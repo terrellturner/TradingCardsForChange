@@ -17,7 +17,7 @@ const ConfirmationPrompt = ({
 		createPortal(
 			<>
 				<div className="fixed bottom-0 left-0 right-0 top-0 bg-noir-de-vigne bg-opacity-80"></div>
-				<ContentContainer className="fixed left-1/2 top-1/2 z-50 flex h-2/3 -translate-x-1/2 -translate-y-1/2 flex-col space-y-8 overflow-scroll border-2 bg-noir-de-vigne md:h-auto md:w-2/5 md:overflow-hidden md:p-12">
+				<ContentContainer className="fixed left-1/2 top-1/2 z-50 flex h-2/3 -translate-x-1/2 -translate-y-1/2 flex-col space-y-8 overflow-scroll border bg-noir-de-vigne md:h-auto md:w-2/5 md:overflow-hidden md:p-12">
 					<a>{message}</a>
 					<div className="flex flex-row justify-stretch space-x-2">
 						<button
