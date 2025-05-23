@@ -37,7 +37,7 @@ const ProductCard = React.forwardRef(
 		return (
 			<div
 				ref={ref}
-				className={`relative flex flex-col justify-around space-y-3 overflow-hidden rounded-lg border border-gray-700 bg-off-white p-5 shadow ${cardClasses}`}
+				className={`relative flex flex-col justify-around space-y-3 rounded-lg border border-gray-700 bg-off-white p-5 shadow ${cardClasses}`}
 			>
 				<div className="absolute left-0 top-0 m-2 h-20 w-20 rounded-lg bg-emerald-green p-3 text-center text-creased-khaki shadow-lg">
 					<span className="block text-sm font-bold">

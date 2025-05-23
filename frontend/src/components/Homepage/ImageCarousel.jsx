@@ -32,7 +32,7 @@ const ImageCarousel = ({ sortedEvents }) => {
 							alt={event.title || ''}
 							className="carousel-img h-full w-full shrink-0 grow-0 rounded-lg object-cover"
 						/>
-						<div className="absolute bottom-0 left-0 right-0 flex w-full overflow-hidden truncate bg-noir-de-vigne bg-opacity-80 pb-2 pl-5 pt-5 font-sans-serif text-2xl text-creased-khaki md:h-1/5 md:pb-0">
+						<div className="absolute bottom-0 left-0 right-0 flex w-full truncate bg-noir-de-vigne bg-opacity-80 pb-2 pl-5 pt-5 font-sans-serif text-2xl text-creased-khaki md:h-1/5 md:pb-0">
 							<div>
 								{new Date(event.startTime).toLocaleDateString('en-US')} - {` `}
 								{event.title}
