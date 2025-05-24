@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useGetAllProductsQuery } from '../slices/productsApiSlice';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import Loader from '../components/UI/Loader';
 import { defaultMotion } from '../constants';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -8,18 +8,27 @@ import HeroSection from '../components/Homepage/HeroSection';
 import IntroductionSection from '../components/Homepage/IntroductionSection';
 import CalendarSection from '../components/Homepage/CalendarSection';
 import MobileEventSection from '../components/Homepage/MobileEventSection';
-import { selectEvents } from '../utils/processedEventsSelectors';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import {
+	selectEvents,
+	selectSortedEventsForCalendar,
+	selectSortedEventsForMobile,
+} from '../selectors/processedEventsSelectors';
 
 const HomePage = () => {
 	const { data: products, isLoading } = useGetAllProductsQuery();
 
-	const {
-		events,
-		isLoading: isEventListLoading,
-		error: eventError,
-	} = useSelector(selectEvents);
+	const { isLoading: isEventListLoading, error: eventError } =
+		useSelector(selectEvents);
+
+	console.log(
+		'HomePage Render:',
+		'isLoading (products):',
+		isLoading,
+		'isEventListLoading (events):',
+		isEventListLoading
+	);
 
 	useEffect(() => {
 		if (eventError) {
@@ -28,20 +37,10 @@ const HomePage = () => {
 		}
 	}, [eventError]);
 
-	const sortedEvents = events.sort((a, b) => {
-		return new Date(b.startTime) - new Date(a.startTime);
-	});
+	const sortedEventsCalendar = useSelector(selectSortedEventsForCalendar);
+	const sortedEventsTop = useSelector(selectSortedEventsForMobile);
 
-	const sortedEventsLatest = events
-		.filter((event) => {
-			return new Date(event.startTime) >= new Date();
-		})
-		.sort((a, b) => {
-			return new Date(a.startTime) - new Date(b.startTime);
-		})
-		.slice(0, 5);
-
-	if (isLoading || isEventListLoading) {
+	if (isLoading && isEventListLoading) {
 		return <Loader />;
 	}
 
@@ -53,19 +52,19 @@ const HomePage = () => {
 			exit="closed"
 			className="flex h-full grow flex-col items-center bg-noir-de-vigne "
 		>
-			<HeroSection sortedEvents={sortedEventsLatest} />
+			<HeroSection sortedEvents={sortedEventsTop} />
 			<IntroductionSection />
 			<div id="events" className="w-full">
 				<CalendarSection
 					isLoading={isLoading}
 					products={products}
-					eventList={sortedEvents}
+					eventList={sortedEventsCalendar}
 				/>
 				{/* Mobile list view <800px */}
 				<MobileEventSection
 					isLoading={isLoading}
 					products={products}
-					mobileEvents={sortedEventsLatest}
+					mobileEvents={sortedEventsTop}
 				/>
 			</div>
 		</motion.div>

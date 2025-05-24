@@ -17,10 +17,6 @@ const CalendarSection = ({ eventList }) => {
 
 	const [updateBooking, { isLoading }] = useUpdateBookingMutation();
 
-	useEffect(() => {}, []);
-
-	console.info(eventList);
-
 	const locales = {
 		'en-US': enUS,
 	};
@@ -73,11 +69,6 @@ const CalendarSection = ({ eventList }) => {
 								start: new Date(product.startTime),
 								end: new Date(product.endTime),
 								image: product.image,
-								description: product.description,
-								maximumEventCapacity: product.maximumEventCapacity,
-								isRecurring: product.isRecurring,
-								onArchiveProduct,
-								onSnoozeEvent,
 							}))}
 							startAccessor="start"
 							endAccessor="end"

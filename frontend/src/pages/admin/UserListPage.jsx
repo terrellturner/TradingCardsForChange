@@ -131,7 +131,7 @@ const UserListPage = () => {
 
 	return (
 		<AnimatePresence>
-			<motion.div className="hidden flex-col md:flex">
+			<motion.div className="hidden flex-col md:flex" key={'userListDesktop'}>
 				<h1 className="p-12 text-5xl font-bold text-off-white">Users</h1>
 				<div className="hidden w-5/6 flex-row self-center p-20 text-creased-khaki md:flex">
 					<table className="w-full table-fixed border-separate border-spacing-0 overflow-hidden rounded-2xl border border-creased-khaki bg-emerald-green">
@@ -152,10 +152,10 @@ const UserListPage = () => {
 							</tr>
 						</thead>
 						<tbody className="">
-							{userData.map((user) => (
+							{userData?.map((user, index) => (
 								<tr
 									className="text-center text-off-white odd:bg-noir-de-vigne"
-									key={user._id}
+									key={index}
 								>
 									<td className="truncate p-3">{user._id}</td>
 									<td className="truncate p-3">{user.firstName}</td>
@@ -216,7 +216,10 @@ const UserListPage = () => {
 					className={'place-self-center'}
 				/>
 			</motion.div>
-			<motion.div className="my-auto flex flex-col space-y-10 px-12 py-6 md:hidden">
+			<motion.div
+				className="my-auto flex flex-col space-y-10 px-12 py-6 md:hidden"
+				key={'userListMobile'}
+			>
 				<SortDropdown
 					headers={tableHeaders}
 					sortedField={sortField}
@@ -227,7 +230,7 @@ const UserListPage = () => {
 					{userData.map((user) => (
 						<div
 							key={user._id}
-							className=" flex w-full flex-col rounded-2xl border border-creased-khaki bg-emerald-green p-6"
+							className=" flex w-full flex-col rounded-2xl border-2 border-creased-khaki bg-emerald-green p-6"
 						>
 							<div className="truncate text-3xl font-bold text-off-white">
 								{user.firstName} {user.lastName}

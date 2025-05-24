@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useGetOrdersQuery } from '../../slices/ordersApiSlice';
 import {
-	FaTrash,
-	FaEdit,
-	FaCheck,
-	FaTimes,
 	FaSortUp,
 	FaSortDown,
-	FaLockOpen,
 	FaCopy,
-	FaArchive,
 	FaExternalLinkAlt,
 	FaReceipt,
 	FaCreditCard,
@@ -77,7 +71,7 @@ const OrderListPage = () => {
 					<table className="w-full table-fixed border-separate border-spacing-0 overflow-hidden rounded-2xl border border-creased-khaki bg-emerald-green">
 						<thead className="h-10">
 							<tr className="select-none">
-								{tableHeaders.map((header, index) => (
+								{tableHeaders?.map((header, index) => (
 									<th
 										key={index}
 										className="cursor-pointer p-3"
@@ -91,20 +85,20 @@ const OrderListPage = () => {
 							</tr>
 						</thead>
 						<tbody className="">
-							{orderData.map((order) => (
+							{orderData?.map((order, index) => (
 								<tr
 									className="text-center text-off-white odd:bg-noir-de-vigne"
-									key={order._id}
+									key={index}
 								>
 									<td className="truncate p-3">{order._id}</td>
 									<td className="truncate p-3">{order.user}</td>
 									<td className="truncate p-3">
-										{order.orderItems.reduce(
-											(total, item) => total + item.qty,
+										{order?.orderItems?.reduce(
+											(total, item) => total + item.bookings.length,
 											0
 										)}
 									</td>
-									<td className="truncate p-3">${order.totalPrice}</td>
+									<td className="truncate p-3">${order?.totalPrice}</td>
 									<td className="truncate p-3">
 										{new Date(order.createdAt).toLocaleDateString('en-US')} (
 										{new Date(order.createdAt).toLocaleTimeString('en-US')})
@@ -172,8 +166,8 @@ const OrderListPage = () => {
 								<span className="truncate font-bold">Reservations:</span>
 								<div className="flex flex-row items-center justify-around">
 									<span className="max-w-32 truncate pl-1">
-										{order.orderItems.reduce(
-											(total, item) => total + item.qty,
+										{order?.orderItems.reduce(
+											(total, item) => total + item.bookings.length,
 											0
 										)}
 									</span>
