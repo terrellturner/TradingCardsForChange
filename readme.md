@@ -124,9 +124,9 @@ I decided to stick with MERN due to the time budget I had set for this project. 
     cd ..
     ```
 4. 5.  **Set up Environment Variables:**
-    *   In the `TradingCards4Change/backend` directory, create a `.env` file. You can use `backend/.env.example` (to be created) as a template. It will require variables like `MONGO_URI`, `JWT_SECRET`, `NODE_ENV`, `PORT`.
+    *   In the `TradingCards4Change/backend` directory, create a `.env` file. You can use `backend/.env.example` (to be created) as a template. It'll require variables like `MONGO_URI`, `JWT_SECRET`, `NODE_ENV`, `PORT`.
 
-    *   In the `TradingCards4Change/frontend` directory, create a `.env` file. You can use `frontend/.env.example` (to be created) as a template. It will likely require `VITE_API_URL` pointing to your backend.
+    *   In the `TradingCards4Change/frontend` directory, create a `.env` file. You can use `frontend/.env.example` (to be created) as a template. It'll likely require `VITE_API_URL` pointing to your backend.
 
 6.  **Run the Backend Server:**
     ```bash
