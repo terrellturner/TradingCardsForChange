@@ -40,7 +40,7 @@ const HomePage = () => {
 	const sortedEventsCalendar = useSelector(selectSortedEventsForCalendar);
 	const sortedEventsTop = useSelector(selectSortedEventsForMobile);
 
-	if (isLoading && isEventListLoading) {
+	if (isLoading) {
 		return <Loader />;
 	}
 
