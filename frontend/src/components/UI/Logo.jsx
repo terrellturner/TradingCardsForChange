@@ -2,7 +2,7 @@ import React from 'react';
 import { FaCoffee } from 'react-icons/fa';
 import { TbCards } from 'react-icons/tb';
 import CafeLogo from '/images/logo/logo.svg?&react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 import CafeLogoTextOnly from '/images/logo/TC4C-Text-Only.svg?&react';
 import CafeLogoOnly from '/images/logo/TC4C-Logo-Only.svg?&react';
 

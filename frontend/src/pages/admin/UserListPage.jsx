@@ -23,7 +23,7 @@ import { toast } from 'react-toastify';
 import Pagination from '../../components/UI/Pagination';
 import SortDropdown from '../../components/SortDropdown';
 import ConfirmationPrompt from '../../components/UI/ConfirmationPrompt';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 
 const UserListPage = () => {
 	const tableHeaders = [

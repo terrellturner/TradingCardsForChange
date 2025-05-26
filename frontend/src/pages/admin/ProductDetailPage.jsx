@@ -8,7 +8,7 @@ import {
 	useUploadProductImageMutation,
 } from '../../slices/productsApiSlice';
 import { RRule } from 'rrule';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 import {
 	simpleFade,
 	fadeCollapse,
