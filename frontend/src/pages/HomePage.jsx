@@ -45,7 +45,7 @@ const HomePage = () => {
 	}
 
 	return (
-		<AnimatePresence mode="wait">
+		<AnimatePresence mode="wait" initial={true}>
 			<motion.div
 				variants={defaultMotion}
 				initial="initial"
