@@ -55,12 +55,6 @@ const HomePage = () => {
 			<HeroSection sortedEvents={sortedEventsTop} />
 			<IntroductionSection />
 			<div id="events" className="w-full">
-				<CalendarSection
-					isLoading={isLoading}
-					products={products}
-					eventList={sortedEventsCalendar}
-				/>
-				{/* Mobile list view <800px */}
 				<MobileEventSection
 					isLoading={isLoading}
 					products={products}
