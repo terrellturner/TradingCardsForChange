@@ -25,12 +25,12 @@ export const fadeCollapse = {
 	initial: {
 		opacity: 0,
 		height: 0,
-		overflow: 'hidden', // Crucial for height animation
+		overflow: 'hidden',
 	},
 	animate: {
 		opacity: 1,
-		height: 'auto', // Animate TO the natural height
-		overflow: 'visible', // Optional: set back once open if needed
+		height: 'auto',
+		overflow: 'visible',
 		transition: {
 			duration: 0.1,
 			ease: 'easeInOut',

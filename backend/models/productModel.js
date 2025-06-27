@@ -1,4 +1,3 @@
-// models/productModel.js
 import mongoose from "mongoose";
 import pkg from "rrule";
 const { RRule, Weekday } = pkg;

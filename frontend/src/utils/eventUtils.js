@@ -1,7 +1,7 @@
 import React from 'react';
 import { RRule } from 'rrule';
 
-// Takes in a single event object and generates an array of recurring events based on the provided RRULE string.
+//Takes in a single event object and generates an array of recurring events based on the provided RRULE string.
 const createEventRecurrences = (event) => {
 	let recurringEvents = [];
 

@@ -1,7 +1,6 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import ProductCard from '../ProductCard';
-import { Link } from 'react-router-dom';
 
 const CalendarEventModal = ({
 	selectedEvent,

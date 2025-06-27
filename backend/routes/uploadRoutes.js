@@ -7,16 +7,14 @@ import { log } from "console";
 
 const router = express.Router();
 
-// Configure Cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
-  secure: true, // Use HTTPS URLs
+  secure: true,
 });
 
-// multer setup (in-memory storage)
-const storage = multer.memoryStorage(); // Store file in memory
+const storage = multer.memoryStorage();
 
 function fileFilter(req, file, cb) {
   const filetypes = /jpe?g|png|webp/;
@@ -44,13 +42,10 @@ router.post("/", (req, res) => {
     if (!req.file) {
       return res.status(400).send({ message: "No file uploaded." });
     }
-
-    // Create a readable stream from the buffer
     const stream = Readable.from(req.file.buffer);
 
-    // Upload the stream to Cloudinary
     const uploadStream = cloudinary.uploader.upload_stream(
-      { resource_type: "image" }, // Specify resource type
+      { resource_type: "image" },
       (error, result) => {
         if (error) {
           console.error("Cloudinary upload error:", error);
@@ -58,12 +53,10 @@ router.post("/", (req, res) => {
             .status(500)
             .send({ message: "Upload failed", error: error.message });
         }
-
-        // Success! Send back the Cloudinary URL
         res.status(200).send({
           message: "Image uploaded successfully",
-          image: result.secure_url, // Use secure_url for HTTPS
-          public_id: result.public_id, //  Good practice to include
+          image: result.secure_url,
+          public_id: result.public_id,
         });
       }
     );

@@ -246,29 +246,13 @@ const ProductDetailPage = () => {
 							onSubmit={submitHandler}
 							className="grid-col grid w-full grid-cols-2 flex-wrap gap-4"
 						>
-							{/* Product Type - On hold for MVP. */}
-							{/* <fieldset
-								id="type"
-								className="col-span-2 flex flex-col space-y-1"
-							>
-								<label className="font-bold">Product Type</label>
-								<select
-									value={type}
-									onChange={(e) => setType(e.target.value)}
-									className="p-2 text-black"
-								>
-									<option value="product">Product</option>
-									<option value="event">Event</option>
-								</select>
-							</fieldset> */}
-							{/* Product Title/Name */}
 							<fieldset
 								id="name"
 								className="col-span-2 flex flex-col space-y-1"
 							>
 								<label className="font-bold">Event Name</label>
 								<input
-									type="text" // Changed to "text"
+									type="text"
 									placeholder="Enter name"
 									value={name}
 									onChange={(e) => setName(e.target.value)}
@@ -341,7 +325,7 @@ const ProductDetailPage = () => {
 									type="text"
 									placeholder="Enter card set"
 									value={cardSet}
-									onChange={(e) => setCardSet(e.target.value)} // Corrected onChange
+									onChange={(e) => setCardSet(e.target.value)}
 									className="p-2 text-black"
 								></input>
 							</fieldset>
@@ -352,7 +336,7 @@ const ProductDetailPage = () => {
 									type="text"
 									placeholder="Enter event location"
 									value={eventLocation}
-									onChange={(e) => setEventLocation(e.target.value)} // Corrected onChange
+									onChange={(e) => setEventLocation(e.target.value)}
 									className="p-2 text-black"
 								></input>
 							</fieldset>

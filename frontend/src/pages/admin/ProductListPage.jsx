@@ -39,7 +39,6 @@ const ProductListPage = () => {
 		{ displayName: 'Price', queryName: 'price' },
 		{ displayName: 'Category', queryName: 'category' },
 		{ displayName: 'Start Time', queryName: 'startTime' },
-		{ displayName: '#Stock', queryName: 'countInStock' },
 		{ displayName: 'Venue', queryName: 'eventLocation' },
 	];
 	const defaultProduct = {
@@ -106,8 +105,8 @@ const ProductListPage = () => {
 
 	const deleteProductHandler = async (id) => {
 		try {
-			await deleteProduct(id);
-			toast.success('Product deleted.');
+			await deleteProduct(id).unwrap();
+			toast.success(`Product ${id} deleted.`);
 		} catch (error) {
 			toast.error(error?.data?.message || error.message);
 		}
@@ -188,7 +187,6 @@ const ProductListPage = () => {
 									<td className="truncate p-3">{product.price}</td>
 									<td className="truncate p-3">{product.category}</td>
 									<td className="truncate p-3">{product.startTime}</td>
-									<td className="truncate p-3">{product.countInStock}</td>
 									<td className="truncate p-3">{product.eventLocation}</td>
 									<td className="space-x-4 p-3 text-creased-khaki">
 										<Link to={`/admin/product/${product._id}/edit`}>
@@ -198,12 +196,12 @@ const ProductListPage = () => {
 										</Link>
 										<button
 											className="btn-sm"
-											onClick={() =>
+											onClick={() => {
 												openModal(
 													'Deleting product. Are you absolutely sure you want to do this?',
-													deleteProductHandler(product._id)
-												)
-											}
+													() => deleteProductHandler(product._id)
+												);
+											}}
 										>
 											<FaTrash />
 										</button>

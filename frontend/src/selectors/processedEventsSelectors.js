@@ -9,7 +9,6 @@ const selectRawEvents = createSelector(
 	(eventsResult) => eventsResult?.data ?? []
 );
 
-// Return an array of events from the getAllProducts endpoint, and process the rrule value if present to return an array of events for each recurrence.
 export const selectEvents = createSelector(
 	[selectRawEvents, selectEventsResult],
 	(rawEventsData, queryResult) => {

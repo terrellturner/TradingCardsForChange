@@ -34,9 +34,6 @@ const MobileMenu = ({ cartItems, userInfo }) => {
 				</div>
 				<div
 					className="group relative cursor-pointer truncate"
-					// onClick={() => {
-					//     userInfo && setUserButtonToggle(!userButtonToggle);
-					// }}
 				>
 					<FaUser className="m-1 inline-block" />
 					{userInfo ? (

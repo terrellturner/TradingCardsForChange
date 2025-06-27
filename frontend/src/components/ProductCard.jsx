@@ -33,7 +33,6 @@ const ProductCard = React.forwardRef(
 		if (bookingIsLoading) {
 			return <Loader />;
 		}
-
 		return (
 			<div
 				ref={ref}

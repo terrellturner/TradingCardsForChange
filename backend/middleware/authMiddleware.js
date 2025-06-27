@@ -24,7 +24,6 @@ const protect = asyncHandler(async (req, res, next) => {
       console.error("Error Name:", error.name);
       console.error("Error Message:", error.message);
 
-      // Differentiate between different types of errors
       if (error.name === "JsonWebTokenError") {
         return res.status(401).json({ message: "Invalid token" });
       }

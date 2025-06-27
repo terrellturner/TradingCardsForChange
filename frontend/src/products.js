@@ -8,7 +8,7 @@ const products = [
 		category: 'Social Gaming',
 		description:
 			'Enjoy a selection of fine teas while playing your favorite board games and light strategy card games. Beginners welcome!',
-		price: 5, // Cover for tea
+		price: 5,
 		maximumEventCapacity: 30,
 		eventLocation: 'The Cozy Corner Cafe',
 		startTime: '2025-07-08T19:00:00.000Z',
@@ -16,7 +16,7 @@ const products = [
 		isArchived: false,
 		isRecurring: true,
 		rrule:
-			'DTSTART:20250708T190000Z\nRRULE:FREQ=WEEKLY;BYDAY=TU;INTERVAL=2;UNTIL=20251231T235959Z', // Every other Tuesday
+			'DTSTART:20250708T190000Z\nRRULE:FREQ=WEEKLY;BYDAY=TU;INTERVAL=2;UNTIL=20251231T235959Z',
 		excludedDates: [],
 	},
 	{
@@ -28,7 +28,7 @@ const products = [
 		category: 'Esports Social',
 		description:
 			'Sip on local craft beers while squading up for some Apex Legends action. Casual play and good vibes.',
-		price: 0, // Free entry, pay for beer
+		price: 0,
 		maximumEventCapacity: 40,
 		eventLocation: "The Gamer's Pint Bar",
 		startTime: '2025-07-11T20:00:00.000Z',
@@ -36,8 +36,8 @@ const products = [
 		isArchived: false,
 		isRecurring: true,
 		rrule:
-			'DTSTART:20250711T200000Z\nRRULE:FREQ=WEEKLY;BYDAY=FR;UNTIL=20260131T235959Z', // Every Friday
-		excludedDates: ['2025-12-26T20:00:00.000Z'], // Day after Christmas
+			'DTSTART:20250711T200000Z\nRRULE:FREQ=WEEKLY;BYDAY=FR;UNTIL=20260131T235959Z',
+		excludedDates: ['2025-12-26T20:00:00.000Z'],
 	},
 	{
 		type: 'event',
@@ -56,7 +56,7 @@ const products = [
 		isArchived: false,
 		isRecurring: true,
 		rrule:
-			'DTSTART:20250719T110000Z\nRRULE:FREQ=MONTHLY;BYDAY=3SA;UNTIL=20260630T235959Z', // Third Saturday of the month
+			'DTSTART:20250719T110000Z\nRRULE:FREQ=MONTHLY;BYDAY=3SA;UNTIL=20260630T235959Z',
 		excludedDates: [],
 	},
 	{
@@ -68,8 +68,8 @@ const products = [
 		category: 'Charity',
 		description:
 			"24-hour gaming marathon! Watch local streamers play various games to raise money for 'Gamers Outreach'. Donations welcome, special tea & beer deals for attendees.",
-		price: 0, // Free to attend, donations encouraged
-		maximumEventCapacity: 100, // Spectators
+		price: 0,
+		maximumEventCapacity: 100,
 		eventLocation: 'Downtown Community Hub & Online Stream',
 		startTime: '2025-08-02T12:00:00.000Z',
 		endTime: '2025-08-03T12:00:00.000Z',
@@ -95,7 +95,7 @@ const products = [
 		isArchived: false,
 		isRecurring: true,
 		rrule:
-			'DTSTART:20250706T140000Z\nRRULE:FREQ=WEEKLY;BYDAY=SU;UNTIL=20251228T235959Z', // Every Sunday
+			'DTSTART:20250706T140000Z\nRRULE:FREQ=WEEKLY;BYDAY=SU;UNTIL=20251228T235959Z',
 		excludedDates: [],
 	},
 	{
@@ -113,7 +113,7 @@ const products = [
 		startTime: '2025-08-16T13:00:00.000Z',
 		endTime: '2025-08-16T20:00:00.000Z',
 		isArchived: false,
-		isRecurring: false, // Part of a series, but this instance is one-off
+		isRecurring: false,
 		rrule: 'DTSTART:20250816T130000Z\nRRULE:COUNT=1',
 		excludedDates: [],
 	},
@@ -126,7 +126,7 @@ const products = [
 		category: 'Networking',
 		description:
 			'Casual monthly meetup for tech enthusiasts. Enjoy a pint and discuss the latest trends in software, hardware, and gaming tech.',
-		price: 0, // Free entry, pay for beer
+		price: 0,
 		maximumEventCapacity: 50,
 		eventLocation: 'The Digital Draught',
 		startTime: '2025-07-24T18:30:00.000Z',
@@ -134,8 +134,8 @@ const products = [
 		isArchived: false,
 		isRecurring: true,
 		rrule:
-			'DTSTART:20250724T183000Z\nRRULE:FREQ=MONTHLY;BYDAY=4THU;UNTIL=20260701T235959Z', // Fourth Thursday of month
-		excludedDates: ['2025-11-27T18:30:00.000Z'], // Thanksgiving
+			'DTSTART:20250724T183000Z\nRRULE:FREQ=MONTHLY;BYDAY=4THU;UNTIL=20260701T235959Z',
+		excludedDates: ['2025-11-27T18:30:00.000Z'],
 	},
 	{
 		type: 'event',
@@ -146,7 +146,7 @@ const products = [
 		category: 'Charity',
 		description:
 			"Buy, sell, and trade TCG singles and sealed products. A portion of all vendor fees and special sales go to 'Child's Play Charity'. Tea and snacks available.",
-		price: 2, // Entry fee for charity
+		price: 2,
 		maximumEventCapacity: 150,
 		eventLocation: 'Grand Exhibition Hall',
 		startTime: '2025-09-20T10:00:00.000Z',
@@ -173,7 +173,7 @@ const products = [
 		isArchived: false,
 		isRecurring: true,
 		rrule:
-			'DTSTART:20250705T180000Z\nRRULE:FREQ=WEEKLY;BYDAY=SA;UNTIL=20260131T235959Z', // Every Saturday
+			'DTSTART:20250705T180000Z\nRRULE:FREQ=WEEKLY;BYDAY=SA;UNTIL=20260131T235959Z',
 		excludedDates: [],
 	},
 	{
@@ -193,7 +193,7 @@ const products = [
 		isArchived: false,
 		isRecurring: true,
 		rrule:
-			'DTSTART:20250717T193000Z\nRRULE:FREQ=MONTHLY;BYDAY=3THU;UNTIL=20251231T235959Z', // Third Thursday of the month
+			'DTSTART:20250717T193000Z\nRRULE:FREQ=MONTHLY;BYDAY=3THU;UNTIL=20251231T235959Z',
 		excludedDates: [],
 	},
 	{

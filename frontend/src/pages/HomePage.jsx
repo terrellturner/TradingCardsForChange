@@ -22,14 +22,6 @@ const HomePage = () => {
 	const { isLoading: isEventListLoading, error: eventError } =
 		useSelector(selectEvents);
 
-	console.log(
-		'HomePage Render:',
-		'isLoading (products):',
-		isLoading,
-		'isEventListLoading (events):',
-		isEventListLoading
-	);
-
 	useEffect(() => {
 		if (eventError) {
 			toast.error(eventError?.data?.message || eventError.error);

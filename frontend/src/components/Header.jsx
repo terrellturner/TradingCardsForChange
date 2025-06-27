@@ -128,7 +128,7 @@ const Header = () => {
 						</Link>
 					</div>
 					<div
-						className="group relative flex cursor-pointer flex-row flex-nowrap items-center justify-center"
+						className="group relative flex flex-row flex-nowrap items-center justify-center"
 						onMouseEnter={() => userMenuMouseEnter()}
 						onMouseLeave={() => userMenuMouseLeave()}
 					>
@@ -147,12 +147,14 @@ const Header = () => {
 						<div
 							className={`absolute top-8 z-50 whitespace-nowrap rounded-md border border-creased-khaki bg-emerald-green p-5 ${userButtonToggle ? '' : 'invisible'}`}
 						>
-							<ul className="flex flex-col">
+							<ul className="flex flex-col font-medium">
 								<Link to={`/user/${userInfo?._id}`}>Profile</Link>
-								<li onClick={logoutHandler}>Logout</li>
+								<li>
+									<button onClick={logoutHandler}>Logout</button>
+								</li>
 								{userInfo && userInfo.isAdmin && (
 									<>
-										<span className="pt-5 text-2xl uppercase text-creased-khaki">
+										<span className="border-b border-b-creased-khaki pt-5 text-2xl font-black uppercase text-egyptian-earth">
 											Admin
 										</span>
 										<Link to="/admin/orders">
