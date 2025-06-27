@@ -19,7 +19,6 @@ const EditUserDetailsPage = () => {
 		data: user,
 		isLoading,
 		refetch,
-		error,
 	} = useGetUserDetailsQuery(userId);
 
 	const [updateUser, { isLoading: loadingUpdate }] = useUpdateUserMutation();

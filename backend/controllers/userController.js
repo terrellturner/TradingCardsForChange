@@ -198,14 +198,18 @@ const deleteUser = asyncHandler(async (req, res) => {
 //@route    PUT /api/users/:id
 //@access   Private/Admin
 const updateUser = asyncHandler(async (req, res) => {
+  const updatedUserInfo = req.body;
+
   const user = await User.findById(req.params.id);
+  console.log(updatedUserInfo);
 
   if (user) {
-    user.firstName = req.body.firstName || user.firstName;
-    user.lastName = req.body.lastName || user.lastName;
-    user.email = req.body.email || user.email;
-    user.isAdmin = Boolean(req.body.isAdmin);
-    user.isDeactivated = req.body.isDeactivated || user.isDeactivated;
+    user.firstName = updatedUserInfo.firstName ?? user.firstName;
+    user.lastName = updatedUserInfo.lastName ?? user.lastName;
+    user.email = updatedUserInfo.email ?? user.email;
+    user.isAdmin = Boolean(updatedUserInfo.isAdmin) ?? user.isAdmin;
+    user.isDeactivated =
+      Boolean(updatedUserInfo.isDeactivated) ?? user.isDeactivated;
 
     const updatedUser = await user.save();
     res.status(200).json({

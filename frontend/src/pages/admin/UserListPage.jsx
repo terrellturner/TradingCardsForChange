@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {
 	useGetUsersQuery,
-	useDeleteUserMutation,
 	useResetPasswordMutation,
 	useUpdateUserMutation,
 } from '../../slices/usersApiSlice';
 import {
-	FaTrash,
 	FaEdit,
 	FaCheck,
 	FaTimes,
@@ -14,7 +12,6 @@ import {
 	FaSortDown,
 	FaLockOpen,
 	FaCopy,
-	FaFilter,
 	FaArchive,
 } from 'react-icons/fa';
 import Loader from '../../components/UI/Loader';
@@ -51,9 +48,6 @@ const UserListPage = () => {
 		sortField,
 		sortOrder,
 	});
-
-	const [deleteUser, { isLoading: loadingDeleteUser }] =
-		useDeleteUserMutation();
 
 	const [resetPassword, { isLoading: loadingPasswordReset }] =
 		useResetPasswordMutation();
@@ -99,7 +93,7 @@ const UserListPage = () => {
 		}
 	};
 
-	const deactivateUserHandler = async (user) => {
+	const userActivationHandler = async (isDeactivated, user) => {
 		try {
 			await updateUser({
 				userId: user._id,
@@ -107,9 +101,11 @@ const UserListPage = () => {
 				lastName: user.lastName,
 				isAdmin: user.isAdmin,
 				email: user.email,
-				isDeactivated: true,
+				isDeactivated,
 			});
-			console.warn('User Deactivated.');
+			console.warn(
+				`User ${user._id} ${isDeactivated ? 'deactivated' : 'activated'}.`
+			);
 		} catch (error) {
 			console.error(error);
 			toast.error(error?.data?.message || error.error);
@@ -122,7 +118,7 @@ const UserListPage = () => {
 		}
 	}, [data?.users]);
 
-	if (isLoading || loadingDeleteUser || loadingPasswordReset || loadingUpdate) {
+	if (isLoading || loadingPasswordReset || loadingUpdate) {
 		return <Loader />;
 	} else if (error) {
 		toast.error(error?.data?.message || error.error);
@@ -132,7 +128,7 @@ const UserListPage = () => {
 	return (
 		<AnimatePresence>
 			<motion.div className="hidden flex-col md:flex" key={'userListDesktop'}>
-				<h1 className="p-12 text-5xl font-bold text-off-white">Users</h1>
+				<h1 className="p-12 pb-0 text-5xl font-bold text-off-white">Users</h1>
 				<div className="hidden w-5/6 flex-row self-center p-20 text-creased-khaki md:flex">
 					<table className="w-full table-fixed border-separate border-spacing-0 overflow-hidden rounded-2xl border border-creased-khaki bg-emerald-green">
 						<thead className="h-10">
@@ -190,15 +186,24 @@ const UserListPage = () => {
 											<FaLockOpen />
 										</button>
 										<button
-											className="btn-sm"
-											onClick={() =>
+											className={`btn-sm ${user.isDeactivated ? 'text-egyptian-earth' : 'text-creased-khaki'}`}
+											onClick={() => {
+												if (user.isDeactivated) {
+													openModal(
+														`This user is currently deactivated. Would you like to reactivate them?`,
+														() => {
+															userActivationHandler(false, user);
+														}
+													);
+													return;
+												}
 												openModal(
 													`This action will deactivate the user's account, effectively archiving it and preventing future logins. Continue?`,
 													() => {
-														deactivateUserHandler(user);
+														userActivationHandler(true, user);
 													}
-												)
-											}
+												);
+											}}
 										>
 											<FaArchive />
 										</button>
@@ -278,7 +283,7 @@ const UserListPage = () => {
 										openModal(
 											`This action will deactivate the user's account, effectively archiving it and preventing future logins. Continue?`,
 											() => {
-												deactivateUserHandler(user);
+												userActivationHandler(false, user);
 											}
 										)
 									}

@@ -66,7 +66,7 @@ const OrderListPage = () => {
 	return (
 		<>
 			<div className="hidden w-full flex-col self-center md:flex">
-				<h1 className="p-12 text-5xl font-bold text-off-white">Orders</h1>
+				<h1 className="p-12 pb-0 text-5xl font-bold text-off-white">Orders</h1>
 				<div className="hidden w-full flex-row self-center p-20 text-creased-khaki md:flex">
 					<table className="w-full table-fixed border-separate border-spacing-0 overflow-hidden rounded-2xl border border-creased-khaki bg-emerald-green">
 						<thead className="h-10">
@@ -98,7 +98,9 @@ const OrderListPage = () => {
 											0
 										)}
 									</td>
-									<td className="truncate p-3">${order?.totalPrice}</td>
+									<td className="truncate p-3">
+										${order?.totalPrice.toFixed(2)}
+									</td>
 									<td className="truncate p-3">
 										{new Date(order.createdAt).toLocaleDateString('en-US')} (
 										{new Date(order.createdAt).toLocaleTimeString('en-US')})

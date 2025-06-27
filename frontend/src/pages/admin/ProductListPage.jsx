@@ -146,8 +146,8 @@ const ProductListPage = () => {
 	return (
 		<>
 			<div className="hidden flex-col md:flex">
-				<h1 className="p-12 text-5xl font-bold text-off-white">Products</h1>
-				<div className="hidden w-full flex-row space-y-4 self-center p-20 text-creased-khaki md:flex md:flex-col">
+				<h1 className="p-12 pb-0 text-5xl font-bold text-off-white">Events</h1>
+				<div className="hidden w-full flex-row space-y-4 self-center p-20 pt-0 text-creased-khaki md:flex md:flex-col">
 					<button
 						onClick={() => {
 							openModal(
@@ -160,7 +160,7 @@ const ProductListPage = () => {
 						<span>
 							<FaPlusCircle />
 						</span>
-						<span>New Product</span>
+						<span>New Event</span>
 					</button>
 					<table className="w-full table-fixed border-separate border-spacing-0 overflow-hidden rounded-2xl border border-creased-khaki bg-emerald-green">
 						<thead className="h-10">
@@ -188,7 +188,13 @@ const ProductListPage = () => {
 									<td className="truncate p-3">{product.name}</td>
 									<td className="truncate p-3">{product.price}</td>
 									<td className="truncate p-3">{product.category}</td>
-									<td className="truncate p-3">{product.startTime}</td>
+									<td className="truncate p-3">
+										{new Date(product.startTime).toLocaleDateString('en-US')} (
+										{new Date(product.startTime).toLocaleTimeString('en-US')})
+									</td>
+									<td className="truncate p-3">
+										{product.maximumEventCapacity}
+									</td>
 									<td className="truncate p-3">{product.eventLocation}</td>
 									<td className="space-x-4 p-3 text-creased-khaki">
 										<Link to={`/admin/product/${product._id}/edit`}>

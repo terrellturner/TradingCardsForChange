@@ -22,7 +22,7 @@ import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import OrderPage from './pages/OrderPage.jsx';
 import AdminRoute from './components/routes/AdminRoute.jsx';
 import UsersPage from './pages/admin/UserListPage.jsx';
-import UserDetailPage from './pages/admin/UserDetailPage.jsx';
+import UserDetailPage from './pages/user/UserDetailPage.jsx';
 import ProductListPage from './pages/admin/ProductListPage.jsx';
 import ProductDetailPage from './pages/admin/ProductDetailPage.jsx';
 import OrdersPage from './pages/admin/OrderListPage.jsx';
