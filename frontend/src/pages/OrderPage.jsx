@@ -58,7 +58,7 @@ const OrderPage = () => {
 			initial="initial"
 			animate="open"
 			exit="closed"
-			className="m-6 flex min-w-0 grow flex-col items-center justify-center space-y-10 py-12 text-center text-off-white md:space-y-24"
+			className="m-6 flex min-w-56 grow flex-col items-center justify-center space-y-10 py-12 text-center text-off-white md:space-y-24"
 		>
 			<h3 className="text-4xl font-bold">Thank you for your purchase!</h3>
 			<div className="flex w-full min-w-0 flex-col flex-wrap items-center divide-y divide-creased-khaki rounded-lg border border-creased-khaki md:w-1/2">
@@ -75,20 +75,18 @@ const OrderPage = () => {
 									alt={`${item.name} | ${item.description}`}
 								/>
 								<div className="flex w-full flex-col text-left md:min-w-0">
-									<div className="w-full truncate text-xl font-bold md:text-xl">
+									<div className="w-full truncate text-xl font-bold text-creased-khaki md:text-xl">
 										{item.name}
 									</div>
 									<div className="flex min-w-0 flex-row justify-between">
-										<span className="truncate text-creased-khaki">Seats:</span>
-										<span className="text-bold truncate">
+										<span className="truncate ">Seats:</span>
+										<span className="text-bold truncate text-creased-khaki">
 											{booking.reservationSeats.qty}
 										</span>
 									</div>
 									<div className="flex min-w-0 flex-row justify-between">
-										<span className="truncate text-creased-khaki">
-											Subtotal:
-										</span>
-										<span className="text-bold truncate">
+										<span className="truncate ">Subtotal:</span>
+										<span className="text-bold truncate text-creased-khaki">
 											{`$${(item.price * booking.reservationSeats.qty).toFixed(2)}`}
 										</span>
 									</div>
@@ -99,7 +97,7 @@ const OrderPage = () => {
 									onClick={() => {
 										handleCreateEventInviteLink(item, booking);
 									}}
-									className="m-4 flex w-full place-items-center justify-around rounded-lg border border-creased-khaki p-4 text-creased-khaki md:aspect-square md:w-auto lg:p-3"
+									className="m-4 flex w-full place-items-center justify-around rounded-lg border border-creased-khaki p-4 text-creased-khaki  md:aspect-square md:w-auto lg:p-3"
 								>
 									<FaCalendar />
 								</button>
@@ -107,7 +105,7 @@ const OrderPage = () => {
 									onClick={() => {
 										handleOpenMapLink(item.eventLocation);
 									}}
-									className="m-4 flex w-full place-items-center justify-around rounded-lg border border-creased-khaki p-4 text-creased-khaki md:aspect-square md:w-auto lg:p-3"
+									className="m-4 flex w-full place-items-center justify-around rounded-lg border border-creased-khaki p-4 text-creased-khaki  md:aspect-square md:w-auto lg:p-3"
 								>
 									<FaMapMarkerAlt />
 								</button>
@@ -116,19 +114,21 @@ const OrderPage = () => {
 					))
 				)}
 				<div className="flex w-full flex-row justify-between p-6">
-					<div className="font-bold text-creased-khaki">Placed At:</div>
-					<div className="">
+					<div className="font-bold ">Placed At:</div>
+					<div className=" text-creased-khaki">
 						{new Date(order.createdAt).toLocaleDateString('en-US')} @{' '}
 						{new Date(order.createdAt).toLocaleTimeString('en-US')}
 					</div>
 				</div>
 				<div className="flex w-full flex-row justify-between p-6">
-					<div className="font-bold text-creased-khaki">Taxes & Other Fees</div>
-					<div>${order.taxPrice.toFixed(2)}</div>
+					<div className="font-bold ">Taxes & Other Fees</div>
+					<div className=" text-creased-khaki">
+						${order.taxPrice.toFixed(2)}
+					</div>
 				</div>
-				<div className="flex w-full flex-row justify-between p-6 text-2xl font-bold ">
+				<div className="flex w-full flex-row justify-between p-6 text-2xl font-medium ">
 					<div className="text-creased-khaki">Total</div>
-					<div className="text-egyptian-earth">${order.totalPrice}</div>
+					<div className="font-black">${order.totalPrice}</div>
 				</div>
 			</div>
 			<button

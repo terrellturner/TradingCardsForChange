@@ -66,7 +66,7 @@ const OrderListPage = () => {
 	return (
 		<>
 			<div className="hidden w-full flex-col self-center md:flex">
-				<h1 className="text-5xl6 p-12  font-bold text-off-white">Orders</h1>
+				<h1 className="p-12 text-5xl font-bold text-off-white">Orders</h1>
 				<div className="hidden w-full flex-row self-center p-20 text-creased-khaki md:flex">
 					<table className="w-full table-fixed border-separate border-spacing-0 overflow-hidden rounded-2xl border border-creased-khaki bg-emerald-green">
 						<thead className="h-10">

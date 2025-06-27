@@ -27,15 +27,15 @@ const CartPage = () => {
 			initial="initial"
 			animate="open"
 			exit="closed"
-			className="mx-auto flex w-full min-w-52 grow flex-col justify-center space-y-2 px-6 py-5 md:px-72"
+			className="mx-auto flex w-full max-w-[1080px] grow flex-col justify-center space-y-2 px-6 py-5"
 		>
 			<div className="flex flex-row place-items-center space-x-2">
 				<FaShoppingCart className="fill-creased-khaki stroke-egyptian-earth stroke-[20px] text-4xl" />
 				<h1 className=" p-8 pl-0 text-4xl font-bold text-off-white">My Cart</h1>
-			</div>{' '}
+			</div>
 			<div
 				id="cart-page-container"
-				className="flex flex-col space-y-4 md:w-full md:flex-row md:place-content-around md:space-y-0 md:py-20"
+				className="flex flex-col place-items-center space-y-4 md:w-full md:flex-row md:place-content-around md:space-x-4 md:space-y-0 md:py-20"
 			>
 				{/* Cart Items */}
 				<div
@@ -78,9 +78,9 @@ const CartPage = () => {
 				{/* Cart Summary */}
 				<div
 					id="cart-total-checkout-container"
-					className="flex flex-col place-items-center"
+					className="flex w-full flex-col"
 				>
-					<div className="rounded-lg border border-creased-khaki p-8 md:min-w-[300px]">
+					<div className="rounded-lg border border-creased-khaki p-8 lg:min-w-[300px]">
 						<div className="flex flex-col space-y-5 px-3">
 							<div className="flex flex-row flex-wrap space-y-1 pb-5 text-3xl text-creased-khaki">
 								<span className="font-bold ">Order Summary</span>({cartCount}{' '}
@@ -97,7 +97,7 @@ const CartPage = () => {
 								</div>
 								<div className="flex flex-row justify-between p-4 text-off-white">
 									<span>Shipping</span>
-									<span>${cart.shippingPrice}</span>
+									<span>$0</span>
 								</div>
 							</div>
 

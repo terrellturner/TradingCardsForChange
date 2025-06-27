@@ -32,30 +32,6 @@ import ConfirmationPrompt from '../../components/UI/ConfirmationPrompt';
 
 const ProductListPage = () => {
 	const navigate = useNavigate();
-
-	const tableHeaders = [
-		{ displayName: 'ID', queryName: '_id' },
-		{ displayName: 'Title', queryName: 'title' },
-		{ displayName: 'Price', queryName: 'price' },
-		{ displayName: 'Category', queryName: 'category' },
-		{ displayName: 'Start Time', queryName: 'startTime' },
-		{ displayName: 'Venue', queryName: 'eventLocation' },
-	];
-	const defaultProduct = {
-		name: 'Edit me!',
-		category: 'DEF',
-		description: 'Edit me!',
-		price: 0.0,
-		countInStock: 0,
-		maximumEventCapacity: 0,
-		startTime: new Date(),
-		endTime: new Date(),
-		eventLocation: 'Default',
-		cardSet: 'DEF',
-		type: 'event',
-		isRecurring: false,
-		recurringPattern: null,
-	};
 	const { pageNumber } = useParams();
 	const [searchParams, setSearchParams] = useSearchParams();
 
@@ -75,8 +51,34 @@ const ProductListPage = () => {
 	});
 	const [deleteProduct, { isLoading: loadingDeleteProduct }] =
 		useDeleteProductMutation();
+
 	const [createProduct, { isLoading: loadingCreateProduct }] =
 		useCreateProductMutation();
+
+	const tableHeaders = [
+		{ displayName: 'ID', queryName: '_id' },
+		{ displayName: 'Title', queryName: 'title' },
+		{ displayName: 'Price', queryName: 'price' },
+		{ displayName: 'Category', queryName: 'category' },
+		{ displayName: 'Start Time', queryName: 'startTime' },
+		{ displayName: 'Venue', queryName: 'eventLocation' },
+	];
+
+	const defaultProduct = {
+		name: 'Edit me!',
+		category: 'DEF',
+		description: 'Edit me!',
+		price: 0.0,
+		countInStock: 0,
+		maximumEventCapacity: 0,
+		startTime: new Date(),
+		endTime: new Date(),
+		eventLocation: 'Default',
+		cardSet: 'DEF',
+		type: 'event',
+		isRecurring: false,
+		recurringPattern: null,
+	};
 
 	const sortBy = (key) => {
 		const newSort = key === sortField && sortOrder === 'asc' ? 'desc' : 'asc';
