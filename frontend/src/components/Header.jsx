@@ -99,7 +99,7 @@ const Header = () => {
 						className={`h-1 w-full origin-center bg-creased-khaki transition  ${mobileNavToggle ? ' -translate-y-[0.40rem] -rotate-45' : ''}`}
 					></span>
 				</button>
-				<div className="hidden h-full items-center justify-center text-creased-khaki md:mr-4 md:flex md:space-x-8 md:text-lg">
+				<div className="hidden h-full shrink-0 items-center justify-center text-creased-khaki md:mr-4 md:flex md:space-x-8 md:text-lg">
 					<div className="group flex flex-row items-center justify-center">
 						<FaCalendar className="m-1 inline-block" />
 						<HashLink smooth to={`/#events`}>
@@ -128,18 +128,18 @@ const Header = () => {
 						</Link>
 					</div>
 					<div
-						className="group relative flex flex-row flex-nowrap items-center justify-center"
+						className="group relative flex w-28 flex-row flex-nowrap items-center justify-center"
 						onMouseEnter={() => userMenuMouseEnter()}
 						onMouseLeave={() => userMenuMouseLeave()}
 					>
 						<FaUser className="m-1 inline-block " />
 						{userInfo ? (
 							userInfo.lastName ? (
-								<a>
+								<a className="truncate">
 									{userInfo.firstName} {userInfo.lastName}
 								</a>
 							) : (
-								<a>{userInfo.firstName}</a>
+								<a className="truncate">{userInfo.firstName}</a>
 							)
 						) : (
 							<Link to="/login">Log In</Link>
@@ -148,22 +148,41 @@ const Header = () => {
 							className={`absolute top-8 z-50 whitespace-nowrap rounded-md border border-creased-khaki bg-emerald-green p-5 ${userButtonToggle ? '' : 'invisible'}`}
 						>
 							<ul className="flex flex-col font-medium">
-								<Link to={`/user/${userInfo?._id}`}>Profile</Link>
+								<Link
+									to={`/user/${userInfo?._id}`}
+									className="transition-colors ease-in-out hover:text-off-white motion-safe:duration-300"
+								>
+									Profile
+								</Link>
 								<li>
-									<button onClick={logoutHandler}>Logout</button>
+									<button
+										onClick={logoutHandler}
+										className="transition-colors ease-in-out hover:text-off-white motion-safe:duration-300"
+									>
+										Logout
+									</button>
 								</li>
 								{userInfo && userInfo.isAdmin && (
 									<>
-										<span className="border-b border-b-creased-khaki pt-5 text-2xl font-black uppercase text-egyptian-earth">
+										<span className=" pt-5 text-2xl font-black uppercase text-creased-khaki">
 											Admin
 										</span>
-										<Link to="/admin/orders">
+										<Link
+											className="pl-3 pt-1 text-off-white transition-colors ease-in-out hover:text-creased-khaki motion-safe:duration-300"
+											to="/admin/orders"
+										>
 											<li>Order Log</li>
 										</Link>
-										<Link to="/admin/products">
+										<Link
+											className="pl-3 text-off-white transition-colors ease-in-out hover:text-creased-khaki motion-safe:duration-300"
+											to="/admin/products"
+										>
 											<li>Edit Events</li>
 										</Link>
-										<Link to="/admin/users">
+										<Link
+											className="pl-3 text-off-white transition-colors ease-in-out hover:text-creased-khaki motion-safe:duration-300"
+											to="/admin/users"
+										>
 											<li>Users</li>
 										</Link>
 									</>

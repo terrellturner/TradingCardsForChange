@@ -10,8 +10,8 @@ const IntroductionSection = () => {
 		<motion.div className="flex w-full flex-col overflow-hidden text-center font-sans-serif">
 			<img src={WavyDecorationTop} alt="" className="-mt-28 md:mt-0" />
 			<div className="space-y-10 bg-egyptian-earth px-10 py-10 pt-24 md:pt-0 lg:px-0">
-				<a className="text-xl text-noir-de-vigne">Welcome to</a>
-				<h2 className="flex flex-col px-2 font-serif text-6xl text-creased-khaki md:text-7xl lg:px-64 xl:px-96">
+				<a className="text-xl font-bold text-noir-de-vigne">Welcome to</a>
+				<h2 className="flex flex-col px-2 font-serif text-6xl font-bold text-creased-khaki md:text-7xl lg:px-64 xl:px-96">
 					<a>Trading Cards For Change!</a>
 				</h2>
 				<p className="px-2 text-2xl lg:px-64 xl:px-96">
@@ -21,9 +21,10 @@ const IntroductionSection = () => {
 				</p>
 				<Link
 					to="/about"
-					className="my-5 flex flex-row items-center justify-center space-x-2 text-xl font-bold text-creased-khaki"
+					className="my-5 flex flex-row items-center justify-center space-x-2 text-xl font-bold text-creased-khaki ease-in-out hover:text-off-white motion-safe:duration-300"
 				>
-					<span>Our Story</span> <FaArrowRight className="-mb-1" />
+					<span className="text-2xl">Our Story</span>{' '}
+					<FaArrowRight className="-mb-1" />
 				</Link>
 			</div>
 			<img src={WavyDecorationBottom} alt="" className="-mt-1" />

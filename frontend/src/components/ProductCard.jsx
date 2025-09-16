@@ -7,6 +7,7 @@ import { useGetBookingsPerEventQuery } from '../slices/bookingApiSlice';
 import { FaUser, FaClock, FaArchive } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import Loader from './UI/Loader';
+import SkeletonLoader from './UI/SkeletonLoader';
 
 const ProductCard = React.forwardRef(
 	(
@@ -24,14 +25,33 @@ const ProductCard = React.forwardRef(
 
 		const { userInfo } = useSelector((state) => state.auth);
 
-		const { data: bookingInfo, isLoading: bookingIsLoading } =
+		const { data: bookingInfo, isSuccess: bookingLoadingSuccessful } =
 			useGetBookingsPerEventQuery({
 				productId: product._id,
 				eventStartTime: new Date(product.startTime).toISOString(),
 			});
 
-		if (bookingIsLoading) {
-			return <Loader />;
+		if (!bookingLoadingSuccessful) {
+			return (
+				<SkeletonLoader
+					classNames={`relative space-y-3 justify-around h-full w-full p-5 bg-white rounded-lg flex flex-col`}
+				>
+					<div className="mt-3 h-52 w-full animate-pulse rounded-lg bg-slate-500 md:h-72"></div>
+					{!mobileLayout && (
+						<button
+							onClick={handleCloseModal}
+							className="absolute -right-8 -top-10 rounded-full bg-creased-khaki p-3 text-emerald-green transition-all hover:bg-creased-khaki hover:text-wasabi" // Use theme background on hover
+							aria-label="Close calendar event modal"
+						>
+							<FaTimes className="text-4xl" />
+						</button>
+					)}
+					<div className="h-24 w-full animate-pulse rounded-lg bg-slate-200"></div>
+					<div className="flex animate-pulse rounded-lg bg-slate-400 text-center font-bold text-creased-khaki ">
+						<div className="h-12 w-24 p-1 text-xl"></div>
+					</div>
+				</SkeletonLoader>
+			);
 		}
 		return (
 			<div
@@ -84,7 +104,7 @@ const ProductCard = React.forwardRef(
 					<div className="mt-auto flex h-12 items-center justify-center rounded-full p-1 text-center font-bold text-emerald-green">
 						<FaUser className="m-0.5 my-auto" />
 						<span className="">
-							{!bookingIsLoading && bookingInfo && (
+							{!bookingLoadingSuccessful && bookingInfo && (
 								<>
 									<span>
 										{bookingInfo.totalReservations}/

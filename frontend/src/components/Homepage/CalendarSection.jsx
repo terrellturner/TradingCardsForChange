@@ -32,7 +32,6 @@ const CalendarSection = ({ eventList }) => {
 	const handleEventClick = (event) => {
 		setSelectedEvent(event);
 		setIsCalendarEventOpen(true);
-		console.log(selectedEvent);
 	};
 
 	const onSnoozeEvent = async (event) => {

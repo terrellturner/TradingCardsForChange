@@ -13,10 +13,12 @@
 	stroke-width: 1rem;
 	height: 2.5rem;
 	width: 2.5rem;
+	transition-duration: 300ms;
+	transition-timing-function: ease-in-out;
 }
 
-.carousel-btn:hover {
-	background-color: theme('colors.opaque-noir-de-vigne');
+.carousel-btn:hover svg {
+	fill: theme('colors.creased-khaki');
 }
 
 .carousel-img {
@@ -148,8 +150,10 @@ div.rbc-toolbar button.rbc-active:focus {
 	}
 }
 
-@keyframes slow-spin {
-	to {
-		transform: rotate(360deg);
+@media (prefers-reduced-motion: no-preference) {
+	@keyframes slow-spin {
+		to {
+			transform: rotate(360deg);
+		}
 	}
 }

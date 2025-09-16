@@ -201,7 +201,6 @@ const updateUser = asyncHandler(async (req, res) => {
   const updatedUserInfo = req.body;
 
   const user = await User.findById(req.params.id);
-  console.log(updatedUserInfo);
 
   if (user) {
     user.firstName = updatedUserInfo.firstName ?? user.firstName;

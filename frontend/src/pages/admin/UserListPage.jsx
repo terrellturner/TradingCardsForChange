@@ -190,7 +190,7 @@ const UserListPage = () => {
 											onClick={() => {
 												if (user.isDeactivated) {
 													openModal(
-														`This user is currently deactivated. Would you like to reactivate them?`,
+														`This user is currently deactivated. Reactivating their account will allow them to login. Proceed?`,
 														() => {
 															userActivationHandler(false, user);
 														}
