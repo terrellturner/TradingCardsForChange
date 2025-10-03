@@ -3,16 +3,13 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { TbCalendarRepeat } from 'react-icons/tb';
 import { FaTimes } from 'react-icons/fa';
-import { useGetBookingsPerEventQuery } from '../slices/bookingApiSlice';
 import { FaUser, FaClock, FaArchive } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
-import Loader from './UI/Loader';
-import SkeletonLoader from './UI/SkeletonLoader';
 
 const ProductCard = React.forwardRef(
 	(
 		{
-			product,
+			productDetails,
 			cardClasses,
 			handleCloseModal,
 			mobileLayout,
@@ -21,40 +18,13 @@ const ProductCard = React.forwardRef(
 		},
 		ref
 	) => {
-		const startTime = new Date(product.startTime);
+		const startTime = new Date(productDetails.startTime);
 
 		const { userInfo } = useSelector((state) => state.auth);
 
-		const { data: bookingInfo, isSuccess: bookingLoadingSuccessful } =
-			useGetBookingsPerEventQuery({
-				productId: product._id,
-				eventStartTime: new Date(product.startTime).toISOString(),
-			});
-
-		if (!bookingLoadingSuccessful) {
-			return (
-				<SkeletonLoader
-					classNames={`relative space-y-3 justify-around h-full w-full p-5 bg-white rounded-lg flex flex-col`}
-				>
-					<div className="mt-3 h-52 w-full animate-pulse rounded-lg bg-slate-500 md:h-72"></div>
-					{!mobileLayout && (
-						<button
-							onClick={handleCloseModal}
-							className="absolute -right-8 -top-10 rounded-full bg-creased-khaki p-3 text-emerald-green transition-all hover:bg-creased-khaki hover:text-wasabi" // Use theme background on hover
-							aria-label="Close calendar event modal"
-						>
-							<FaTimes className="text-4xl" />
-						</button>
-					)}
-					<div className="h-24 w-full animate-pulse rounded-lg bg-slate-200"></div>
-					<div className="flex animate-pulse rounded-lg bg-slate-400 text-center font-bold text-creased-khaki ">
-						<div className="h-12 w-24 p-1 text-xl"></div>
-					</div>
-				</SkeletonLoader>
-			);
-		}
 		return (
 			<div
+				key="productDetail"
 				ref={ref}
 				className={`relative flex flex-col justify-around space-y-3 rounded-lg border border-gray-700 bg-off-white p-5 shadow ${cardClasses}`}
 			>
@@ -76,55 +46,53 @@ const ProductCard = React.forwardRef(
 					</button>
 				)}
 				<Link
-					to={`/product/${product._id}?rsvpDate=${new Date(product.startTime).toISOString()}`}
+					to={`/product/${productDetails._id}?rsvpDate=${new Date(productDetails.startTime).toISOString()}`}
 				>
 					<img
-						src={product.image}
-						alt={`${product.name} - ${product.description}`}
+						src={productDetails.image}
+						alt={`${productDetails.name} - ${productDetails.description}`}
 						className="mx-auto h-52 w-full rounded-lg object-cover object-center md:h-72"
 					/>
 				</Link>
 				<Link
-					to={`/product/${product._id}?rsvpDate=${new Date(product.startTime).toISOString()}`}
+					to={`/product/${productDetails._id}?rsvpDate=${new Date(productDetails.startTime).toISOString()}`}
 					className="flex flex-row place-items-center"
 				>
 					<h3
-						className={`max-w-[90%] truncate text-xl font-bold md:text-2xl ${product.inStock === 0 ? 'line-through' : ''}`}
+						className={`max-w-[90%] truncate text-xl font-bold md:text-2xl ${productDetails.inStock === 0 ? 'line-through' : ''}`}
 					>
-						{product.name}
+						{productDetails.name}
 					</h3>
-					{product.isRecurring && (
+					{productDetails.isRecurring && (
 						<div className="ml-2 mt-0.5 flex items-center text-2xl font-normal ">
 							<TbCalendarRepeat title="This event is recurring." />
 						</div>
 					)}
 				</Link>
-				<div className="line-clamp-3">{product.description}</div>
+				<div className="line-clamp-3">{productDetails.description}</div>
 				<div className="flex w-full justify-between">
 					<div className="mt-auto flex h-12 items-center justify-center rounded-full p-1 text-center font-bold text-emerald-green">
 						<FaUser className="m-0.5 my-auto" />
 						<span className="">
-							{!bookingLoadingSuccessful && bookingInfo && (
-								<>
-									<span>
-										{bookingInfo.totalReservations}/
-										{product.maximumEventCapacity ?? 0}
-									</span>
-								</>
-							)}
+							<span>
+								{productDetails.totalReservations}/
+								{productDetails.maximumEventCapacity ?? 0}
+							</span>
 						</span>
 						{userInfo && userInfo.isAdmin && (
 							<>
 								<button
 									onClick={() =>
-										onArchiveProduct && onArchiveProduct(product._id)
+										onArchiveProduct && onArchiveProduct(productDetails._id)
 									}
 									className="align-center ml-2 flex h-full w-8 items-center justify-center rounded-lg text-center text-lg text-red-800"
 								>
 									<FaArchive />
 								</button>
 								<button
-									onClick={() => onSnoozeEvent && onSnoozeEvent(product._id)}
+									onClick={() =>
+										onSnoozeEvent && onSnoozeEvent(productDetails._id)
+									}
 									className="align-center ml-1 flex h-full w-8 items-center justify-center rounded-lg text-center text-lg text-red-800"
 								>
 									<FaClock />
@@ -133,10 +101,11 @@ const ProductCard = React.forwardRef(
 						)}
 					</div>
 					<div className=" flex flex-row place-items-end space-x-1">
-						{new Date(product.startTime) > new Date() &&
-						bookingInfo.totalReservations < product.maximumEventCapacity ? (
+						{new Date(productDetails.startTime) > new Date() &&
+						productDetails.totalReservations <
+							productDetails.maximumEventCapacity ? (
 							<Link
-								to={`/product/${product._id}?rsvpDate=${new Date(product.startTime).toISOString()}`}
+								to={`/product/${productDetails._id}?rsvpDate=${new Date(productDetails.startTime).toISOString()}`}
 							>
 								<button className=" flex basis-full rounded-lg bg-emerald-green p-2 text-center font-bold text-creased-khaki">
 									<div className="p-1 text-xl">RSVP</div>
@@ -159,7 +128,7 @@ ProductCard.displayName = 'productCard';
 export default ProductCard;
 
 ProductCard.propTypes = {
-	product: PropTypes.object,
+	productDetails: PropTypes.object,
 	cardClasses: PropTypes.string,
 	handleCloseModal: PropTypes.func,
 	mobileLayout: PropTypes.bool,

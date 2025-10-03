@@ -138,6 +138,15 @@ div.rbc-toolbar button.rbc-active:focus {
 	font-weight: bold;
 }
 
+.rbc-show-more{
+	background-color: transparent;
+	color: theme('colors.creased-khaki');
+}
+
+.rbc-show-more:hover{
+	color: theme('colors.zinc.200')
+}
+
 @keyframes mobile-slide-out {
 	100% {
 		left: 0;

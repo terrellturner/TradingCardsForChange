@@ -39,31 +39,9 @@ const CalendarEventModal = ({
 		setIsCalendarEventOpen(false);
 		setSelectedEvent(null);
 	};
+	console.log(selectedEvent);
 
-	return (
-		<motion.div className="absolute top-[20%] z-50 w-1/4 min-w-[30rem]">
-			<MotionProductCard
-				product={{
-					startTime: selectedEvent.start,
-					endTime: selectedEvent.end,
-					name: selectedEvent.title,
-					description: selectedEvent.description,
-					image: selectedEvent.image,
-					_id: selectedEvent._id,
-					countInStock: selectedEvent.countInStock,
-					maximumEventCapacity: selectedEvent.maximumEventCapacity,
-					isRecurring: selectedEvent.isRecurring,
-					onArchiveProduct,
-					onSnoozeEvent,
-				}}
-				variants={productCardVariants}
-				initial="initial"
-				animate="open"
-				exit="closed"
-				handleCloseModal={handleCloseModal}
-			></MotionProductCard>
-		</motion.div>
-	);
+	return <></>;
 };
 
 export default CalendarEventModal;

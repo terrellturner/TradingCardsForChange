@@ -54,11 +54,11 @@ const HomePage = () => {
 						eventList={sortedEventsCalendar}
 					/>
 					{/* Mobile list view <800px */}
-					<MobileEventSection
+					{/* <MobileEventSection
 						isLoading={isLoading}
 						products={products}
 						mobileEvents={sortedEventsTop}
-					/>
+					/> */}
 				</div>
 			</motion.div>
 		</AnimatePresence>

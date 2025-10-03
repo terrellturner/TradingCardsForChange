@@ -8,14 +8,46 @@ import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import enUS from 'date-fns/locale/en-US';
-import CalendarEventModal from './CalendarEventModal';
-import { useUpdateBookingMutation } from '../../slices/bookingApiSlice';
+import {
+	useUpdateBookingMutation,
+	useGetBookingsPerEventQuery,
+} from '../../slices/bookingApiSlice';
+import SkeletonLoader from '../UI/SkeletonLoader';
+import ProductCard from '../ProductCard';
 
 const CalendarSection = ({ eventList }) => {
 	const [isCalendarEventOpen, setIsCalendarEventOpen] = useState(false);
 	const [selectedEvent, setSelectedEvent] = useState(null);
 
-	const [updateBooking, { isLoading }] = useUpdateBookingMutation();
+	const [updateBooking, { isLoading: isUpdateBookingLoading }] =
+		useUpdateBookingMutation();
+
+	const { data: bookingInfo, isSuccess: bookingLoadingSuccessful } =
+		useGetBookingsPerEventQuery(
+			{
+				productId: selectedEvent?._id,
+				eventStartTime: selectedEvent?.start
+					? new Date(selectedEvent?.start).toISOString()
+					: null,
+			},
+			{ skip: !selectedEvent }
+		);
+
+	const onSnoozeEvent = async (event) => {
+		try {
+			await updateBooking().unwrap();
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const onArchiveProduct = async (event) => {
+		try {
+			await updateBooking().unwrap();
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
 	const locales = {
 		'en-US': enUS,
@@ -34,25 +66,9 @@ const CalendarSection = ({ eventList }) => {
 		setIsCalendarEventOpen(true);
 	};
 
-	const onSnoozeEvent = async (event) => {
-		try {
-			await updateBooking().unwrap();
-		} catch (error) {
-			console.error(error);
-		}
-	};
-
-	const onArchiveProduct = async (event) => {
-		try {
-			await updateBooking().unwrap();
-		} catch (error) {
-			console.error(error);
-		}
-	};
-
 	return (
 		<AnimatePresence>
-			<div className="flex w-full flex-col items-center space-y-5 overflow-hidden">
+			<div className="flex h-full w-full flex-col items-center space-y-5 overflow-hidden">
 				<h3 className="py-12 text-center font-serif text-6xl text-creased-khaki md:py-6 md:text-7xl">
 					Scheduled Events
 				</h3>
@@ -64,7 +80,7 @@ const CalendarSection = ({ eventList }) => {
 						<Calendar
 							localizer={localizer}
 							events={eventList.map((product) => ({
-								_id: product._id,
+								_id: product?._id,
 								title: product.title,
 								start: new Date(product.startTime),
 								end: new Date(product.endTime),
@@ -75,7 +91,7 @@ const CalendarSection = ({ eventList }) => {
 							startAccessor="start"
 							endAccessor="end"
 							views={['month', 'week', 'day']}
-							className={`relative h-[50rem] w-5/6 max-w-[1200px] text-creased-khaki`}
+							className={`relative h-full w-5/6 max-w-[80rem] text-creased-khaki`}
 							style={{ height: '50rem' }}
 							onSelectEvent={(e) => {
 								handleEventClick(e);
@@ -86,14 +102,41 @@ const CalendarSection = ({ eventList }) => {
 									: { className: `past-event` };
 							}}
 						/>
-						{isCalendarEventOpen && selectedEvent && (
-							<CalendarEventModal
-								key={selectedEvent._id}
-								selectedEvent={selectedEvent}
-								setSelectedEvent={setSelectedEvent}
-								setIsCalendarEventOpen={setIsCalendarEventOpen}
-							/>
-						)}
+						{bookingLoadingSuccessful &&
+							isCalendarEventOpen &&
+							(selectedEvent ? (
+								<div className="absolute top-[20%] z-50 w-1/4 min-w-[30rem]">
+									{console.log(bookingInfo)}
+									<ProductCard
+										productDetails={{
+											startTime: selectedEvent.start,
+											endTime: selectedEvent.end,
+											name: selectedEvent.title,
+											description: selectedEvent.description,
+											image: selectedEvent.image,
+											_id: selectedEvent._id,
+											totalReservations: bookingInfo.totalReservations,
+											maximumEventCapacity: selectedEvent.maximumEventCapacity,
+											isRecurring: selectedEvent.isRecurring,
+											onArchiveProduct,
+											onSnoozeEvent,
+										}}
+										initial="initial"
+										animate="open"
+										exit="closed"
+									></ProductCard>
+								</div>
+							) : (
+								<SkeletonLoader
+									classNames={`space-y-3 justify-around absolute top-[20%] z-50 w-1/4 min-w-[30rem] p-5 bg-white rounded-lg flex flex-col`}
+								>
+									<div className="mt-3 h-52 w-full animate-pulse rounded-lg bg-slate-500 md:h-72"></div>
+									<div className="h-24 w-full animate-pulse rounded-lg bg-slate-200"></div>
+									<div className="flex animate-pulse rounded-lg bg-slate-400 text-center font-bold text-creased-khaki ">
+										<div className="h-12 w-24 p-1 text-xl"></div>
+									</div>
+								</SkeletonLoader>
+							))}
 					</div>
 				}
 			</div>
