@@ -15,6 +15,9 @@ const ProductCard = React.forwardRef(
 			mobileLayout,
 			onArchiveProduct,
 			onSnoozeEvent,
+			showToggleButton = true,
+			showAdminButtons = true,
+			showBookingInfo = true,
 		},
 		ref
 	) => {
@@ -36,7 +39,7 @@ const ProductCard = React.forwardRef(
 					</span>
 					<span className="text-3xl font-black">{`${startTime.getDate()}`}</span>
 				</div>
-				{!mobileLayout && (
+				{!mobileLayout && showToggleButton && (
 					<button
 						onClick={handleCloseModal}
 						className="absolute -right-8 -top-10 rounded-full bg-creased-khaki p-3 text-emerald-green transition-all hover:bg-creased-khaki hover:text-wasabi" // Use theme background on hover
@@ -71,52 +74,56 @@ const ProductCard = React.forwardRef(
 				</Link>
 				<div className="line-clamp-3">{productDetails.description}</div>
 				<div className="flex w-full justify-between">
-					<div className="mt-auto flex h-12 items-center justify-center rounded-full p-1 text-center font-bold text-emerald-green">
-						<FaUser className="m-0.5 my-auto" />
-						<span className="">
-							<span>
-								{productDetails.totalReservations}/
-								{productDetails.maximumEventCapacity ?? 0}
-							</span>
-						</span>
-						{userInfo && userInfo.isAdmin && (
-							<>
-								<button
-									onClick={() =>
-										onArchiveProduct && onArchiveProduct(productDetails._id)
-									}
-									className="align-center ml-2 flex h-full w-8 items-center justify-center rounded-lg text-center text-lg text-red-800"
-								>
-									<FaArchive />
-								</button>
-								<button
-									onClick={() =>
-										onSnoozeEvent && onSnoozeEvent(productDetails._id)
-									}
-									className="align-center ml-1 flex h-full w-8 items-center justify-center rounded-lg text-center text-lg text-red-800"
-								>
-									<FaClock />
-								</button>
-							</>
-						)}
-					</div>
-					<div className=" flex flex-row place-items-end space-x-1">
-						{new Date(productDetails.startTime) > new Date() &&
-						productDetails.totalReservations <
-							productDetails.maximumEventCapacity ? (
-							<Link
-								to={`/product/${productDetails._id}?rsvpDate=${new Date(productDetails.startTime).toISOString()}`}
-							>
-								<button className=" flex basis-full rounded-lg bg-emerald-green p-2 text-center font-bold text-creased-khaki">
-									<div className="p-1 text-xl">RSVP</div>
-								</button>
-							</Link>
-						) : (
-							<button className="flex basis-full cursor-default rounded-lg bg-zinc-600 p-2 text-center font-bold text-zinc-400">
-								<div className="p-1 text-xl">Sold Out!</div>
-							</button>
-						)}
-					</div>
+					{showBookingInfo && (
+						<>
+							<div className="mt-auto flex h-12 items-center justify-center rounded-full p-1 text-center font-bold text-emerald-green">
+								<FaUser className="m-0.5 my-auto" />
+								<span className="">
+									<span>
+										{productDetails.totalReservations}/
+										{productDetails.maximumEventCapacity ?? 0}
+									</span>
+								</span>
+								{userInfo && userInfo.isAdmin && showAdminButtons && (
+									<>
+										<button
+											onClick={() =>
+												onArchiveProduct && onArchiveProduct(productDetails._id)
+											}
+											className="align-center ml-2 flex h-full w-8 items-center justify-center rounded-lg text-center text-lg text-red-800"
+										>
+											<FaArchive />
+										</button>
+										<button
+											onClick={() =>
+												onSnoozeEvent && onSnoozeEvent(productDetails._id)
+											}
+											className="align-center ml-1 flex h-full w-8 items-center justify-center rounded-lg text-center text-lg text-red-800"
+										>
+											<FaClock />
+										</button>
+									</>
+								)}
+							</div>
+							<div className=" flex flex-row place-items-end space-x-1">
+								{new Date(productDetails.startTime) > new Date() &&
+								productDetails.totalReservations <
+									productDetails.maximumEventCapacity ? (
+									<Link
+										to={`/product/${productDetails._id}?rsvpDate=${new Date(productDetails.startTime).toISOString()}`}
+									>
+										<button className=" flex basis-full rounded-lg bg-emerald-green p-2 text-center font-bold text-creased-khaki">
+											<div className="p-1 text-xl">RSVP</div>
+										</button>
+									</Link>
+								) : (
+									<button className="flex basis-full cursor-default rounded-lg bg-zinc-600 p-2 text-center font-bold text-zinc-400">
+										<div className="p-1 text-xl">Sold Out!</div>
+									</button>
+								)}
+							</div>
+						</>
+					)}
 				</div>
 			</div>
 		);

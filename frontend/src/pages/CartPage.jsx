@@ -27,7 +27,7 @@ const CartPage = () => {
 			initial="initial"
 			animate="open"
 			exit="closed"
-			className="mx-auto flex w-full max-w-[1080px] grow flex-col justify-center space-y-2 px-6 py-5"
+			className="mx-auto flex w-5/6 grow flex-col justify-center space-y-2 px-6 py-5"
 		>
 			<div className="flex flex-row place-items-center space-x-2">
 				<FaShoppingCart className="fill-creased-khaki stroke-egyptian-earth stroke-[20px] text-4xl" />
@@ -40,7 +40,7 @@ const CartPage = () => {
 				{/* Cart Items */}
 				<div
 					id="cart-item-container"
-					className="flex-col place-items-center space-y-8"
+					className="w-full flex-col place-items-center space-y-8"
 				>
 					{cartItems.map((item) => {
 						return item?.bookings?.map((booking) => (
@@ -76,10 +76,7 @@ const CartPage = () => {
 					})}
 				</div>
 				{/* Cart Summary */}
-				<div
-					id="cart-total-checkout-container"
-					className="flex w-full flex-col"
-				>
+				<div id="cart-total-checkout-container" className="flex w-1/2 flex-col">
 					<div className="rounded-lg border border-creased-khaki p-8 lg:min-w-[300px]">
 						<div className="flex flex-col space-y-5 px-3">
 							<div className="flex flex-row flex-wrap space-y-1 pb-5 text-3xl text-creased-khaki">

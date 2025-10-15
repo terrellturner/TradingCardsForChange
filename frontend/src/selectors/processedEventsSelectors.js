@@ -22,7 +22,7 @@ export const selectEvents = createSelector(
 		}
 
 		return {
-			events: processedEventList, //
+			events: processedEventList,
 			isLoading: queryResult?.isLoading ?? false,
 			isFetching: queryResult?.isFetching ?? false,
 			isSuccess: queryResult?.isSuccess ?? false,

@@ -66,9 +66,14 @@ const CalendarSection = ({ eventList }) => {
 		setIsCalendarEventOpen(true);
 	};
 
+	const handleCloseEventModal = () => {
+		setSelectedEvent(null);
+		setIsCalendarEventOpen(false);
+	};
+
 	return (
 		<AnimatePresence>
-			<div className="flex h-full w-full flex-col items-center space-y-5 overflow-hidden">
+			<div className="hidden h-full w-full flex-col items-center space-y-5 overflow-hidden md:flex">
 				<h3 className="py-12 text-center font-serif text-6xl text-creased-khaki md:py-6 md:text-7xl">
 					Scheduled Events
 				</h3>
@@ -92,7 +97,7 @@ const CalendarSection = ({ eventList }) => {
 							endAccessor="end"
 							views={['month', 'week', 'day']}
 							className={`relative h-full w-5/6 max-w-[80rem] text-creased-khaki`}
-							style={{ height: '50rem' }}
+							style={{ height: '60rem' }}
 							onSelectEvent={(e) => {
 								handleEventClick(e);
 							}}
@@ -121,6 +126,7 @@ const CalendarSection = ({ eventList }) => {
 											onArchiveProduct,
 											onSnoozeEvent,
 										}}
+										handleCloseModal={handleCloseEventModal}
 										initial="initial"
 										animate="open"
 										exit="closed"

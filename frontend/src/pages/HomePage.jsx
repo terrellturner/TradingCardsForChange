@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { useGetAllProductsQuery } from '../slices/productsApiSlice';
 import { AnimatePresence, motion } from 'motion/react';
-import Loader from '../components/UI/Loader';
-import { defaultMotion } from '../constants';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import HeroSection from '../components/Homepage/HeroSection';
 import IntroductionSection from '../components/Homepage/IntroductionSection';
@@ -32,19 +30,9 @@ const HomePage = () => {
 	const sortedEventsCalendar = useSelector(selectSortedEventsForCalendar);
 	const sortedEventsTop = useSelector(selectSortedEventsForMobile);
 
-	if (isLoading) {
-		return <Loader />;
-	}
-
 	return (
 		<AnimatePresence mode="wait" initial={true}>
-			<motion.div
-				variants={defaultMotion}
-				initial="initial"
-				animate="open"
-				exit="closed"
-				className="flex h-full grow flex-col items-center bg-noir-de-vigne "
-			>
+			<div className="flex h-full grow flex-col items-center bg-noir-de-vigne ">
 				<HeroSection sortedEvents={sortedEventsTop} />
 				<IntroductionSection />
 				<div id="events" className="w-full">
@@ -53,14 +41,13 @@ const HomePage = () => {
 						products={products}
 						eventList={sortedEventsCalendar}
 					/>
-					{/* Mobile list view <800px */}
-					{/* <MobileEventSection
+					<MobileEventSection
 						isLoading={isLoading}
 						products={products}
 						mobileEvents={sortedEventsTop}
-					/> */}
+					/>
 				</div>
-			</motion.div>
+			</div>
 		</AnimatePresence>
 	);
 };

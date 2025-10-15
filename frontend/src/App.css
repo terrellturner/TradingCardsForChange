@@ -147,6 +147,24 @@ div.rbc-toolbar button.rbc-active:focus {
 	color: theme('colors.zinc.200')
 }
 
+@keyframes fadeIn{
+	0%{
+		opacity: 0;
+	}
+	100%{
+		opacity: 1
+	}
+}
+
+@keyframes fadeOut{
+	0%{
+		opacity: 1;
+	}
+	100%{
+		opacity: 0
+	}
+}
+
 @keyframes mobile-slide-out {
 	100% {
 		left: 0;
